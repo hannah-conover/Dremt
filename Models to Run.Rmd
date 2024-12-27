@@ -438,6 +438,8 @@ for (i in 1: nrow(combinedds_Ratio)) {
 ```
 
 ## Models
+
+Low dispersion! Can be used to estimate/predict responses
 ```{r}
 library(lme4)
 library(GAD)
@@ -521,6 +523,90 @@ pxranova <- pxranova %>% mutate(psig = case_when(
       p_value < 0.1   ~ ".",
       TRUE            ~ "ns"))
 ```
+### Visualization of Anova
+```{r}
+Anova_plot <- ggplot(data = vimanova,
+                          aes(x = rownames(vimanova),
+                              y = p_value)) +
+  geom_bar(stat = "identity") + 
+  geom_text(aes(x = rownames(vimanova), label = psig, y = 0.75),  
+            size = 20, vjust = 0.8, hjust = 0, nudge_y = 0.25) +
+  # geom_errorbar(aes(ymin = Coefficient -
+  #                     SE,
+  #                   ymax = Coefficient +
+  #                     SE, width = .1))+ 
+theme(axis.title.x = element_text(size= 30),
+      axis.text.x = element_text(size= 25),
+      axis.title.y = element_text(size= 30),
+      axis.text.y = element_text(size= 25),
+      legend.text = element_text(size = 30),
+      legend.title = element_text(size = 30),
+      strip.text =  element_text(size = 30),
+      panel.background = element_blank())+
+  geom_bar(stat = "identity") + 
+  xlab("Biomolecule combination") +
+  ylab("ANOVA Coefficients for Vimentin") + 
+ #  ylim(-0.5, 0.5)+
+  coord_flip()
+ggsave(filename = "anova_Vimentin.png", 
+        width = 15, height = 15,units="in")
+
+Regression_plot <- ggplot(data = ecadanova,
+                          aes(x = rownames(ecadanova),
+                              y = p_value)) +
+  geom_bar(stat = "identity") + 
+  geom_text(aes(x = rownames(ecadanova), label = psig, y = 0.75),  
+            size = 20, vjust = 0.8, hjust = 0, nudge_y = 0.25) +
+  # geom_errorbar(aes(x = reorder(Parameter, Coefficient),
+  #                   ymin = Coefficient -
+  #                     SE,
+  #                   ymax = Coefficient +
+  #                     SE, width = .1))+ 
+theme(axis.title.x = element_text(size= 30),
+      axis.text.x = element_text(size= 25),
+      axis.title.y = element_text(size= 30),
+      axis.text.y = element_text(size= 25),
+      legend.text = element_text(size = 30),
+      legend.title = element_text(size = 30),
+      strip.text =  element_text(size = 30),
+      panel.background = element_blank())+
+  geom_bar(stat = "identity") + 
+  xlab("Biomolecule combination") +
+  ylab("ANOVA Coefficients for Ecad") + 
+   #ylim(-0.5, 0.5)+
+  coord_flip()
+ggsave(filename = "anova_Ecad.png", 
+        width = 15, height = 15,units="in")
+
+Regression_plot <- ggplot(data = pxranova,
+                          aes(x = rownames(pxranova),
+                              y = p_value)) +
+  geom_bar(stat = "identity") + 
+  geom_text(aes(x = rownames(pxranova), label = psig, y = 0.75),  
+            size = 20, vjust = 0.8, hjust = 0, nudge_y = 0.25) +
+  # geom_errorbar(aes(x = reorder(Parameter, Coefficient),
+  #                   ymin = Coefficient -
+  #                     SE,
+  #                   ymax = Coefficient +
+  #                     SE, width = .1))+ 
+theme(axis.title.x = element_text(size= 30),
+      axis.text.x = element_text(size= 25),
+      axis.title.y = element_text(size= 30),
+      axis.text.y = element_text(size= 25),
+      legend.text = element_text(size = 30),
+      legend.title = element_text(size = 30),
+      strip.text =  element_text(size = 30),
+      panel.background = element_blank())+
+  geom_bar(stat = "identity") + 
+  xlab("Biomolecule combination") +
+  ylab("ANOVA Coefficients for PXR") + 
+  # ylim(-0.5, 0.5)+
+  coord_flip()
+ggsave(filename = "ANOVA_PXR.png", 
+        width = 15, height = 15,units="in")
+```
+
+
 ## ICCs
 ```{r}
 library(performance)
@@ -536,6 +622,8 @@ r2_nakagawa(pxrmodel)
 ```
 ## Regression :)
 ### Setting up Tables
+
+NOTE: This output of the model has the wrong df for stiffness, but even with the correct df, stiffness is not significant, so I didn't update it here
 ```{r}
 library(parameters)
 
@@ -660,6 +748,101 @@ theme(axis.title.x = element_text(size= 30),
    ylim(-0.5, 0.5)+
   coord_flip()
 ggsave(filename = "regression_PXR.png", 
+        width = 15, height = 15,units="in")
+```
+
+### Shared Significant Factors/Intx Highlighted
+Emphasizing the factors that are significant for all three phenotypes
+```{r}
+sharedpall <- c("LNDN" = "#DDA448", "25kPa:DNFN" = "#DDA448", "CollagenI0.5:C1FN" = "#DDA448", "Laminin0.5:LNG3" = "#DDA448")
+```
+
+```{r}
+Regression_plot <- ggplot(data = VimRegressionSig,
+                          aes(x = reorder(Parameter,Coefficient),
+                              y = Coefficient, fill = Parameter)) +
+  geom_bar(stat = "identity") + 
+  geom_text(aes(x = reorder(Parameter,Coefficient), label = Significance, y = 0),  
+            size = 20, vjust = 0.8, hjust = 0, nudge_y = 0.25) +
+  scale_fill_manual(values = sharedpall) + 
+  geom_errorbar(aes(x = reorder(Parameter, Coefficient),
+                    ymin = Coefficient -
+                      SE,
+                    ymax = Coefficient +
+                      SE, width = .1))+ 
+theme(axis.title.x = element_text(size= 30),
+      axis.text.x = element_text(size= 25),
+      axis.title.y = element_text(size= 30),
+      axis.text.y = element_text(size= 25),
+      legend.text = element_text(size = 30),
+      legend.title = element_text(size = 30),
+      legend.position = "none", 
+      strip.text =  element_text(size = 30),
+      panel.background = element_blank())+
+  geom_bar(stat = "identity") + 
+  xlab("Biomolecule combination") +
+  ylab("Linear Model Coefficients for Vimentin") + 
+   ylim(-0.5, 0.5)+
+  coord_flip()
+ggsave(filename = "regression_VimentinShared.png", 
+        width = 15, height = 15,units="in")
+
+Regression_plot <- ggplot(data = EcadRegressionSig,
+                          aes(x = reorder(Parameter,Coefficient),
+                              y = Coefficient, fill = Parameter)) +
+  geom_bar(stat = "identity") + 
+  geom_text(aes(x = reorder(Parameter,Coefficient), label = Significance, y = 0),  
+            size = 20, vjust = 0.8, hjust = 0, nudge_y = 0.25) +
+  scale_fill_manual(values = sharedpall) +
+  geom_errorbar(aes(x = reorder(Parameter, Coefficient),
+                    ymin = Coefficient -
+                      SE,
+                    ymax = Coefficient +
+                      SE, width = .1))+ 
+theme(axis.title.x = element_text(size= 30),
+      axis.text.x = element_text(size= 25),
+      axis.title.y = element_text(size= 30),
+      axis.text.y = element_text(size= 25),
+      legend.text = element_text(size = 30),
+      legend.title = element_text(size = 30),
+      legend.position = "none", 
+      strip.text =  element_text(size = 30),
+      panel.background = element_blank())+
+  geom_bar(stat = "identity") + 
+  xlab("Biomolecule combination") +
+  ylab("Linear Model Coefficients for Ecad") + 
+   ylim(-0.5, 0.5)+
+  coord_flip()
+ggsave(filename = "regression_EcadShared.png", 
+        width = 15, height = 15,units="in")
+
+Regression_plot <- ggplot(data = PXRRegressionSig,
+                          aes(x = reorder(Parameter,Coefficient),
+                              y = Coefficient, fill = Parameter)) +
+  geom_bar(stat = "identity") + 
+  geom_text(aes(x = reorder(Parameter,Coefficient), label = Significance, y = 0),  
+            size = 20, vjust = 0.8, hjust = 0, nudge_y = 0.25) +
+  scale_fill_manual(values = sharedpall) +
+  geom_errorbar(aes(x = reorder(Parameter, Coefficient),
+                    ymin = Coefficient -
+                      SE,
+                    ymax = Coefficient +
+                      SE, width = .1))+ 
+theme(axis.title.x = element_text(size= 30),
+      axis.text.x = element_text(size= 25),
+      axis.title.y = element_text(size= 30),
+      axis.text.y = element_text(size= 25),
+      legend.text = element_text(size = 30),
+      legend.title = element_text(size = 30),
+      legend.position = "none", 
+      strip.text =  element_text(size = 30),
+      panel.background = element_blank())+
+  geom_bar(stat = "identity") + 
+  xlab("Biomolecule combination") +
+  ylab("Linear Model Coefficients for PXR") + 
+   ylim(-0.5, 0.5)+
+  coord_flip()
+ggsave(filename = "regression_PXRShared.png", 
         width = 15, height = 15,units="in")
 ```
 
