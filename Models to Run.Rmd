@@ -1,0 +1,665 @@
+---
+title: "Models For DREMT"
+author: "Hannah Kimmel"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Library Loading
+```{r setup, include=FALSE}
+options(packrat.dependency.discovery.renv = TRUE)
+require(ggplot2)
+require(ggthemes)
+require(plyr)
+require(stargazer)
+require(RColorBrewer)
+require(scales)
+require(gtable)
+require(gridExtra)
+require(data.table)
+require(dplyr)
+require(ggplot2)
+require(readr)
+require(tidyr)
+require(lme4)
+require(MASS)
+library(daewr)
+library(MASS)
+library(GAD)
+library(dplyr)
+library(sjPlot)
+library(blmeco)
+```
+
+##Adding Blocks
+```{r}
+ds_e_pheno_1218 <- ds_e_pheno_1218%>% mutate(Metadata_Block = ifelse(Metadata_Stiffness == "1kPa", ifelse(Metadata_Treatment == "DMSO", "1", "2"), ifelse(Metadata_Treatment == "10 uM", "3", "4")))
+```
+## Adding Replicates
+```{r}
+withrep_1218<- ds_e_pheno_1218%>%group_by(Metadata_Experiment, Metadata_Block, Metadata_Slide)%>%
+  summarize(count = n(), .groups = "drop"
+            )
+
+ withrep_1218$Replicate <-rep(c(1,2,3), times = 8)
+ withrep_1218 <- withrep_1218[, -4]
+
+ dsewithrep <- merge(ds_e_pheno_1218, withrep_1218) 
+ 
+ dsewithrep <- dsewithrep %>% mutate(Conditions = paste0(Abb_ECM, "_", Metadata_Ratio))
+```
+
+```{r}
+combinedds_Ratio <- subset(dsewithrep, Metadata_Ratio %in% c("100", "50/50", "75/25", "25/75"))
+combinedds_Ratio <- subset(dsewithrep, Metadata_ECMs != "Dextran")
+
+combinedds_Ratio$CollagenI <- NA
+combinedds_Ratio$CollagenIV <- NA
+combinedds_Ratio$Laminin <- NA
+combinedds_Ratio$Hyaluronic_Acid <- NA
+combinedds_Ratio$TenascinC<- NA
+combinedds_Ratio$Osteopontin <- NA
+combinedds_Ratio$Galectin3 <- NA
+combinedds_Ratio$Fibronectin <- NA
+combinedds_Ratio$Decorin <- NA
+
+
+C1100 <- list(1,0,0,0,0,0,0,0,0)
+C1C425 <- list(0.25,0.75,0,0,0,0,0,0,0)
+C1C450 <- list(0.5,0.5,0,0,0,0,0,0,0)
+C1C475 <- list(0.75,0.25,0,0,0,0,0,0,0)
+C1LN25 <- list(0.25,0,0.75,0,0,0,0,0,0)
+C1LN50 <- list(0.5,0,0.5,0,0,0,0,0,0)
+C1LN75 <- list(0.75,0,0.25,0,0,0,0,0,0)
+C1HA25 <- list(0.25,0,0,0,0.75,0,0,0,0)
+C1HA50 <- list(0.5,0,0,0,0,0.5,0,0,0)
+C1HA75 <- list(0.75,0,0,0,0,0.25,0,0,0)
+C1TC25 <- list(0.25,0,0,0.75,0,0,0,0,0)
+C1TC50 <- list(0.5,0,0,0.5,0,0,0,0,0)
+C1TC75 <- list(0.75,0,0,0.25,0,0,0,0,0)
+C1OPN25 <- list(0.25,0,0,0,0,0.75,0,0,0)
+C1OPN50 <- list(0.5,0,0,0,0,0.5,0,0,0)
+C1OPN75  <- list(0.75,0,0,0,0,0.25,0,0,0)
+C1DN25 <- list(0.25,0,0,0,0,0,0.75,0,0)
+C1DN50 <- list(0.5,0,0,0,0,0,0.5,0,0)
+C1DN75 <- list(0.75,0,0,0,0,0,0.25,0,0)
+C1G325 <- list(0.25,0,0,0,0,0,0,0.75,0)
+C1G350 <- list(0.5,0,0,0,0,0,0,0.5,0)
+C1G375 <- list(0.75,0,0,0,0,0,0,0.25,0)
+C1FN25 <- list(0.25,0,0,0,0,0,0,0,0.75)
+C1FN50 <- list(0.5,0,0,0,0,0,0,0,0.5)
+C1FN75 <- list(0.75,0,0,0,0,0,0,0,0.25)
+C4100 <- list(0,1,0,0,0,0,0,0,0)
+C4LN25 <- list(0,0.25,0.75,0,0,0,0,0,0)
+C4LN50 <- list(0,0.5,0.5,0,0,0,0,0,0)
+C4LN75 <- list(0,0.75,0.25,0,0,0,0,0,0)
+C4TC25 <- list(0,0.25,0,0.75,0,0,0,0,0)
+C4TC50 <- list(0,0.5,0,0.5,0,0,0,0,0)
+C4TC75 <- list(0,0.75,0,0.25,0,0,0,0,0)
+C4HA25 <- list(0,0.25,0,0,0.75,0,0,0,0)
+C4HA50 <- list(0,0.5,0,0,0.5,0,0,0,0)
+C4HA75 <- list(0,0.75,0,0,0.25,0,0,0,0)
+C4OPN25 <- list(0,0.25,0,0,0,0.75,0,0,0)
+C4OPN50 <- list(0,0.5,0,0,0,0.5,0,0,0)
+C4OPN75 <- list(0,0.75,0,0,0,0.25,0,0,0)
+C4DN25 <- list(0,0.25,0,0,0,0,0.75,0,0)
+C4DN50 <- list(0,0.5,0,0,0,0,0.5,0,0)
+C4DN75 <- list(0,0.75,0,0,0,0,0.25,0,0)
+C4G325 <- list(0,0.25,0,0,0,0,0,0.75,0)
+C4G350 <- list(0,0.5,0,0,0,0,0,0.5,0)
+C4G375 <- list(0,0.75,0,0,0,0,0,0.25,0)
+C4FN25 <- list(0,0.25,0,0,0,0,0,0.75,0)
+C4FN50 <- list(0,0.5,0,0,0,0,0,0.5,0)
+C4FN75 <- list(0,0.75,0,0,0,0,0,0.25,0)
+LN100 <- list(0,0,1,0,0,0,0,0,0)
+LNTC25 <- list(0,0,0.25,0.75,0,0,0,0,0)
+LNTC50 <- list(0,0,0.5,0.5,0,0,0,0,0)
+LNTC75 <- list(0,0,0.75,0.25,0,0,0,0,0)
+LNHA25 <- list(0,0,0.25,0,0.75,0,0,0,0)
+LNHA50 <- list(0,0,0.5,0,0.5,0,0,0,0)
+LNHA75 <- list(0,0,0.75,0,0.25,0,0,0,0)
+LNOPN25 <- list(0,0,0.25,0,0,0.75,0,0,0)
+LNOPN50 <- list(0,0,0.5,0,0,0.5,0,0,0)
+LNOPN75 <- list(0,0,0.75,0,0,0.25,0,0,0)
+LNDN25 <- list(0,0,0.25,0,0,0,0.75,0,0)
+LNDN50 <- list(0,0,0.5,0,0,0,0.5,0,0)
+LNDN75 <- list(0,0,0.75,0,0,0,0.25,0,0)
+LNG325 <- list(0,0,0.25,0,0,0,0,0.75,0)
+LNG350 <- list(0,0,0.5,0,0,0,0,0.5,0)
+LNG375 <- list(0,0,0.75,0,0,0,0,0.25,0)
+LNFN25 <- list(0,0,0.25,0,0,0,0,0,0.75)
+LNFN50 <- list(0,0,0.5,0,0,0,0,0,0.5)
+LNFN75 <- list(0,0,0.75,0,0,0,0,0,0.25)
+TC100 <- list(0,0,0,1,0,0,0,0,0)
+TCHA25 <- list(0,0,0,0.25,0.75,0,0,0,0)
+TCHA50 <- list(0,0,0,0.5,0.5,0,0,0,0)
+TCHA75 <- list(0,0,0,0.75,0.25,0,0,0,0)
+TCOPN25 <- list(0,0,0,0.25,0,0.75,0,0,0)
+TCOPN50 <- list(0,0,0,0.5,0,0.5,0,0,0)
+TCOPN75 <- list(0,0,0,0.75,0,0.25,0,0,0)
+TCDN25 <- list(0,0,0,0.25,0,0,0.75,0,0)
+TCDN50 <- list(0,0,0,0.5,0,0,0.5,0,0)
+TCDN75 <- list(0,0,0,0.75,0,0,0.25,0,0)
+TCG325 <- list(0,0,0,0.25,0,0,0,0.75,0)
+TCG350 <- list(0,0,0,0.5,0,0,0,0.5,0)
+TCG375 <- list(0,0,0,0.75,0,0,0,0.25,0)
+TCFN25 <- list(0,0,0,0.25,0,0,0,0,0.75)
+TCFN50 <- list(0,0,0,0.5,0,0,0,0,0.5)
+TCFN75 <- list(0,0,0,0.75,0,0,0,0,0.25)
+HA100 <- list(0,0,0,0,1,0,0,0,0)
+HAOPN25 <- list(0,0,0,0,0.25,0.75,0,0,0)
+HAOPN50 <- list(0,0,0,0,0.5,0.5,0,0,0)
+HAOPN75 <- list(0,0,0,0,0.75,0.25,0,0,0)
+HADN25 <- list(0,0,0,0,0.25,0,0.75,0,0)
+HADN50 <- list(0,0,0,0,0.5,0,0.5,0,0)
+HADN75 <- list(0,0,0,0,0.75,0,0.25,0,0)
+HAG325 <- list(0,0,0,0,0.25,0,0,0.75,0)
+HAG350 <- list(0,0,0,0,0.5,0,0,0.5,0)
+HAG375 <- list(0,0,0,0,0.75,0,0,0.25,0)
+HAFN25 <- list(0,0,0,0,0.25,0,0,0,0.75)
+HAFN50 <- list(0,0,0,0,0.5,0,0,0,0.5)
+HAFN75 <- list(0,0,0,0,0.75,0,0,0,0.25)
+OPN100 <- list(0,0,0,0,0,1,0,0,0)
+OPNDN25 <- list(0,0,0,0,0,0.25,0.75,0,0)
+OPNDN50 <- list(0,0,0,0,0,0.5,0.5,0,0)
+OPNDN75 <- list(0,0,0,0,0,0.75,0.25,0,0)
+OPNG325 <- list(0,0,0,0,0,0.25,0,0.75,0)
+OPNG350 <- list(0,0,0,0,0,0.5,0,0.5,0)
+OPNG375 <- list(0,0,0,0,0,0.75,0,0.25,0)
+OPNFN25 <- list(0,0,0,0,0,0.25,0,0,0.75)
+OPNFN50 <- list(0,0,0,0,0,0.5,0,0,0.5)
+OPNFN75 <- list(0,0,0,0,0,0.75,0,0,0.25)
+DN100 <- list(0,0,0,0,0,0,1,0,0)
+DNG325 <- list(0,0,0,0,0,0,0.25,0.75,0)
+DNG350 <- list(0,0,0,0,0,0,0.5,0.5,0)
+DNG375 <- list(0,0,0,0,0,0,0.75,0.25,0)
+DNFN25 <- list(0,0,0,0,0,0,0.25,0,0.75)
+DNFN50 <- list(0,0,0,0,0,0,0.5,0,0.5)
+DNFN75 <- list(0,0,0,0,0,0,0.75,0,0.25)
+G3100 <- list(0,0,0,0,0,0,0,1,0)
+G3FN25 <- list(0,0,0,0,0,0,0,0.25,0.75)
+G3FN50 <- list(0,0,0,0,0,0,0,0.5,0.5)
+G3FN75 <- list(0,0,0,0,0,0,0,0.75,0.25)
+FN100 <- list(0,0,0,0,0,0,0,0,1)
+
+experimental_conditions <- list(
+  "Collagen I" = list(
+    "100" = C1100
+  ),
+  "Collagen ICollagen IV" = list(
+    "25/75" = C1C425,
+    "50/50" = C1C450,
+    "75/25" = C1C475
+  ),
+  "Collagen ILaminin" = list(
+    "25/75" = C1LN25,
+    "50/50" = C1LN50,
+    "75/25" = C1LN75
+  ),
+  "Collagen ITenascin C" = list(
+    "25/75" = C1TC25,
+    "50/50" = C1TC50,
+    "75/25" = C1TC75
+  ),
+  "Collagen IHyaluronic Acid" = list(
+    "25/75" = C1HA25,
+    "50/50" = C1HA50,
+    "75/25" = C1HA75
+  ),
+  "Collagen IOsteopontin" = list(
+    "25/75" = C1OPN25,
+    "50/50" = C1OPN50,
+    "75/25" = C1OPN75
+  ),
+  "Collagen IDecorin" = list(
+    "25/75" = C1DN25,
+    "50/50" = C1DN50,
+    "75/25" = C1DN75
+  ),
+  "Collagen IGalectin 3" = list(
+    "25/75" = C1G325,
+    "50/50" = C1G350,
+    "75/25" = C1G375
+  ),
+  "Collagen IFibronectin" = list(
+    "25/75" = C1FN25,
+    "50/50" = C1FN50,
+    "75/25" = C1FN75
+  ),
+  "Collagen IV" = list(
+    "100" = C4100
+  ),
+  "Collagen IVLaminin" = list(
+    "25/75" = C4LN25,
+    "50/50" = C4LN50,
+    "75/25" = C4LN75
+  ),
+  "Collagen IVTenascin C" = list(
+    "25/75" = C4TC25,
+    "50/50" = C4TC50,
+    "75/25" = C4TC75
+  ),
+  "Collagen IVHyaluronic Acid" = list(
+    "25/75" = C4HA25,
+    "50/50" = C4HA50,
+    "75/25" = C4HA75
+  ),
+  "Collagen IVOsteopontin" = list(
+    "25/75" = C4OPN25,
+    "50/50" = C4OPN50,
+    "75/25" = C4OPN75
+  ),
+  "Collagen IVDecorin" = list(
+    "25/75" = C4DN25,
+    "50/50" = C4DN50,
+    "75/25" = C4DN75
+  ),
+  
+  "Collagen IVGalectin 3" = list(
+    "25/75" = C4G325,
+    "50/50" = C4G350,
+    "75/25" = C4G375
+  ),
+  
+  "Collagen IVFibronectin" = list(
+    "25/75" = C4FN25,
+    "50/50" = C4FN50,
+    "75/25" = C4FN75
+  ),
+  
+  "LamininTenascin C" = list(
+    "25/75" = LNTC25,
+    "50/50" = LNTC50,
+    "75/25" = LNTC75
+  ),
+  
+  "LamininHyaluronic Acid" = list(
+    "25/75" = LNHA25,
+    "50/50" = LNHA50,
+    "75/25" = LNHA75
+  ),
+  
+  "LamininOsteopontin" = list(
+    "25/75" = LNOPN25,
+    "50/50" = LNOPN50,
+    "75/25" = LNOPN75
+  ),
+  
+  "LamininDecorin" = list(
+    "25/75" = LNDN25,
+    "50/50" = LNDN50,
+    "75/25" = LNDN75
+  ),
+  
+  "LamininGalectin 3" = list(
+    "25/75" = LNG325,
+    "50/50" = LNG350,
+    "75/25" = LNG375
+  ),
+  
+  "LamininFibronectin" = list(
+    "25/75" = LNFN25,
+    "50/50" = LNFN50,
+    "75/25" = LNFN75
+  ),
+  
+  "Tenascin CHyaluronic Acid" = list(
+    "25/75" = TCHA25,
+    "50/50" = TCHA50,
+    "75/25" = TCHA75
+  ),
+  
+  "Tenascin COsteopontin" = list(
+    "25/75" = TCOPN25,
+    "50/50" = TCOPN50,
+    "75/25" = TCOPN75
+  ),
+  "Tenascin CDecorin" = list(
+    "25/75" = TCDN25,
+    "50/50" = TCDN50,
+    "75/25" = TCDN75
+  ),
+  "Tenascin CGalectin 3" = list(
+    "25/75" = TCG325,
+    "50/50" = TCG350,
+    "75/25" = TCG375
+  ),
+  "Tenascin CFibronectin" = list(
+    "25/75" = TCFN25,
+    "50/50" = TCFN50,
+    "75/25" = TCFN75
+  ),
+  "Hyaluronic AcidOsteopontin" = list(
+    "25/75" = HAOPN25,
+    "50/50" = HAOPN50,
+    "75/25" = HAOPN75
+  ),
+  "Hyaluronic AcidDecorin" = list(
+    "25/75" = HADN25,
+    "50/50" = HADN50,
+    "75/25" = HADN75
+  ),
+  "Hyaluronic AcidGalectin 3" = list(
+    "25/75" = HAG325,
+    "50/50" = HAG350,
+    "75/25" = HAG375
+  ),
+  "Hyaluronic AcidFibronectin" = list(
+    "25/75" = HAFN25,
+    "50/50" = HAFN50,
+    "75/25" = HAFN75
+  ),
+  "OsteopontinDecorin" = list(
+    "25/75" = OPNDN25,
+    "50/50" = OPNDN50,
+    "75/25" = OPNDN75
+  ),
+  "OsteopontinGalectin 3" = list(
+    "25/75" = OPNG325,
+    "50/50" = OPNG350,
+    "75/25" = OPNG375
+  ),
+  "OsteopontinFibronectin" = list(
+    "25/75" = OPNFN25,
+    "50/50" = OPNFN50,
+    "75/25" = OPNFN75
+  ),
+  "DecorinGalectin 3" = list(
+    "25/75" = DNG325,
+    "50/50" = DNG350,
+    "75/25" = DNG375
+  ),
+  "DecorinFibronectin" = list(
+    "25/75" = DNFN25,
+    "50/50" = DNFN50,
+    "75/25" = DNFN75
+  ),
+  "Galectin 3Fibronectin" = list(
+    "25/75" = G3FN25,
+    "50/50" = G3FN50,
+    "75/25" = G3FN75
+  ),
+  "Laminin" = list(
+    "100" = LN100
+  ),
+  "Tenascin C" = list(
+    "100" = TC100
+  ),
+  "Hyaluronic Acid" = list(
+    "100" = HA100
+  ),
+  "Osteopontin" = list(
+    "100" = OPN100
+  ),
+  "Decorin" = list(
+    "100" = DN100
+  ),
+  "Galectin 3" = list(
+    "100" = G3100
+  ),
+  "Fibronectin" = list(
+    "100" = FN100
+  )
+  )
+
+for (i in 1: nrow(combinedds_Ratio)) {
+  metadata_ecms <- combinedds_Ratio[i,"Metadata_ECMs"]
+  metadata_ratio <- combinedds_Ratio[i,"Metadata_Ratio"]
+  metadata_ecms <- unlist(metadata_ecms)
+  metadata_ratio <- unlist(metadata_ratio)
+  current_test_conditions <- list()
+  current_test_conditions <- experimental_conditions[[metadata_ecms]][[metadata_ratio]]
+  
+  current_C1 <- current_test_conditions[1]
+  current_C4 <- current_test_conditions[2]
+  current_LN <- current_test_conditions[3]
+  current_TC <- current_test_conditions[4]
+  current_HA <- current_test_conditions[5]
+  current_OPN <- current_test_conditions[6]
+  current_DN <- current_test_conditions[7]
+  current_G3 <- current_test_conditions[8]
+  current_FN <- current_test_conditions[9]
+  
+  combinedds_Ratio[i, "CollagenI"] <- current_C1
+  combinedds_Ratio[i, "CollagenIV"] <- current_C4
+  combinedds_Ratio[i, "Laminin"] <- current_LN
+  combinedds_Ratio[i, "TenascinC"] <- current_TC
+  combinedds_Ratio[i, "Hyaluronic_Acid"] <- current_HA
+  combinedds_Ratio[i, "Osteopontin"] <- current_OPN
+  combinedds_Ratio[i, "Decorin"] <- current_DN
+  combinedds_Ratio[i, "Galectin3"] <- current_G3
+  combinedds_Ratio[i, "Fibronectin"] <- current_FN
+}
+
+```
+
+## Models
+```{r}
+library(lme4)
+library(GAD)
+DMSOdsewithrep <- subset(combinedds_Ratio, Metadata_Treatment == "DMSO")
+
+DMSOdsewithrep$CollagenI <- relevel(as.factor(DMSOdsewithrep$CollagenI), ref = 5)
+DMSOdsewithrep$CollagenIV <- relevel(as.factor(DMSOdsewithrep$CollagenIV), ref = 5)
+DMSOdsewithrep$Laminin <- relevel(as.factor(DMSOdsewithrep$Laminin), ref = 5)
+DMSOdsewithrep$Hyaluronic_Acid <- relevel(as.factor(DMSOdsewithrep$Hyaluronic_Acid), ref = 5)
+DMSOdsewithrep$TenascinC <- relevel(as.factor(DMSOdsewithrep$TenascinC), ref = 5)
+DMSOdsewithrep$Osteopontin <- relevel(as.factor(DMSOdsewithrep$Osteopontin), ref = 5)
+DMSOdsewithrep$Galectin3 <- relevel(as.factor(DMSOdsewithrep$Galectin3), ref = 5)
+DMSOdsewithrep$Fibronectin <- relevel(as.factor(DMSOdsewithrep$Fibronectin), ref = 5)
+DMSOdsewithrep$Decorin <- relevel(as.factor(DMSOdsewithrep$Decorin), ref = 5)
+
+
+vimmodel <- lmer(Mean_Orange_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+                Metadata_Stiffness+ CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin + Abb_ECM + Metadata_Stiffness:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin)+ Metadata_Stiffness:Abb_ECM + Abb_ECM:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin) + Metadata_Stiffness:Abb_ECM:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin), data = DMSOdsewithrep)
+
+ecadmodel <- lmer(Mean_Red_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+                Metadata_Stiffness+ CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin + Abb_ECM + Metadata_Stiffness:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin)+ Metadata_Stiffness:Abb_ECM + Abb_ECM:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin) + Metadata_Stiffness:Abb_ECM:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin), data = DMSOdsewithrep)
+
+pxrmodel <- lmer(Mean_Green_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+                Metadata_Stiffness+ CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin + Abb_ECM + Metadata_Stiffness:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin)+ Metadata_Stiffness:Abb_ECM + Abb_ECM:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin) + Metadata_Stiffness:Abb_ECM:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin), data = DMSOdsewithrep)
+
+dispersion_glmer(vimmodel)
+dispersion_glmer(ecadmodel)
+dispersion_glmer(pxrmodel)
+```
+## Summaries
+```{r}
+summary(vimmodel)
+summary(ecadmodel)
+summary(pxrmodel)
+
+```
+## Tab Models
+
+```{r}
+
+tab_model(vimmodel, ecadmodel, pxrmodel)
+```
+
+
+## Anovas
+```{r}
+vimanova <- anova(vimmodel)
+ecadanova <- anova(ecadmodel)
+pxranova <- anova(pxrmodel)
+```
+
+WP: 1 - pf(F-value, 1, 2)
+SP: 1 -pf(F-value, df, 1168) (1168 = 1406 (total number of obs) - 1 - 233 (observed dfs))
+```{r}
+sum(vimanova$npar)
+
+vimanova <- vimanova %>% mutate(p_value = ifelse(row.names(vimanova) == "Stiffness", 1 - pf(vimanova$`F value`, 1, 2), 1 - pf(vimanova$`F value`, vimanova$npar, 1168)))
+
+ecadanova <- ecadanova %>% mutate(p_value = ifelse(row.names(ecadanova) == "Stiffness", 1 - pf(ecadanova$`F value`, 1, 2), 1 - pf(ecadanova$`F value`, ecadanova$npar, 1168)))
+
+pxranova <- pxranova %>% mutate(p_value = ifelse(row.names(pxranova) == "Stiffness", 1 - pf(pxranova$`F value`, 1, 2), 1 - pf(pxranova$`F value`, pxranova$npar, 1168)))
+
+vimanova <- vimanova %>% mutate(psig = case_when(
+      p_value < 0.001 ~ "***",
+      p_value < 0.01  ~ "**",
+      p_value < 0.05  ~ "*",
+      p_value < 0.1   ~ ".",
+      TRUE            ~ "ns"))
+
+ecadanova <- ecadanova %>% mutate(psig = case_when(
+      p_value < 0.001 ~ "***",
+      p_value < 0.01  ~ "**",
+      p_value < 0.05  ~ "*",
+      p_value < 0.1   ~ ".",
+      TRUE            ~ "ns"))
+
+pxranova <- pxranova %>% mutate(psig = case_when(
+      p_value < 0.001 ~ "***",
+      p_value < 0.01  ~ "**",
+      p_value < 0.05  ~ "*",
+      p_value < 0.1   ~ ".",
+      TRUE            ~ "ns"))
+```
+## ICCs
+```{r}
+library(performance)
+icc(vimmodel)
+icc(ecadmodel)
+icc(pxrmodel)
+```
+## R2 Fit
+```{r}
+r2_nakagawa(vimmodel)
+r2_nakagawa(ecadmodel)
+r2_nakagawa(pxrmodel)
+```
+## Regression
+### Setting up Tables
+```{r}
+library(parameters)
+
+VimRegression <- as.data.frame(model_parameters(vimmodel))
+
+EcadRegression <- as.data.frame(model_parameters(ecadmodel))
+
+PXRRegression <- as.data.frame(model_parameters(pxrmodel))
+
+VimRegression <- subset(VimRegression, Effects == "fixed")
+EcadRegression <- subset(EcadRegression, Effects == "fixed")
+PXRRegression <- subset(PXRRegression, Effects == "fixed")
+
+VimRegression$Significance <- ""
+EcadRegression$Significance <- ""
+PXRRegression$Significance <- ""
+
+VimRegression$Significance <- ifelse(VimRegression$p < 0.001, "***",
+                                       ifelse(VimRegression$p < 0.01, "**",
+                                              ifelse(VimRegression$p < 0.05, "*", "")))
+
+EcadRegression$Significance <- ifelse(EcadRegression$p < 0.001, "***",
+                                       ifelse(EcadRegression$p < 0.01, "**",
+                                              ifelse(EcadRegression$p < 0.05, "*", "")))
+PXRRegression$Significance <- ifelse(PXRRegression$p < 0.001, "***",
+                                       ifelse(PXRRegression$p < 0.01, "**",
+                                              ifelse(PXRRegression$p < 0.05, "*", "")))
+
+VimRegressionSig <- subset(VimRegression, p < 0.05)
+EcadRegressionSig <- subset(EcadRegression, p < 0.05)
+PXRRegressionSig <- subset(PXRRegression, p < 0.05)
+```
+
+```{r}
+VimRegressionSig$Parameter <- gsub("Abb_ECM", "", VimRegressionSig$Parameter) #remove Abb_ECMs
+VimRegressionSig$Parameter <- gsub("^Metadata_Stiffness", "", VimRegressionSig$Parameter) #remove Metadata_Stiffness
+
+EcadRegressionSig$Parameter <- gsub("Abb_ECM", "", EcadRegressionSig$Parameter) #remove Abb_ECMs
+EcadRegressionSig$Parameter <- gsub("^Metadata_Stiffness", "", EcadRegressionSig$Parameter) #remove Metadata_Stiffness
+
+PXRRegressionSig$Parameter <- gsub("Abb_ECM", "", PXRRegressionSig$Parameter) #remove Abb_ECMs
+PXRRegressionSig$Parameter <- gsub("^Metadata_Stiffness", "", PXRRegressionSig$Parameter) #remove Metadata_Stiffness
+```
+
+```{r}
+Regression_plot <- ggplot(data = VimRegressionSig,
+                          aes(x = reorder(Parameter,Coefficient),
+                              y = Coefficient)) +
+  geom_bar(stat = "identity") + 
+  geom_text(aes(x = reorder(Parameter,Coefficient), label = Significance, y = 0),  
+            size = 20, vjust = 0.8, hjust = 0, nudge_y = 0.25) +
+  geom_errorbar(aes(x = reorder(Parameter, Coefficient),
+                    ymin = Coefficient -
+                      SE,
+                    ymax = Coefficient +
+                      SE, width = .1))+ 
+theme(axis.title.x = element_text(size= 30),
+      axis.text.x = element_text(size= 25),
+      axis.title.y = element_text(size= 30),
+      axis.text.y = element_text(size= 25),
+      legend.text = element_text(size = 30),
+      legend.title = element_text(size = 30),
+      strip.text =  element_text(size = 30),
+      panel.background = element_blank())+
+  geom_bar(stat = "identity") + 
+  xlab("Biomolecule combination") +
+  ylab("Linear Model Coefficients for Vimentin") + 
+   ylim(-0.5, 0.5)+
+  coord_flip()
+ggsave(filename = "regression_Vimentin.png", 
+        width = 15, height = 15,units="in")
+
+Regression_plot <- ggplot(data = EcadRegressionSig,
+                          aes(x = reorder(Parameter,Coefficient),
+                              y = Coefficient)) +
+  geom_bar(stat = "identity") + 
+  geom_text(aes(x = reorder(Parameter,Coefficient), label = Significance, y = 0),  
+            size = 20, vjust = 0.8, hjust = 0, nudge_y = 0.25) +
+  geom_errorbar(aes(x = reorder(Parameter, Coefficient),
+                    ymin = Coefficient -
+                      SE,
+                    ymax = Coefficient +
+                      SE, width = .1))+ 
+theme(axis.title.x = element_text(size= 30),
+      axis.text.x = element_text(size= 25),
+      axis.title.y = element_text(size= 30),
+      axis.text.y = element_text(size= 25),
+      legend.text = element_text(size = 30),
+      legend.title = element_text(size = 30),
+      strip.text =  element_text(size = 30),
+      panel.background = element_blank())+
+  geom_bar(stat = "identity") + 
+  xlab("Biomolecule combination") +
+  ylab("Linear Model Coefficients for Ecad") + 
+   ylim(-0.5, 0.5)+
+  coord_flip()
+ggsave(filename = "regression_Ecad.png", 
+        width = 15, height = 15,units="in")
+
+Regression_plot <- ggplot(data = PXRRegressionSig,
+                          aes(x = reorder(Parameter,Coefficient),
+                              y = Coefficient)) +
+  geom_bar(stat = "identity") + 
+  geom_text(aes(x = reorder(Parameter,Coefficient), label = Significance, y = 0),  
+            size = 20, vjust = 0.8, hjust = 0, nudge_y = 0.25) +
+  geom_errorbar(aes(x = reorder(Parameter, Coefficient),
+                    ymin = Coefficient -
+                      SE,
+                    ymax = Coefficient +
+                      SE, width = .1))+ 
+theme(axis.title.x = element_text(size= 30),
+      axis.text.x = element_text(size= 25),
+      axis.title.y = element_text(size= 30),
+      axis.text.y = element_text(size= 25),
+      legend.text = element_text(size = 30),
+      legend.title = element_text(size = 30),
+      strip.text =  element_text(size = 30),
+      panel.background = element_blank())+
+  geom_bar(stat = "identity") + 
+  xlab("Biomolecule combination") +
+  ylab("Linear Model Coefficients for PXR") + 
+   ylim(-0.5, 0.5)+
+  coord_flip()
+ggsave(filename = "regression_PXR.png", 
+        width = 15, height = 15,units="in")
+```
+

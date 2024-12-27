@@ -1,0 +1,2933 @@
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<style>
+html, body { background-color: white; }
+table { border-collapse:collapse; border:none; }
+caption { font-weight: bold; text-align:left; }
+td {  }
+.thead { border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; }
+.tdata { padding:0.2cm; text-align:left; vertical-align:top; }
+.arc { background-color:#f2f2f2; }
+.summary { padding-top:0.1cm; padding-bottom:0.1cm; }
+.summarydata { text-align:left; }
+.fixedparts { font-weight:bold; text-align:left; }
+.randomparts { font-weight:bold; text-align:left; padding-top:.8em; }
+.zeroparts { font-weight:bold; text-align:left; padding-top:.8em; }
+.simplexparts { font-weight:bold; text-align:left; padding-top:.8em; }
+.lasttablerow { border-bottom: double; }
+.firsttablerow {  }
+.firstsumrow { border-top:1px solid; }
+.labelcellborder { border-bottom:1px solid; }
+.depvarhead { text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal; }
+.depvarheadnodv { border-top: double; text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal; }
+.leftalign { text-align:left; }
+.centeralign { text-align:center; }
+.firsttablecol { text-align:left; }
+.footnote { font-style:italic; border-top:double black; text-align:right; }
+.subtitle { font-weight: normal; }
+.modelcolumn1 {  }
+.modelcolumn2 {  }
+.modelcolumn3 {  }
+.modelcolumn4 {  }
+.modelcolumn5 {  }
+.modelcolumn6 {  }
+.modelcolumn7 {  }
+.col1 {  }
+.col2 {  }
+.col3 {  }
+.col4 {  }
+.col5 {  }
+.col6 {  }
+</style>
+</head>
+<body>
+<table>
+  <tr>
+    <th class="thead firsttablerow firsttablecol col1">&nbsp;</th>
+    <th colspan="3" class="thead firsttablerow">Mean_Orange_Norm</th>
+    <th colspan="3" class="thead firsttablerow">Mean_Red_Norm</th>
+    <th colspan="3" class="thead firsttablerow">Mean_Green_Norm</th>
+  </tr>
+  <tr>
+    <td class="depvarhead firsttablerow firsttablecol col1">Predictors</td>
+    <td class="depvarhead firsttablerow col2">Estimates</td>
+    <td class="depvarhead firsttablerow col3">CI</td>
+    <td class="depvarhead firsttablerow col4">p</td>
+    <td class="depvarhead firsttablerow col5">Estimates</td>
+    <td class="depvarhead firsttablerow col6">CI</td>
+    <td class="depvarhead firsttablerow col7">p</td>
+    <td class="depvarhead firsttablerow col8">Estimates</td>
+    <td class="depvarhead firsttablerow col9">CI</td>
+    <td class="depvarhead firsttablerow col10">p</td>
+  </tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Intercept)</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.39</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;1.42&nbsp;&ndash;&nbsp;0.64</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.455</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.09</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.65&nbsp;&ndash;&nbsp;0.82</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.821</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;1.27&nbsp;&ndash;&nbsp;0.96</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.784</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.76</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.70&nbsp;&ndash;&nbsp;2.22</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.306</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.30</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.74&nbsp;&ndash;&nbsp;1.34</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.573</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.89</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.68&nbsp;&ndash;&nbsp;2.47</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.267</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenI [0]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.08</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.05&nbsp;&ndash;&nbsp;0.21</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.245</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.890</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.11&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.622</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenI [0.25]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.08</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.02&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.130</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.939</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.08&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.567</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenI [0.5]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.11&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.797</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.675</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.12&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.846</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenI [0.75]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.07</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.02&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.123</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.05&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.772</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.08&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.664</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenIV [0]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.11&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.713</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.11&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.802</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.13&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.834</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenIV [0.25]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.09&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.905</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.06&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.668</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.05</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.06&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.383</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenIV [0.5]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.15&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.315</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.977</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.10&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.891</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenIV [0.75]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.00</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.09&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.995</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.817</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.11&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.859</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Hyaluronic Acid [0]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.04</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.09&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.540</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.910</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.11&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.667</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Hyaluronic Acid [0.25]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.00</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.12&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.952</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.06&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.490</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.10&nbsp;&ndash;&nbsp;0.17</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.614</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Hyaluronic Acid [0.5]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.14&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.887</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.08&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.810</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.16&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.862</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Hyaluronic Acid [0.75]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.12&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.943</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.762</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.13&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.953</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">TenascinC [0]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.10</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.04&nbsp;&ndash;&nbsp;0.23</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.159</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.08&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.744</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.07</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.08&nbsp;&ndash;&nbsp;0.21</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.349</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">TenascinC [0.25]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.06</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.05&nbsp;&ndash;&nbsp;0.17</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.291</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.05&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.423</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.09</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.03&nbsp;&ndash;&nbsp;0.20</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.150</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">TenascinC [0.5]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.11</td>
+    <td class="tdata centeralign modelcolumn1 col3">0.02&nbsp;&ndash;&nbsp;0.20</td>
+    <td class="tdata centeralign modelcolumn1 col4"><strong>0.018</strong></td>
+    <td class="tdata centeralign modelcolumn2 col5">0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.03&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.363</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.09</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.01&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.083</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">TenascinC [0.75]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.04&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.257</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.04&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.551</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.05</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.04&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.284</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Laminin [0]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.11&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.756</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.11&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.778</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.13&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.825</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Laminin [0.25]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.12&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.647</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.11&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.307</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.14&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.595</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Laminin [0.5]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.11&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.687</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.217</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.13&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.436</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Laminin [0.75]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.15&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.168</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.15&nbsp;&ndash;&nbsp;-0.02</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.007</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.20&nbsp;&ndash;&nbsp;-0.01</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.032</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Fibronectin [0]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.08</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.05&nbsp;&ndash;&nbsp;0.21</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.244</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.632</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.08&nbsp;&ndash;&nbsp;0.21</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.381</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Fibronectin [0.25]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.06</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.04&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.268</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.06&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.667</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.05&nbsp;&ndash;&nbsp;0.17</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.257</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Fibronectin [0.5]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.04</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.04&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.329</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.791</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.08&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.727</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Fibronectin [0.75]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.08&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.823</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.485</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.10&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.956</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Galectin3 [0]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.08</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.06&nbsp;&ndash;&nbsp;0.21</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.254</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.998</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.10&nbsp;&ndash;&nbsp;0.19</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.581</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Galectin3 [0.25]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.07</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.03&nbsp;&ndash;&nbsp;0.17</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.196</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.05&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.594</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.05&nbsp;&ndash;&nbsp;0.17</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.278</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Galectin3 [0.5]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.11</td>
+    <td class="tdata centeralign modelcolumn1 col3">0.03&nbsp;&ndash;&nbsp;0.20</td>
+    <td class="tdata centeralign modelcolumn1 col4"><strong>0.012</strong></td>
+    <td class="tdata centeralign modelcolumn2 col5">0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.03&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.345</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.08</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.02&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.103</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Galectin3 [0.75]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.04&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.300</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.05&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.733</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.08&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.714</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Osteopontin [0]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.06</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.07&nbsp;&ndash;&nbsp;0.19</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.387</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.13&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.525</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.00</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.14&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.956</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Osteopontin [0.25]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.04</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.06&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.385</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.532</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.12&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.792</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Osteopontin [0.5]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.07&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.747</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.217</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.14&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.378</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Osteopontin [0.75]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.05&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.435</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.232</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.12&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.396</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Decorin [0]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.08</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.03&nbsp;&ndash;&nbsp;0.20</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.160</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.668</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.06&nbsp;&ndash;&nbsp;0.19</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.329</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Decorin [0.25]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.06</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.01&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.114</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.03&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.292</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.07</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.01&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.084</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [C1C4]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.16&nbsp;&ndash;&nbsp;-0.00</td>
+    <td class="tdata centeralign modelcolumn1 col4"><strong>0.041</strong></td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.12&nbsp;&ndash;&nbsp;-0.01</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.023</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.17&nbsp;&ndash;&nbsp;0.00</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.053</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [C1DN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.09&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.828</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.05&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.840</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.06&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.609</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [C1FN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.13&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.191</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.06&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.821</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.11&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.550</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [C1G3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.10&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.263</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.06&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.485</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.09&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.549</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [C1HA]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.10&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.625</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.05&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.914</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.05&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.427</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [C1LN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.10&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.495</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.03&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.324</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.05&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.432</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [C1OPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.10&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.525</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.08&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.291</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.09&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.872</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [C4DN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.11&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.462</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.06&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.945</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.10&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.695</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [C4FN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.08&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.707</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.05&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.817</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.09&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.627</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [C4G3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.11&nbsp;&ndash;&nbsp;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.119</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.280</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.11&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.198</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [C4HA]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.10&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.927</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.616</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.10&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.740</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [C4LN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.10&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.555</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.02&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.275</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.05&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.376</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [C4OPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.13&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.162</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.287</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.00</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.08&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.988</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [DNFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.04</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.05&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.383</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.03&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.371</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.07&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.561</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [DNG3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.09&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.361</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.06&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.587</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.09&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.569</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [G3FN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.05&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.563</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.01&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.144</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.05&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.423</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [HADN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.07&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.521</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.05&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.594</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.05&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.304</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [HAFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.11&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.866</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.08&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.791</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.00</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.11&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.988</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [HAG3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.07&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.663</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.421</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.11&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.797</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [HAOPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.09&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.684</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.824</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.05</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.07&nbsp;&ndash;&nbsp;0.17</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.394</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [LNDN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.09</td>
+    <td class="tdata centeralign modelcolumn1 col3">0.00&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn1 col4"><strong>0.045</strong></td>
+    <td class="tdata centeralign modelcolumn2 col5">0.09</td>
+    <td class="tdata centeralign modelcolumn2 col6">0.02&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.008</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">0.12</td>
+    <td class="tdata centeralign modelcolumn3 col9">0.02&nbsp;&ndash;&nbsp;0.22</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.015</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [LNFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.04&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.238</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.09</td>
+    <td class="tdata centeralign modelcolumn2 col6">0.03&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.004</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">0.12</td>
+    <td class="tdata centeralign modelcolumn3 col9">0.02&nbsp;&ndash;&nbsp;0.22</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.016</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [LNG3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.07</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.01&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.085</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.07</td>
+    <td class="tdata centeralign modelcolumn2 col6">0.02&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.011</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">0.09</td>
+    <td class="tdata centeralign modelcolumn3 col9">0.01&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.035</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [LNHA]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.07&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.550</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.04&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.353</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.07</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.04&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.210</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [LNOPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.04&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.503</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.05</td>
+    <td class="tdata centeralign modelcolumn2 col6">0.00&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.033</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">0.09</td>
+    <td class="tdata centeralign modelcolumn3 col9">0.03&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.007</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [OPNDN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.02&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.144</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.03&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.500</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.05</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.02&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.172</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [OPNFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.04&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.425</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.00&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.081</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.07</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.00&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.057</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Abb ECM [TCHA]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.05&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.441</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.571</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.08&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.891</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * CollagenI [0]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.28&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.349</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.17&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.657</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.30&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.370</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * CollagenI<br>[0.25]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.22&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.289</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.997</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.19&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.628</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * CollagenI [0.5]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.16&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.790</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.05</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.05&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.297</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.13&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.763</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * CollagenI<br>[0.75]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.00</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.13&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.999</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.08&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.788</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.11&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.746</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * CollagenIV [0]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.07</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.26&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.483</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.17&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.567</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.29&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.393</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * CollagenIV<br>[0.25]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.23&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.201</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.13&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.511</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.28&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.112</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * CollagenIV<br>[0.5]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.17&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.656</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.881</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.20&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.557</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * CollagenIV<br>[0.75]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.09&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.599</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.08&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.879</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.12&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.781</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Hyaluronic Acid<br>[0]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.28&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.362</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.18&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.507</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.32&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.264</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Hyaluronic Acid<br>[0.25]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.14</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.32&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.134</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.19&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.355</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.17</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.36&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.086</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Hyaluronic Acid<br>[0.5]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.27&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.411</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.14&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.929</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.29&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.407</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Hyaluronic Acid<br>[0.75]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.19&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.829</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.14&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.703</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.24&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.536</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * TenascinC [0]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.30&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.237</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.19&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.407</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.15</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.36&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.142</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * TenascinC<br>[0.25]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.14</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.29&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.082</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.19&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.170</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.18</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.34&nbsp;&ndash;&nbsp;-0.01</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.038</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * TenascinC [0.5]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.21&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.216</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.18&nbsp;&ndash;&nbsp;0.00</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.062</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.26&nbsp;&ndash;&nbsp;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.073</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * TenascinC<br>[0.75]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.15&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.670</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.13&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.375</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.19&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.429</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Laminin [0]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.32&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.184</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.15&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.858</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.31&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.308</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Laminin [0.25]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.25&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.128</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.588</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.21&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.490</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Laminin [0.5]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.16&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.555</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.732</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.11&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.697</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Laminin [0.75]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.06</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.07&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.365</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.15</td>
+    <td class="tdata centeralign modelcolumn2 col6">0.06&nbsp;&ndash;&nbsp;0.24</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.001</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">0.19</td>
+    <td class="tdata centeralign modelcolumn3 col9">0.05&nbsp;&ndash;&nbsp;0.33</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.007</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Fibronectin [0]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.32&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.178</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.22&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.247</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.15</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.35&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.159</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Fibronectin<br>[0.25]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.12</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.27&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.083</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.14&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.426</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.14</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.29&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.079</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Fibronectin<br>[0.5]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.15&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.720</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.836</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.12&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.813</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Fibronectin<br>[0.75]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.08&nbsp;&ndash;&nbsp;0.17</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.460</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.05</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.04&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.303</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.10</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.04&nbsp;&ndash;&nbsp;0.24</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.156</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Galectin3 [0]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.27&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.378</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.16&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.688</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.30&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.366</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Galectin3<br>[0.25]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.25&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.135</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.13&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.541</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.27&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.117</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Galectin3 [0.5]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.15&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.753</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.13&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.431</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.18&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.560</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Galectin3<br>[0.75]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.08&nbsp;&ndash;&nbsp;0.17</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.459</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.08&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.875</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.07</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.07&nbsp;&ndash;&nbsp;0.20</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.348</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Osteopontin [0]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.24&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.578</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.13&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.981</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.27&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.545</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Osteopontin<br>[0.25]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.07</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.21&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.317</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.967</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.23&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.335</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Osteopontin<br>[0.5]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.14&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.831</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.06</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.03&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.226</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.00</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.14&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn3 col10">1.000</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Osteopontin<br>[0.75]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.04</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.07&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.482</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.04&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.351</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.06&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.303</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Decorin [0]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.26&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.288</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.18&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.353</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.15</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.33&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.111</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Decorin [0.25]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.20&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.106</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.13&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.201</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.15</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.27&nbsp;&ndash;&nbsp;-0.03</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.012</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [C1C4]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.06&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.413</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.06&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.641</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.06&nbsp;&ndash;&nbsp;0.17</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.350</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [C1DN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.11&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.949</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.521</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.15&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.570</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [C1FN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.12&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.820</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.13&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.175</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.13&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.835</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [C1G3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.08&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.805</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.503</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.10&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.930</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [C1HA]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.12&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.799</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.576</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.14&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.749</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [C1LN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.13&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.752</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.13&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.184</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.07</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.18&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.267</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [C1OPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.07&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.530</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.866</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.05</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.07&nbsp;&ndash;&nbsp;0.17</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.415</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [C4DN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.13&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.712</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.699</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.12&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.975</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [C4FN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.00</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.09&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.961</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.743</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.08&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.697</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [C4G3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.09&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.965</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.08&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.547</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.10&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.999</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [C4HA]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.13&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.711</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.11&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.998</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.13&nbsp;&ndash;&nbsp;0.20</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.685</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [C4LN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.16&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.409</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.15&nbsp;&ndash;&nbsp;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.086</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.20&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.182</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [C4OPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.10&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.853</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.873</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.00</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.11&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.955</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [DNFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.26&nbsp;&ndash;&nbsp;-0.01</td>
+    <td class="tdata centeralign modelcolumn1 col4"><strong>0.037</strong></td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.19&nbsp;&ndash;&nbsp;-0.01</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.037</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.15</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.29&nbsp;&ndash;&nbsp;-0.02</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.026</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [DNG3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.14&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.222</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.745</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.07</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.16&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.174</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [G3FN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.07</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.18&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.209</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.18&nbsp;&ndash;&nbsp;-0.02</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.011</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.23&nbsp;&ndash;&nbsp;0.00</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.053</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [HADN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.13&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.927</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.12&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.649</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.14&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.880</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [HAFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.12&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.793</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.937</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.05</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.10&nbsp;&ndash;&nbsp;0.20</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.510</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [HAG3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.06</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.07&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.366</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.08&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.795</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.09</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.05&nbsp;&ndash;&nbsp;0.22</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.214</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [HAOPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.13&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.765</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.12&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.855</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.12&nbsp;&ndash;&nbsp;0.21</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.611</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [LNDN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.24&nbsp;&ndash;&nbsp;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.078</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.14</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.23&nbsp;&ndash;&nbsp;-0.05</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.003</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.18</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.32&nbsp;&ndash;&nbsp;-0.04</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.009</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [LNFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.12</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.25&nbsp;&ndash;&nbsp;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.062</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.16</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.25&nbsp;&ndash;&nbsp;-0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.001</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.22</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.35&nbsp;&ndash;&nbsp;-0.08</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.002</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [LNG3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.07</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.18&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.198</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.11</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.19&nbsp;&ndash;&nbsp;-0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.006</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.14</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.26&nbsp;&ndash;&nbsp;-0.02</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.019</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [LNHA]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.15&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.861</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.14&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.489</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.16&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.915</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [LNOPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.14&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.225</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.12&nbsp;&ndash;&nbsp;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.103</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.10</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.20&nbsp;&ndash;&nbsp;-0.01</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.038</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [OPNDN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.10&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.780</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.11&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.173</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.14&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.335</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [OPNFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.14&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.314</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.13&nbsp;&ndash;&nbsp;-0.00</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.037</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.18&nbsp;&ndash;&nbsp;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.083</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * Abb ECM [TCHA]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.08&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.577</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.06&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.581</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.05</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.07&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.449</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenI [0.25] * Abb<br>ECM [C1C4]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.04&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.410</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.02&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.218</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.03&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.194</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenI [0.5] * Abb ECM<br>[C1C4]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.20</td>
+    <td class="tdata centeralign modelcolumn1 col3">0.06&nbsp;&ndash;&nbsp;0.33</td>
+    <td class="tdata centeralign modelcolumn1 col4"><strong>0.004</strong></td>
+    <td class="tdata centeralign modelcolumn2 col5">0.08</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.01&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.090</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.14</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.01&nbsp;&ndash;&nbsp;0.28</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.064</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenI [0.25] * Abb<br>ECM [C1DN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.04</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.05&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.423</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.03&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.339</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.04&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.243</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenI [0.5] * Abb ECM<br>[C1DN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.10</td>
+    <td class="tdata centeralign modelcolumn1 col3">0.01&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn1 col4"><strong>0.036</strong></td>
+    <td class="tdata centeralign modelcolumn2 col5">0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.04&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.438</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.05</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.05&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.356</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenI [0.25] * Abb<br>ECM [C1FN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.09</td>
+    <td class="tdata centeralign modelcolumn1 col3">0.01&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn1 col4"><strong>0.038</strong></td>
+    <td class="tdata centeralign modelcolumn2 col5">0.06</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.00&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.067</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.08</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.01&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.089</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenI [0.5] * Abb ECM<br>[C1FN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.11</td>
+    <td class="tdata centeralign modelcolumn1 col3">0.02&nbsp;&ndash;&nbsp;0.20</td>
+    <td class="tdata centeralign modelcolumn1 col4"><strong>0.013</strong></td>
+    <td class="tdata centeralign modelcolumn2 col5">0.07</td>
+    <td class="tdata centeralign modelcolumn2 col6">0.01&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.032</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">0.12</td>
+    <td class="tdata centeralign modelcolumn3 col9">0.02&nbsp;&ndash;&nbsp;0.21</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.018</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenI [0.25] * Abb<br>ECM [C1G3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.07&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.653</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.06&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.968</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.07&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.624</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenI [0.5] * Abb ECM<br>[C1G3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.06&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.487</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.06&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.922</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.08&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.737</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenI [0.5] * Abb ECM<br>[C1HA]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.07</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.04&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.226</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.07</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.01&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.094</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.08&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.566</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenI [0.25] * Abb<br>ECM [C1LN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.04&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.319</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.05</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.01&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.103</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.09</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.01&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.081</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenI [0.5] * Abb ECM<br>[C1LN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.06</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.03&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.210</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.06&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.892</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.07&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.650</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenI [0.25] * Abb<br>ECM [C1OPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.11&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.428</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.04&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.532</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.08&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.886</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenI [0.5] * Abb ECM<br>[C1OPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.12</td>
+    <td class="tdata centeralign modelcolumn1 col3">0.01&nbsp;&ndash;&nbsp;0.23</td>
+    <td class="tdata centeralign modelcolumn1 col4"><strong>0.036</strong></td>
+    <td class="tdata centeralign modelcolumn2 col5">0.07</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.01&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.069</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.09</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.02&nbsp;&ndash;&nbsp;0.21</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.116</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenIV [0.25] * Abb<br>ECM [C4DN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.04</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.05&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.396</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.06&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.988</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.08&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.767</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenIV [0.5] * Abb<br>ECM [C4DN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.15</td>
+    <td class="tdata centeralign modelcolumn1 col3">0.06&nbsp;&ndash;&nbsp;0.24</td>
+    <td class="tdata centeralign modelcolumn1 col4"><strong>0.001</strong></td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.05&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.670</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.08</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.02&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.103</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenIV [0.25] * Abb<br>ECM [C4FN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.13&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.423</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.268</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.13&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.470</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenIV [0.5] * Abb<br>ECM [C4FN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.11&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.706</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.507</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.14&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.369</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenIV [0.25] * Abb<br>ECM [C4G3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.04</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.05&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.423</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.05&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.639</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.05&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.382</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenIV [0.5] * Abb<br>ECM [C4G3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.10&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.854</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.370</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.14&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.333</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenIV [0.25] * Abb<br>ECM [C4HA]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.07&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.770</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.05&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.980</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.13&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.288</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenIV [0.5] * Abb<br>ECM [C4HA]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.07</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.06&nbsp;&ndash;&nbsp;0.20</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.300</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.878</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.13&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.871</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenIV [0.25] * Abb<br>ECM [C4LN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.06</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.03&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.208</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.04&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.464</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.07&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.592</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenIV [0.5] * Abb<br>ECM [C4LN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.10</td>
+    <td class="tdata centeralign modelcolumn1 col3">0.01&nbsp;&ndash;&nbsp;0.19</td>
+    <td class="tdata centeralign modelcolumn1 col4"><strong>0.023</strong></td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.06&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.848</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.07&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.613</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenIV [0.25] * Abb<br>ECM [C4OPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.05&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.504</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.04&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.548</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.10&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.767</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">CollagenIV [0.5] * Abb<br>ECM [C4OPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.12</td>
+    <td class="tdata centeralign modelcolumn1 col3">0.01&nbsp;&ndash;&nbsp;0.23</td>
+    <td class="tdata centeralign modelcolumn1 col4"><strong>0.031</strong></td>
+    <td class="tdata centeralign modelcolumn2 col5">0.06</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.02&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.137</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.06&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.343</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Hyaluronic Acid [0.25] *<br>Abb ECM [HADN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.08&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.770</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.418</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.14&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.360</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Hyaluronic Acid [0.5] *<br>Abb ECM [HADN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.06&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.479</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.485</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.00</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.09&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.923</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Hyaluronic Acid [0.25] *<br>Abb ECM [HAFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.08</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.01&nbsp;&ndash;&nbsp;0.17</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.070</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.02&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.186</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.04&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.240</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Hyaluronic Acid [0.5] *<br>Abb ECM [HAFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.08&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.872</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.04&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.482</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.06&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.455</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Hyaluronic Acid [0.25] *<br>Abb ECM [HAG3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.10&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.876</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.05&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.637</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.06&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.478</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Hyaluronic Acid [0.5] *<br>Abb ECM [HAG3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.07</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.16&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.121</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.08&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.676</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.12&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.700</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Hyaluronic Acid [0.25] *<br>Abb ECM [HAOPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.10&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.640</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.155</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.13&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.256</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Hyaluronic Acid [0.5] *<br>Abb ECM [HAOPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.10&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.817</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.08&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.984</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.10&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.824</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Hyaluronic Acid [0.25] *<br>Abb ECM [LNHA]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.03&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.227</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.04&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.398</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.07</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.03&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.175</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Hyaluronic Acid [0.5] *<br>Abb ECM [LNHA]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.11&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.575</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.451</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.12&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.589</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">TenascinC [0.25] * Abb<br>ECMLNTC</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.07</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.01&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.094</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.06</td>
+    <td class="tdata centeralign modelcolumn2 col6">0.01&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.023</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">0.08</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.01&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.071</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">TenascinC [0.5] * Abb<br>ECMLNTC</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.14&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.523</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.06&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.638</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.10&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.713</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">TenascinC [0.25] * Abb<br>ECMTCDN</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.06</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.02&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.157</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.04&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.696</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.06&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.528</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">TenascinC [0.5] * Abb<br>ECMTCDN</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.07&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.663</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.938</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.11&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.846</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">TenascinC [0.25] * Abb<br>ECMTCFN</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.06</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.02&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.130</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.02&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.156</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.06&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.508</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">TenascinC [0.5] * Abb<br>ECMTCFN</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.16&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.410</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.04&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.405</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.10&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.812</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">TenascinC [0.25] * Abb<br>ECMTCG3</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.00</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.08&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.957</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.083</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.14&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.163</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">TenascinC [0.5] * Abb<br>ECMTCG3</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.23&nbsp;&ndash;&nbsp;-0.03</td>
+    <td class="tdata centeralign modelcolumn1 col4"><strong>0.012</strong></td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.11&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.336</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.19&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.130</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Laminin [0.25] * Abb ECM<br>[LNDN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.04</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.04&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.311</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.08&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.328</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.07&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.831</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Laminin [0.5] * Abb ECM<br>[LNDN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.11&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.613</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.220</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.11&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.769</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Laminin [0.25] * Abb ECM<br>[LNFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.00</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.07&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.905</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.06&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.741</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.09&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.788</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Laminin [0.5] * Abb ECM<br>[LNFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.16&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.394</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.637</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.15&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.622</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Laminin [0.25] * Abb ECM<br>[LNG3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.13&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.206</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.119</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.13&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.307</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Laminin [0.5] * Abb ECM<br>[LNG3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.12</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.22&nbsp;&ndash;&nbsp;-0.02</td>
+    <td class="tdata centeralign modelcolumn1 col4"><strong>0.020</strong></td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.16&nbsp;&ndash;&nbsp;-0.01</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.020</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.23&nbsp;&ndash;&nbsp;-0.01</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.032</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Fibronectin [0.25] * Abb<br>ECM [DNFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.10&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.551</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.558</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.10&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.632</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Fibronectin [0.5] * Abb<br>ECM [DNFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.08&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.883</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.05&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.593</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.07&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.531</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Fibronectin [0.25] * Abb<br>ECM [G3FN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.09&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.810</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.08&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.314</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.11&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.606</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Fibronectin [0.5] * Abb<br>ECM [G3FN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.21&nbsp;&ndash;&nbsp;-0.01</td>
+    <td class="tdata centeralign modelcolumn1 col4"><strong>0.028</strong></td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.11&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.248</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.17&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.239</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Galectin3 [0.25] * Abb<br>ECM [DNG3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.10</td>
+    <td class="tdata centeralign modelcolumn1 col3">0.02&nbsp;&ndash;&nbsp;0.17</td>
+    <td class="tdata centeralign modelcolumn1 col4"><strong>0.013</strong></td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.06&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.973</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.06&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.513</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenI<br>[0.25]) * Abb ECM [C1C4]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.07</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.18&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.226</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.13&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.185</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.10</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.21&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.111</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenI<br>[0.5]) * Abb ECM [C1C4]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.07</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.26&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.488</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.12</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.26&nbsp;&ndash;&nbsp;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.070</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.14</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.35&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.173</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenI<br>[0.25]) * Abb ECM [C1DN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.15&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.740</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.12&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.577</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.07</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.20&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.324</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenI<br>[0.5]) * Abb ECM [C1DN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.17&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.470</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.15&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.175</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.23&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.187</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenI<br>[0.25]) * Abb ECM [C1FN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.22&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.157</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.14&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.264</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.30&nbsp;&ndash;&nbsp;-0.03</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.020</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenI<br>[0.5]) * Abb ECM [C1FN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.21&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.194</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.16&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.150</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.17</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.30&nbsp;&ndash;&nbsp;-0.03</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.017</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenI<br>[0.25]) * Abb ECM [C1G3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.07</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.19&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.309</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.08&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.843</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.22&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.248</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenI<br>[0.5]) * Abb ECM [C1G3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.07</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.20&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.256</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.852</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.20&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.391</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenI<br>[0.5]) * Abb ECM [C1HA]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.16&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.928</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.14</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.25&nbsp;&ndash;&nbsp;-0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.012</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.07</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.23&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.434</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenI<br>[0.25]) * Abb ECM [C1LN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.22&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.147</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.18&nbsp;&ndash;&nbsp;-0.00</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.048</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.30&nbsp;&ndash;&nbsp;-0.03</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.018</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenI<br>[0.5]) * Abb ECM [C1LN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.17&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.503</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.894</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.20&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.375</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenI<br>[0.25]) * Abb ECM [C1OPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.16&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.353</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.520</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.24&nbsp;&ndash;&nbsp;-0.00</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.048</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenI<br>[0.5]) * Abb ECM [C1OPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.19&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.668</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.21&nbsp;&ndash;&nbsp;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.078</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.28&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.169</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenIV<br>[0.25]) * Abb ECM [C4DN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.10&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.676</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.12&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.570</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.17&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.642</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenIV<br>[0.5]) * Abb ECM [C4DN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.18&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.426</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.14&nbsp;&ndash;&nbsp;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.234</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.24&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.121</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenIV<br>[0.25]) * Abb ECM [C4FN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.13&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.948</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.728</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.15&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.837</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenIV<br>[0.5]) * Abb ECM [C4FN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.15&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.743</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.926</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.16&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.772</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenIV<br>[0.25]) * Abb ECM [C4G3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.16&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.638</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.997</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.20&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.376</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenIV<br>[0.5]) * Abb ECM [C4G3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.11&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.853</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.05&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.424</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.10&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.562</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenIV<br>[0.25]) * Abb ECM [C4HA]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.13&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.779</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.793</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.08&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.513</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenIV<br>[0.5]) * Abb ECM [C4HA]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.17&nbsp;&ndash;&nbsp;0.20</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.873</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.19&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.430</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.21&nbsp;&ndash;&nbsp;0.20</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.950</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenIV<br>[0.25]) * Abb ECM [C4LN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.17&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.518</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.16&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.141</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.22&nbsp;&ndash;&nbsp;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.225</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenIV<br>[0.5]) * Abb ECM [C4LN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.15&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.723</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.653</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.16&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.739</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenIV<br>[0.25]) * Abb ECM [C4OPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.00</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.11&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.973</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.698</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.13&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.909</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * CollagenIV<br>[0.5]) * Abb ECM [C4OPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.17&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.876</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.10</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.21&nbsp;&ndash;&nbsp;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.081</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.21&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.603</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Hyaluronic Acid<br>[0.25]) * Abb ECM [HADN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.04</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.08&nbsp;&ndash;&nbsp;0.17</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.516</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.964</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.12&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.856</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Hyaluronic Acid<br>[0.5]) * Abb ECM [HADN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.11&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.760</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.960</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.18&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.538</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Hyaluronic Acid<br>[0.25]) * Abb ECM [HAFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.16&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.616</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.15&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.168</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.25&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.092</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Hyaluronic Acid<br>[0.5]) * Abb ECM [HAFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.17&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.514</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.15&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.178</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.13</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.27&nbsp;&ndash;&nbsp;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.064</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Hyaluronic Acid<br>[0.25]) * Abb ECM [HAG3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.18&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.424</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.11&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.679</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.26&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.082</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Hyaluronic Acid<br>[0.5]) * Abb ECM [HAG3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.17&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.469</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.10&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.873</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.19&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.440</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Hyaluronic Acid<br>[0.25]) * Abb ECM [HAOPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.08&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.584</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.03</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.05&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.417</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.12&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.953</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Hyaluronic Acid<br>[0.5]) * Abb ECM [HAOPN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.13&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.761</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.15&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.525</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.17&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.931</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Hyaluronic Acid<br>[0.25]) * Abb ECM [LNHA]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.16&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.650</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.17&nbsp;&ndash;&nbsp;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.077</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.14</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.27&nbsp;&ndash;&nbsp;-0.00</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.050</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Hyaluronic Acid<br>[0.5]) * Abb ECM [LNHA]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.11&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.811</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.650</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.14&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.926</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * TenascinC<br>[0.25] * Abb ECMLNTC</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.08</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.19&nbsp;&ndash;&nbsp;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.155</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.17&nbsp;&ndash;&nbsp;-0.01</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.021</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.24&nbsp;&ndash;&nbsp;-0.01</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.038</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * TenascinC [0.5]<br>* Abb ECMLNTC</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.19&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.671</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.444</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.05</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.21&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.588</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * TenascinC<br>[0.25] * Abb ECMTCDN</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.10&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.924</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.09&nbsp;&ndash;&nbsp;0.07</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.804</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.04</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.16&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.487</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * TenascinC [0.5]<br>* Abb ECMTCDN</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.00</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.12&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.969</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.682</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.17&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.673</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * TenascinC<br>[0.25] * Abb ECMTCFN</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.20&nbsp;&ndash;&nbsp;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.117</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.08</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.16&nbsp;&ndash;&nbsp;-0.01</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.036</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.14</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.25&nbsp;&ndash;&nbsp;-0.02</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.023</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * TenascinC [0.5]<br>* Abb ECMTCFN</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.06</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.21&nbsp;&ndash;&nbsp;0.10</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.479</td>
+    <td class="tdata centeralign modelcolumn2 col5">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.13&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.766</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.09</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.26&nbsp;&ndash;&nbsp;0.08</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.293</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * TenascinC<br>[0.25] * Abb ECMTCG3</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.13&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.696</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.04</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.04&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.330</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.00</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.12&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.978</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">Metadata Stiffness<br>[25kPa] * TenascinC [0.5]<br>* Abb ECMTCG3</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.15&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.871</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.08</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.02&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.132</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.13&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.726</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Laminin [0.25])<br>* Abb ECM [LNDN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.08</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.03&nbsp;&ndash;&nbsp;0.19</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.161</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.08</td>
+    <td class="tdata centeralign modelcolumn2 col6">0.00&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.044</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">0.08</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.04&nbsp;&ndash;&nbsp;0.20</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.180</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Laminin [0.5])<br>* Abb ECM [LNDN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.11&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.832</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.11</td>
+    <td class="tdata centeralign modelcolumn2 col6">0.02&nbsp;&ndash;&nbsp;0.20</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.021</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">0.00</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.14&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn3 col10">1.000</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Laminin [0.25])<br>* Abb ECM [LNFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.10&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.927</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.810</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.11&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.881</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Laminin [0.5])<br>* Abb ECM [LNFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.01</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.15&nbsp;&ndash;&nbsp;0.16</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.925</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.07</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.04&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.192</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.00</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.17&nbsp;&ndash;&nbsp;0.17</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.993</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Laminin [0.25])<br>* Abb ECM [LNG3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.06</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.05&nbsp;&ndash;&nbsp;0.17</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.303</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.07</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.01&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.091</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.08</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.04&nbsp;&ndash;&nbsp;0.20</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.211</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Laminin [0.5])<br>* Abb ECM [LNG3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.03</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.12&nbsp;&ndash;&nbsp;0.17</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.728</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.13</td>
+    <td class="tdata centeralign modelcolumn2 col6">0.03&nbsp;&ndash;&nbsp;0.23</td>
+    <td class="tdata centeralign modelcolumn2 col7"><strong>0.014</strong></td>
+    <td class="tdata centeralign modelcolumn3 col8">0.08</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.07&nbsp;&ndash;&nbsp;0.24</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.281</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Fibronectin<br>[0.25]) * Abb ECM [DNFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.13</td>
+    <td class="tdata centeralign modelcolumn1 col3">0.02&nbsp;&ndash;&nbsp;0.24</td>
+    <td class="tdata centeralign modelcolumn1 col4"><strong>0.019</strong></td>
+    <td class="tdata centeralign modelcolumn2 col5">0.05</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.03&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.255</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.13</td>
+    <td class="tdata centeralign modelcolumn3 col9">0.01&nbsp;&ndash;&nbsp;0.25</td>
+    <td class="tdata centeralign modelcolumn3 col10"><strong>0.032</strong></td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Fibronectin<br>[0.5]) * Abb ECM [DNFN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.05</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.08&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.433</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.02</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.07&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.655</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.03</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.16&nbsp;&ndash;&nbsp;0.11</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.686</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Fibronectin<br>[0.25]) * Abb ECM [G3FN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.09&nbsp;&ndash;&nbsp;0.13</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.688</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.06</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.02&nbsp;&ndash;&nbsp;0.14</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.118</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.06&nbsp;&ndash;&nbsp;0.17</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.350</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Fibronectin<br>[0.5]) * Abb ECM [G3FN]</td>
+    <td class="tdata centeralign modelcolumn1 col2">&#45;0.02</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.16&nbsp;&ndash;&nbsp;0.12</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.782</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.07</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.03&nbsp;&ndash;&nbsp;0.17</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.177</td>
+    <td class="tdata centeralign modelcolumn3 col8">&#45;0.01</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.16&nbsp;&ndash;&nbsp;0.15</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.944</td>
+</tr>
+  <tr>
+    <td class="tdata firsttablecol col1">(Metadata Stiffness<br>[25kPa] * Galectin3<br>[0.25]) * Abb ECM [DNG3]</td>
+    <td class="tdata centeralign modelcolumn1 col2">0.08</td>
+    <td class="tdata centeralign modelcolumn1 col3">&#45;0.03&nbsp;&ndash;&nbsp;0.19</td>
+    <td class="tdata centeralign modelcolumn1 col4">0.163</td>
+    <td class="tdata centeralign modelcolumn2 col5">0.01</td>
+    <td class="tdata centeralign modelcolumn2 col6">&#45;0.06&nbsp;&ndash;&nbsp;0.09</td>
+    <td class="tdata centeralign modelcolumn2 col7">0.736</td>
+    <td class="tdata centeralign modelcolumn3 col8">0.06</td>
+    <td class="tdata centeralign modelcolumn3 col9">&#45;0.05&nbsp;&ndash;&nbsp;0.18</td>
+    <td class="tdata centeralign modelcolumn3 col10">0.283</td>
+</tr>
+  <tr>
+    <td colspan="10" class="randomparts">Random Effects</td>
+  </tr>
+
+  <tr>
+    <td class="tdata leftalign summary">&sigma;<sup>2</sup></td>
+    <td class="tdata summary summarydata" colspan="3">0.00</td>
+    <td class="tdata summary summarydata" colspan="3">0.00</td>
+    <td class="tdata summary summarydata" colspan="3">0.00</td>
+  </tr>
+
+  <tr>
+    <td class="tdata leftalign summary">&tau;<sub>00</sub></td>
+    <td class="tdata summary summarydata" colspan="3">0.00 <sub>Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate</sub></td>
+    <td class="tdata summary summarydata" colspan="3">0.00 <sub>Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate</sub></td>
+    <td class="tdata summary summarydata" colspan="3">0.00 <sub>Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate</sub></td>
+
+  <tr>
+    <td class="tdata leftalign summary">ICC</td>
+    <td class="tdata summary summarydata" colspan="3">0.41</td>
+    <td class="tdata summary summarydata" colspan="3">0.25</td>
+    <td class="tdata summary summarydata" colspan="3">0.55</td>
+
+  <tr>
+    <td class="tdata leftalign summary">N</td>
+    <td class="tdata summary summarydata" colspan="3">2 <sub>Metadata_Stiffness</sub></td>
+    <td class="tdata summary summarydata" colspan="3">2 <sub>Metadata_Stiffness</sub></td>
+    <td class="tdata summary summarydata" colspan="3">2 <sub>Metadata_Stiffness</sub></td>
+
+  <tr>
+    <td class="tdata leftalign summary"></td>
+    <td class="tdata summary summarydata" colspan="3">2 <sub>Metadata_Experiment</sub></td>
+    <td class="tdata summary summarydata" colspan="3">2 <sub>Metadata_Experiment</sub></td>
+    <td class="tdata summary summarydata" colspan="3">2 <sub>Metadata_Experiment</sub></td>
+
+  <tr>
+    <td class="tdata leftalign summary"></td>
+    <td class="tdata summary summarydata" colspan="3">2 <sub>Metadata_Block</sub></td>
+    <td class="tdata summary summarydata" colspan="3">2 <sub>Metadata_Block</sub></td>
+    <td class="tdata summary summarydata" colspan="3">2 <sub>Metadata_Block</sub></td>
+
+  <tr>
+    <td class="tdata leftalign summary"></td>
+    <td class="tdata summary summarydata" colspan="3">3 <sub>Replicate</sub></td>
+    <td class="tdata summary summarydata" colspan="3">3 <sub>Replicate</sub></td>
+    <td class="tdata summary summarydata" colspan="3">3 <sub>Replicate</sub></td>
+  <tr>
+    <td class="tdata leftalign summary firstsumrow">Observations</td>
+    <td class="tdata summary summarydata firstsumrow" colspan="3">1402</td>
+    <td class="tdata summary summarydata firstsumrow" colspan="3">1402</td>
+    <td class="tdata summary summarydata firstsumrow" colspan="3">1402</td>
+  </tr>
+  <tr>
+    <td class="tdata leftalign summary">Marginal R<sup>2</sup> / Conditional R<sup>2</sup></td>
+    <td class="tdata summary summarydata" colspan="3">0.171 / 0.515</td>
+    <td class="tdata summary summarydata" colspan="3">0.179 / 0.380</td>
+    <td class="tdata summary summarydata" colspan="3">0.105 / 0.600</td>
+  </tr>
+
+</table>
+
+</body></html>
