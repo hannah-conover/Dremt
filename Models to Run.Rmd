@@ -534,7 +534,7 @@ r2_nakagawa(vimmodel)
 r2_nakagawa(ecadmodel)
 r2_nakagawa(pxrmodel)
 ```
-## Regression
+## Regression :)
 ### Setting up Tables
 ```{r}
 library(parameters)
