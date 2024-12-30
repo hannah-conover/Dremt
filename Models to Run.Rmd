@@ -523,6 +523,33 @@ pxranova <- pxranova %>% mutate(psig = case_when(
       p_value < 0.1   ~ ".",
       TRUE            ~ "ns"))
 ```
+### Summary of Results
+Key Takeaways: Stiffness is not a significant main factor and no significant 3-way interactions -> main factors still interpretable
+
+Ratio: Vim is significantly impacted by ratio (all but C1,HA, DN), ECAD sig impacted by C1 and OPN Ratio, PXR by HA and LN
+DN Ratio not sig for any
+
+Abb_ECM is sig for all channels
+
+Stiffness and Ratio Intx: PXR (C4, OPN, DN), ECAD (OPN, DN) Interesting to Note: Neither Stiffness nor Decorin Ratio were significant alone, but work synergistically (or antagonistically) in combination with each other
+
+Stiffness and ECM: Not sig for any
+
+Abb_ECM & Ratio: Vim significant for C1, C4, HA, FN, G3, while PXR only significant for G3
+
+```{r}
+vimpvalue <- vimanova[c("p_value", "psig")]
+ecadpvalue <- ecadanova[c("p_value", "psig")]
+pxrpvalue <- pxranova[c("p_value", "psig")]
+
+colnames(vimpvalue) <- c("Vim p_value", "Vim psig")
+colnames(ecadpvalue) <- c("Ecad p_value", "Ecad psig")
+colnames(pxrpvalue) <- c("PXR p_value", "PXR psig")
+
+anovaoverview <- cbind(vimpvalue, ecadpvalue, pxrpvalue)
+```
+
+
 ### Visualization of Anova
 ```{r}
 Anova_plot <- ggplot(data = vimanova,
@@ -844,5 +871,23 @@ theme(axis.title.x = element_text(size= 30),
   coord_flip()
 ggsave(filename = "regression_PXRShared.png", 
         width = 15, height = 15,units="in")
+```
+
+## Testing: Do we need 3-way interactions?
+
+Anovas say no... ICC goes slightly up (very slightly), dispersion stays the same, R2 goes down
+```{r}
+vimmodel2 <- lmer(Mean_Orange_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+                Metadata_Stiffness+ CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin + Abb_ECM + Metadata_Stiffness:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin)+ Metadata_Stiffness:Abb_ECM + Abb_ECM:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin), data = DMSOdsewithrep)
+
+pxrmodel2 <- lmer(Mean_Green_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+                Metadata_Stiffness+ CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin + Abb_ECM + Metadata_Stiffness:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin)+ Metadata_Stiffness:Abb_ECM + Abb_ECM:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin), data = DMSOdsewithrep)
+
+ecadmodel2 <- lmer(Mean_Red_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+                Metadata_Stiffness+ CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin + Abb_ECM + Metadata_Stiffness:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin)+ Metadata_Stiffness:Abb_ECM + Abb_ECM:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin), data = DMSOdsewithrep)
+
+anova(vimmodel, vimmodel2)
+anova(ecadmodel, ecadmodel2)
+anova(pxrmodel, pxrmodel2)
 ```
 

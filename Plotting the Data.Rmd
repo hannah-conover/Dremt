@@ -1,0 +1,150 @@
+---
+title: "Plotting the Data"
+output: html_document
+date: "2024-12-30"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Library Loading
+```{r}
+library(ggprism)
+library(ggplot2)
+library(viridis)
+library(ggpubr)
+library(tidyr)
+library(dplyr)
+library(emmeans)
+```
+
+## Looking at the Shared Factors
+
+### Making Long Form
+```{r}
+DMSOdseLONG <- DMSOdsewithrep %>% pivot_longer(cols = c("Mean_Green_Norm", "Mean_Red_Norm", "Mean_Orange_Norm"), names_to = "Channel", values_to = "Expression")
+```
+
+
+### LNDN
+```{r}
+ DMSOdseLONG %>% filter(Abb_ECM %in% c("LNDN", "C1")) %>% ggplot(aes(x = Abb_ECM, y = Expression))+
+  facet_grid(cols = vars(Channel))+
+  geom_boxplot()+
+  stat_compare_means(comparisons = list(c("LNDN", "C1")), label = "p.signif")+
+  theme_prism()
+```
+
+### 25 x DNFN
+```{r}
+ DMSOdseLONG %>% filter(Abb_ECM %in% c("DNFN", "C1")) %>% ggplot(aes(x = Metadata_Stiffness, y = Expression, color = Abb_ECM))+
+  facet_grid(cols = vars(Channel))+
+  geom_boxplot()+
+ # stat_compare_means(comparisons = list(c("1kPa", "25kPa")), label = "p.signif")+
+  #stat_compare_means(comparisons = list(c("DNFN", "C1")), label = "p.signif")+
+  stat_compare_means(aes(group = Abb_ECM), label = "p.signif")+
+  theme_prism()
+
+interaction.plot(x.factor = subset(DMSOdsewithrep, Abb_ECM %in% c("DNFN", "C1"))$Metadata_Stiffness, trace.factor = subset(DMSOdsewithrep, Abb_ECM %in% c("DNFN", "C1"))$Abb_ECM, resp = subset(DMSOdsewithrep, Abb_ECM %in% c("DNFN", "C1"))$Mean_Green_Norm, xlab = "Stiffness (kPa)", ylab = "PXR Expression", trace.label = "ECMs")
+
+interaction.plot(x.factor = subset(DMSOdsewithrep, Abb_ECM %in% c("DNFN", "C1"))$Metadata_Stiffness, trace.factor = subset(DMSOdsewithrep, Abb_ECM %in% c("DNFN", "C1"))$Abb_ECM, resp = subset(DMSOdsewithrep, Abb_ECM %in% c("DNFN", "C1"))$Mean_Orange_Norm, xlab = "Stiffness (kPa)", ylab = "Vimentin Expression", trace.label = "ECMs")
+
+interaction.plot(x.factor = subset(DMSOdsewithrep, Abb_ECM %in% c("DNFN", "C1"))$Metadata_Stiffness, trace.factor = subset(DMSOdsewithrep, Abb_ECM %in% c("DNFN", "C1"))$Abb_ECM, resp = subset(DMSOdsewithrep, Abb_ECM %in% c("DNFN", "C1"))$Mean_Red_Norm, xlab = "Stiffness (kPa)", ylab = "Ecad Expression", trace.label = "ECMs")
+
+```
+
+## Estimated Marginal Means (EMMeans) (Post-Hoc Testing)
+```{r}
+grid <- ref_grid(vimmodel, at = list(Metadata_Stiffness = levels("Metadata_Stiffness"), Abb_ECM = levels("Abb_ECM")), rg.limit = 10000)
+
+EMStiffAbb <- lsmeans(vimmodel, ~ Metadata_Stiffness*Abb_ECM, ref_grid = grid)
+pairs(EMStiffAbb)
+```
+
+```{r}
+#install.packages("ggeffects")
+library(ggeffects)
+
+# Compute marginal effects
+stiffness_effects <- ggpredict(vimmodel, terms = "Metadata_Stiffness")
+print(stiffness_effects)
+
+abbecm_effects <- ggpredict(vimmodel, terms = "Abb_ECM")
+print(abbecm_effects)
+
+stiffnessecm_effects <- ggeffect(vimmodel, terms = c("Metadata_Stiffness", "Abb_ECM"))
+print(stiffnessecm_effects)
+
+# abbecm_effects <- ggpredict(vimmodel, terms = "Abb_ECM")
+# print(abbecm_effects)
+# # Plot marginal effects
+# plot(marginal_effects)
+```
+
+## Interaction Plots from ANOVA
+```{r}
+DMSOdsewithrepcolreorder <- DMSOdsewithrep
+
+DMSOdsewithrepcolreorder$CollagenIV <- factor(DMSOdsewithrepcolreorder$CollagenIV, levels = c(0,0.25,0.5,0.75,1))
+DMSOdsewithrepcolreorder$CollagenI <- factor(DMSOdsewithrepcolreorder$CollagenI, levels = c(0,0.25,0.5,0.75,1))
+DMSOdsewithrepcolreorder$Hyaluronic_Acid <- factor(DMSOdsewithrepcolreorder$Hyaluronic_Acid, levels = c(0,0.25,0.5,0.75,1))
+DMSOdsewithrepcolreorder$Osteopontin <- factor(DMSOdsewithrepcolreorder$Osteopontin, levels = c(0,0.25,0.5,0.75,1))
+DMSOdsewithrepcolreorder$Decorin <- factor(DMSOdsewithrepcolreorder$Decorin, levels = c(0,0.25,0.5,0.75,1))
+DMSOdsewithrepcolreorder$Fibronectin <- factor(DMSOdsewithrepcolreorder$Fibronectin, levels = c(0,0.25,0.5,0.75,1))
+DMSOdsewithrepcolreorder$Galectin3 <- factor(DMSOdsewithrepcolreorder$Galectin3, levels = c(0,0.25,0.5,0.75,1))
+DMSOdsewithrepcolreorder$TenascinC <- factor(DMSOdsewithrepcolreorder$TenascinC, levels = c(0,0.25,0.5,0.75,1))
+DMSOdsewithrepcolreorder$Laminin <- factor(DMSOdsewithrepcolreorder$Laminin, levels = c(0,0.25,0.5,0.75,1))
+```
+
+### PXR Sig S:R
+```{r}
+interaction.plot(x.factor = DMSOdsewithrepcolreorder$CollagenIV, trace.factor = DMSOdsewithrepcolreorder$Metadata_Stiffness, response = DMSOdsewithrepcolreorder$Mean_Green_Norm, ylab = "PXR Expression", xlab = "Collagen IV Ratio", trace.label = "Stiffness (kPa)")
+
+interaction.plot(x.factor = DMSOdsewithrepcolreorder$Osteopontin, trace.factor = DMSOdsewithrepcolreorder$Metadata_Stiffness, response = DMSOdsewithrepcolreorder$Mean_Green_Norm, ylab = "PXR Expression", xlab = "Osteopontin Ratio", trace.label = "Stiffness (kPa)")
+
+interaction.plot(x.factor = DMSOdsewithrepcolreorder$Decorin, trace.factor = DMSOdsewithrepcolreorder$Metadata_Stiffness, response = DMSOdsewithrepcolreorder$Mean_Green_Norm, ylab = "PXR Expression", xlab = "Decorin Ratio", trace.label = "Stiffness (kPa)")
+
+```
+
+### ECAD Sig S:R
+```{r}
+interaction.plot(x.factor = DMSOdsewithrepcolreorder$Osteopontin, trace.factor = DMSOdsewithrepcolreorder$Metadata_Stiffness, response = DMSOdsewithrepcolreorder$Mean_Red_Norm, ylab = "Ecad Expression", xlab = "Osteopontin Ratio", trace.label = "Stiffness (kPa)")
+
+interaction.plot(x.factor = DMSOdsewithrepcolreorder$Decorin, trace.factor = DMSOdsewithrepcolreorder$Metadata_Stiffness, response = DMSOdsewithrepcolreorder$Mean_Red_Norm, ylab = "Ecad Expression", xlab = "Decorin Ratio", trace.label = "Stiffness (kPa)")
+```
+
+### VIM Sig R:ECM
+Need to run and then run the next chunk
+```{r}
+Col1 <- subset(DMSOdsewithrepcolreorder, CollagenI != 0)
+Col4 <- subset(DMSOdsewithrepcolreorder, CollagenIV != 0)
+HA <- subset(DMSOdsewithrepcolreorder, Hyaluronic_Acid != 0)
+FN <- subset(DMSOdsewithrepcolreorder, Fibronectin != 0)
+G3 <- subset(DMSOdsewithrepcolreorder, Galectin3 != 0)
+
+Col1$Abb_ECM <- factor(Col1$Abb_ECM, levels = c("C1", "C1DN", "C1C4", "C1G3",  "C1OPN","C1LN" ,"C1TC" ,"C1FN" ,"C1HA" ))
+Col4$Abb_ECM <- factor(Col4$Abb_ECM, levels = c("C4", "C1C4"  ,"C4OPN", "C4HA",  "C4FN"  ,"C4G3"  ,"C4LN" , "C4TC" , "C4DN"))
+HA$Abb_ECM <- factor(HA$Abb_ECM, levels = c("HA", "HAFN" , "HAG3"  ,"HAOPN" ,"C4HA" , "LNHA",  "TCHA", "HADN",  "C1HA"))
+FN$Abb_ECM <- factor(FN$Abb_ECM, levels = c("FN", "HAFN", "OPNFN", "LNFN",  "G3FN","DNFN" ,"TCFN" ,"C1FN" ,"C1FN" ))
+G3$Abb_ECM <- factor(G3$Abb_ECM, levels = c("G3", "HAG3" , "LNG3" , "OPNG3", "C1G3" , "G3FN" , "C4FN" , "C4G3", "DNG3"  ,"TCG3" ))
+
+```
+
+```{r}
+interaction.plot(x.factor = Col1$Abb_ECM, trace.factor = droplevels(Col1)$CollagenI, response = Col1$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Collagen I Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+
+interaction.plot(x.factor = subset(DMSOdsewithrepcolreorder, CollagenIV != 0)$Abb_ECM, trace.factor = droplevels(subset(DMSOdsewithrepcolreorder, CollagenIV != 0))$CollagenIV, response = subset(DMSOdsewithrepcolreorder, CollagenIV != 0)$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Collagen IV Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+
+interaction.plot(x.factor = subset(DMSOdsewithrepcolreorder, Hyaluronic_Acid != 0)$Abb_ECM, trace.factor = droplevels(subset(DMSOdsewithrepcolreorder, Hyaluronic_Acid != 0))$Hyaluronic_Acid, response = subset(DMSOdsewithrepcolreorder, Hyaluronic_Acid != 0)$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Hyaluronic Acid Ratio",  col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+
+interaction.plot(x.factor = subset(DMSOdsewithrepcolreorder, Fibronectin != 0)$Abb_ECM, trace.factor = droplevels(subset(DMSOdsewithrepcolreorder, Fibronectin != 0))$Fibronectin, response = subset(DMSOdsewithrepcolreorder, Fibronectin != 0)$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Fibronectin Ratio",  col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+
+interaction.plot(x.factor = subset(DMSOdsewithrepcolreorder, Galectin3 != 0)$Abb_ECM, trace.factor = droplevels(subset(DMSOdsewithrepcolreorder, Galectin3 != 0))$Galectin3, response = subset(DMSOdsewithrepcolreorder, Galectin3 != 0)$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Galectin 3 Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+
+```
+Trying with GGPlot
+```{r}
+
+```
+
