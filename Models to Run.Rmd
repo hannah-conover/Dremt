@@ -890,4 +890,122 @@ anova(vimmodel, vimmodel2)
 anova(ecadmodel, ecadmodel2)
 anova(pxrmodel, pxrmodel2)
 ```
+## Drug Response Model
+```{r}
+Drugdsewithrep <- subset(combinedds_Ratio, Metadata_Treatment == "10 uM")
+
+Drugdsewithrep$CollagenI <- relevel(as.factor(Drugdsewithrep$CollagenI), ref = 5)
+Drugdsewithrep$CollagenIV <- relevel(as.factor(Drugdsewithrep$CollagenIV), ref = 5)
+Drugdsewithrep$Laminin <- relevel(as.factor(Drugdsewithrep$Laminin), ref = 5)
+Drugdsewithrep$Hyaluronic_Acid <- relevel(as.factor(Drugdsewithrep$Hyaluronic_Acid), ref = 5)
+Drugdsewithrep$TenascinC <- relevel(as.factor(Drugdsewithrep$TenascinC), ref = 5)
+Drugdsewithrep$Osteopontin <- relevel(as.factor(Drugdsewithrep$Osteopontin), ref = 5)
+Drugdsewithrep$Galectin3 <- relevel(as.factor(Drugdsewithrep$Galectin3), ref = 5)
+Drugdsewithrep$Fibronectin <- relevel(as.factor(Drugdsewithrep$Fibronectin), ref = 5)
+Drugdsewithrep$Decorin <- relevel(as.factor(Drugdsewithrep$Decorin), ref = 5)
+
+
+vimmodeldrug <- lmer(Mean_Orange_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+                Metadata_Stiffness+ CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin + Abb_ECM + Metadata_Stiffness:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin)+ Metadata_Stiffness:Abb_ECM + Abb_ECM:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin) + Metadata_Stiffness:Abb_ECM:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin), data = Drugdsewithrep)
+
+ecadmodeldrug <- lmer(Mean_Red_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+                Metadata_Stiffness+ CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin + Abb_ECM + Metadata_Stiffness:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin)+ Metadata_Stiffness:Abb_ECM + Abb_ECM:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin) + Metadata_Stiffness:Abb_ECM:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin), data = Drugdsewithrep)
+
+pxrmodeldrug <- lmer(Mean_Green_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+                Metadata_Stiffness+ CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin + Abb_ECM + Metadata_Stiffness:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin)+ Metadata_Stiffness:Abb_ECM + Abb_ECM:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin) + Metadata_Stiffness:Abb_ECM:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin), data = Drugdsewithrep)
+
+dispersion_glmer(vimmodeldrug)
+dispersion_glmer(ecadmodeldrug)
+dispersion_glmer(pxrmodeldrug)
+```
+### Drug Anova
+```{r}
+vimanovadrug <- anova(vimmodeldrug)
+ecadanovadrug <- anova(ecadmodeldrug)
+pxranovadrug <- anova(pxrmodeldrug)
+```
+
+WP: 1 - pf(F-value, 1, 2)
+SP: 1 -pf(F-value, df, 1168) (1168 = 1406 (total number of obs) - 1 - 233 (observed dfs))
+```{r}
+sum(vimanovadrug$npar)
+
+vimanovadrug <- vimanovadrug %>% mutate(p_value = ifelse(row.names(vimanovadrug) == "Stiffness", 1 - pf(vimanovadrug$`F value`, 1, 2), 1 - pf(vimanovadrug$`F value`, vimanovadrug$npar, 1168)))
+
+ecadanovadrug <- ecadanovadrug %>% mutate(p_value = ifelse(row.names(ecadanovadrug) == "Stiffness", 1 - pf(ecadanovadrug$`F value`, 1, 2), 1 - pf(ecadanovadrug$`F value`, ecadanovadrug$npar, 1168)))
+
+pxranovadrug <- pxranovadrug %>% mutate(p_value = ifelse(row.names(pxranovadrug) == "Stiffness", 1 - pf(pxranovadrug$`F value`, 1, 2), 1 - pf(pxranovadrug$`F value`, pxranovadrug$npar, 1168)))
+
+vimanovadrug <- vimanovadrug %>% mutate(psig = case_when(
+      p_value < 0.001 ~ "***",
+      p_value < 0.01  ~ "**",
+      p_value < 0.05  ~ "*",
+      p_value < 0.1   ~ ".",
+      TRUE            ~ "ns"))
+
+ecadanovadrug <- ecadanovadrug %>% mutate(psig = case_when(
+      p_value < 0.001 ~ "***",
+      p_value < 0.01  ~ "**",
+      p_value < 0.05  ~ "*",
+      p_value < 0.1   ~ ".",
+      TRUE            ~ "ns"))
+
+pxranovadrug <- pxranovadrug %>% mutate(psig = case_when(
+      p_value < 0.001 ~ "***",
+      p_value < 0.01  ~ "**",
+      p_value < 0.05  ~ "*",
+      p_value < 0.1   ~ ".",
+      TRUE            ~ "ns"))
+```
+
+### Summary of Results
+Key Takeaways: Stiffness is not a significant main factor  -> main factors still interpretable for Vim and PXR
+Ecad has one 3-way interaction factor - Stiff:HA:ECM
+
+Ratio: Vim is significantly impacted by ratio (all but C1,TC, FN), ECAD sig impacted by C1, C4, LN, and G3 Ratio, PXR by C1, LN, G3
+
+
+Abb_ECM is sig for all channels
+
+Stiffness and Ratio Intx: Not sig for any
+
+Stiffness and ECM: Not sig for any
+
+Abb_ECM & Ratio: Vim significant for C1, TC, LN, FN, and G3; while PXR only significant for TC and FN; ECAD sig for HA and TC
+
+Different than DMSO Control :)
+
+```{r}
+vimpvaluedrug <- vimanovadrug[c("p_value", "psig")]
+ecadpvaluedrug <- ecadanovadrug[c("p_value", "psig")]
+pxrpvaluedrug <- pxranovadrug[c("p_value", "psig")]
+
+colnames(vimpvaluedrug) <- c("Vim p_value", "Vim psig")
+colnames(ecadpvaluedrug) <- c("Ecad p_value", "Ecad psig")
+colnames(pxrpvaluedrug) <- c("PXR p_value", "PXR psig")
+
+anovaoverviewdrug <- cbind(vimpvaluedrug, ecadpvaluedrug, pxrpvaluedrug)
+```
+
+### ICCs
+```{r}
+library(performance)
+icc(vimmodeldrug)
+icc(ecadmodeldrug)
+icc(pxrmodeldrug)
+```
+
+
+### R2
+```{r}
+r2_nakagawa(vimmodeldrug)
+r2_nakagawa(ecadmodeldrug)
+r2_nakagawa(pxrmodeldrug)
+```
+
+```{r}
+
+```
+
+
 

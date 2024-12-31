@@ -126,25 +126,568 @@ G3 <- subset(DMSOdsewithrepcolreorder, Galectin3 != 0)
 Col1$Abb_ECM <- factor(Col1$Abb_ECM, levels = c("C1", "C1DN", "C1C4", "C1G3",  "C1OPN","C1LN" ,"C1TC" ,"C1FN" ,"C1HA" ))
 Col4$Abb_ECM <- factor(Col4$Abb_ECM, levels = c("C4", "C1C4"  ,"C4OPN", "C4HA",  "C4FN"  ,"C4G3"  ,"C4LN" , "C4TC" , "C4DN"))
 HA$Abb_ECM <- factor(HA$Abb_ECM, levels = c("HA", "HAFN" , "HAG3"  ,"HAOPN" ,"C4HA" , "LNHA",  "TCHA", "HADN",  "C1HA"))
-FN$Abb_ECM <- factor(FN$Abb_ECM, levels = c("FN", "HAFN", "OPNFN", "LNFN",  "G3FN","DNFN" ,"TCFN" ,"C1FN" ,"C1FN" ))
-G3$Abb_ECM <- factor(G3$Abb_ECM, levels = c("G3", "HAG3" , "LNG3" , "OPNG3", "C1G3" , "G3FN" , "C4FN" , "C4G3", "DNG3"  ,"TCG3" ))
+FN$Abb_ECM <- factor(FN$Abb_ECM, levels = c("FN", "HAFN", "OPNFN", "LNFN",  "G3FN","DNFN" ,"TCFN" ,  "C4FN" , "C1FN" ))
+G3$Abb_ECM <- factor(G3$Abb_ECM, levels = c("G3", "HAG3" , "LNG3" , "OPNG3", "C1G3" , "G3FN" ,"C4G3", "DNG3"  ,"TCG3" ))
 
 ```
 
 ```{r}
 interaction.plot(x.factor = Col1$Abb_ECM, trace.factor = droplevels(Col1)$CollagenI, response = Col1$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Collagen I Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
 
-interaction.plot(x.factor = subset(DMSOdsewithrepcolreorder, CollagenIV != 0)$Abb_ECM, trace.factor = droplevels(subset(DMSOdsewithrepcolreorder, CollagenIV != 0))$CollagenIV, response = subset(DMSOdsewithrepcolreorder, CollagenIV != 0)$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Collagen IV Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+interaction.plot(x.factor = Col4$Abb_ECM, trace.factor = droplevels(Col4)$CollagenIV, response = Col4$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Collagen IV Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
 
-interaction.plot(x.factor = subset(DMSOdsewithrepcolreorder, Hyaluronic_Acid != 0)$Abb_ECM, trace.factor = droplevels(subset(DMSOdsewithrepcolreorder, Hyaluronic_Acid != 0))$Hyaluronic_Acid, response = subset(DMSOdsewithrepcolreorder, Hyaluronic_Acid != 0)$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Hyaluronic Acid Ratio",  col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+interaction.plot(x.factor = HA$Abb_ECM, trace.factor = droplevels(HA)$Hyaluronic_Acid, response = HA$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Hyaluronic Acid Ratio",  col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
 
-interaction.plot(x.factor = subset(DMSOdsewithrepcolreorder, Fibronectin != 0)$Abb_ECM, trace.factor = droplevels(subset(DMSOdsewithrepcolreorder, Fibronectin != 0))$Fibronectin, response = subset(DMSOdsewithrepcolreorder, Fibronectin != 0)$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Fibronectin Ratio",  col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+interaction.plot(x.factor = FN$Abb_ECM, trace.factor = droplevels(FN)$Fibronectin, response = FN$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Fibronectin Ratio",  col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
 
-interaction.plot(x.factor = subset(DMSOdsewithrepcolreorder, Galectin3 != 0)$Abb_ECM, trace.factor = droplevels(subset(DMSOdsewithrepcolreorder, Galectin3 != 0))$Galectin3, response = subset(DMSOdsewithrepcolreorder, Galectin3 != 0)$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Galectin 3 Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+interaction.plot(x.factor = G3$Abb_ECM, trace.factor = droplevels(G3)$Galectin3, response = G3$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Galectin 3 Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
 
 ```
-Trying with GGPlot
+### PXR Sig R:ECM
 ```{r}
+interaction.plot(x.factor = G3$Abb_ECM, trace.factor = droplevels(G3)$Galectin3, response = G3$Mean_Green_Norm, ylab = "PXR Expression", xlab = "ECM Condition", trace.label = "Galectin 3 Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+```
+## Main Factor Plots
 
+### Ratio Vimentin
+```{r}
+levels <- c(0, 0.25, 0.5, 0.75, 1)
+comparisons <- combn(as.character(levels), 2, simplify = FALSE)
+```
+
+```{r}
+DMSOdsewithrepcolreorder %>% ggplot(aes(x = CollagenIV, y = Mean_Orange_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Collagen IV in Vimentin")+
+  ylab("Vimentin Expression")+
+  xlab("Ratio of Collagen IV")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("VimCol4Ratio.png", width = 10, height =5)
+
+DMSOdsewithrepcolreorder %>% ggplot(aes(x = TenascinC, y = Mean_Orange_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Tenascin C in Vimentin")+
+  ylab("Vimentin Expression")+
+  xlab("Ratio of Tenascin C")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("VimTCRatio.png", width = 10, height =5)
+
+DMSOdsewithrepcolreorder %>% ggplot(aes(x = Galectin3, y = Mean_Orange_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Galectin 3 in Vimentin")+
+  ylab("Vimentin Expression")+
+  xlab("Ratio of Galectin 3")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("VimG3Ratio.png", width = 10, height =5)
+
+DMSOdsewithrepcolreorder %>% ggplot(aes(x = Laminin, y = Mean_Orange_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Laminin in Vimentin")+
+  ylab("Vimentin Expression")+
+  xlab("Ratio of Laminin")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("VimLNRatio.png", width = 10, height =5)
+
+DMSOdsewithrepcolreorder %>% ggplot(aes(x = Fibronectin, y = Mean_Orange_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Fibronectin in Vimentin")+
+  ylab("Vimentin Expression")+
+  xlab("Ratio of Fibronectin")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("VimFNRatio.png", width = 10, height =5)
+
+DMSOdsewithrepcolreorder %>% ggplot(aes(x = Osteopontin, y = Mean_Orange_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Osteopontin in Vimentin")+
+  ylab("Vimentin Expression")+
+  xlab("Ratio of Osteopontin")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("VimOPNRatio.png", width = 10, height =5)
+```
+
+### Ratio Ecad
+```{r}
+DMSOdsewithrepcolreorder %>% ggplot(aes(x = CollagenI, y = Mean_Red_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Collagen I in Ecad")+
+  ylab("Ecad Expression")+
+  xlab("Ratio of Collagen I")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("EcadCol1Ratio.png", width = 10, height =5)
+
+DMSOdsewithrepcolreorder %>% ggplot(aes(x = Osteopontin, y = Mean_Red_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Osteopontin in Ecad")+
+  ylab("Ecad Expression")+
+  xlab("Ratio of Osteopontin")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("EcadOPNRatio.png", width = 10, height =5)
+```
+
+### Ratio PXR
+
+```{r}
+DMSOdsewithrepcolreorder %>% ggplot(aes(x = Laminin, y = Mean_Green_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Laminin in PXR")+
+  ylab("PXR Expression")+
+  xlab("Ratio of Laminin")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("PXRLNRatio.png", width = 10, height =5)
+```
+
+### Abb_ECM
+Try to work with the p-value heatmaps?
+
+#### Compare Means 
+```{r}
+ECMVimCM <- compare_means(Mean_Orange_Norm ~ Abb_ECM, DMSOdsewithrep)
+ECMEcadCM <- compare_means(Mean_Red_Norm ~ Abb_ECM, DMSOdsewithrep)
+ECMPXRCM <- compare_means(Mean_Green_Norm ~ Abb_ECM, DMSOdsewithrep)
+```
+
+```{r}
+write.csv(ECMVimCM, "ECMVimCM.csv")
+write.csv(ECMEcadCM, "ECMEcadCM.csv")
+write.csv(ECMPXRCM, "ECMPXRCM.csv")
+```
+
+#### P-value Heatmap
+```{r}
+ggplot(ECMVimCMExpanded, aes(x = group1, y = group2, fill= p)) +
+  geom_tile() +
+  #geom_text(aes(label=round(Avg_Mean_Objects,1),
+              #  color=ifelse(Avg_Mean_Objects>75,"black","white")),size=6)+
+  #scale_color_manual(values=c("white"="white","black"="black"),guide="none")+
+  labs(title = "Vimentin on ECM Combinations", x = "ECM 1", y = "ECM 2",fill="p-value")+
+  scale_fill_viridis_c(limit = c(0, 0.05), option = "D", na.value = "gray")+
+  #scale_fill_distiller(limit = c(0, 0.05), palette=("Viridis"),direction=-1,na.value="gray")+
+  geom_abline(intercept=0,slope=1,color="black",linetype="dashed")+
+  theme_prism()+
+  coord_fixed()+
+theme(title=element_text(size=30),
+      axis.title.x = element_text(size= 30),
+      axis.text.x = element_text( angle = 90, vjust = 0.5),
+      axis.title.y = element_text(size= 30),
+      axis.text.y = element_text( vjust = 0.5),
+      legend.text = element_text(size = 20),
+      legend.key.height = unit(0.9, "in"),
+      legend.title = element_text(size = 30),
+      strip.text =  element_text(size = 30))
+ggsave(filename = "VimECMcomparison.png",
+        width = 12, height = 9,units="in", dpi = 300)
+
+ggplot(ECMEcadCMExpanded, aes(x = group1, y = group2, fill= p)) +
+  geom_tile() +
+  #geom_text(aes(label=round(Avg_Mean_Objects,1),
+              #  color=ifelse(Avg_Mean_Objects>75,"black","white")),size=6)+
+  #scale_color_manual(values=c("white"="white","black"="black"),guide="none")+
+  labs(title = "Ecad on ECM Combinations", x = "ECM 1", y = "ECM 2",fill="p-value")+
+  scale_fill_viridis_c(limit = c(0, 0.05), option = "D", na.value = "gray")+
+  #scale_fill_distiller(limit = c(0, 0.05), palette=("Viridis"),direction=-1,na.value="gray")+
+  geom_abline(intercept=0,slope=1,color="black",linetype="dashed")+
+  theme_prism()+
+  coord_fixed()+
+theme(title=element_text(size=30),
+      axis.title.x = element_text(size= 30),
+      axis.text.x = element_text( angle = 90, vjust = 0.5),
+      axis.title.y = element_text(size= 30),
+      axis.text.y = element_text( vjust = 0.5),
+      legend.text = element_text(size = 20),
+      legend.key.height = unit(0.9, "in"),
+      legend.title = element_text(size = 30),
+      strip.text =  element_text(size = 30))
+ggsave(filename = "EcadECMcomparison.png",
+        width = 12, height = 9,units="in", dpi = 300)
+
+ggplot(ECMPXRCMExpanded, aes(x = group1, y = group2, fill= p)) +
+  geom_tile() +
+  #geom_text(aes(label=round(Avg_Mean_Objects,1),
+              #  color=ifelse(Avg_Mean_Objects>75,"black","white")),size=6)+
+  #scale_color_manual(values=c("white"="white","black"="black"),guide="none")+
+  labs(title = "PXR on ECM Combinations", x = "ECM 1", y = "ECM 2",fill="p-value")+
+  scale_fill_viridis_c(limit = c(0, 0.05), option = "D", na.value = "gray")+
+  #scale_fill_distiller(limit = c(0, 0.05), palette=("Viridis"),direction=-1,na.value="gray")+
+  geom_abline(intercept=0,slope=1,color="black",linetype="dashed")+
+  theme_prism()+
+  coord_fixed()+
+theme(title=element_text(size=30),
+      axis.title.x = element_text(size= 30),
+      axis.text.x = element_text( angle = 90, vjust = 0.5),
+      axis.title.y = element_text(size= 30),
+      axis.text.y = element_text( vjust = 0.5),
+      legend.text = element_text(size = 20),
+      legend.key.height = unit(0.9, "in"),
+      legend.title = element_text(size = 30),
+      strip.text =  element_text(size = 30))
+ggsave(filename = "PXRECMcomparison.png",
+        width = 12, height = 9,units="in", dpi = 300)
+```
+#### Box Plots
+```{r}
+DMSOdsewithrep %>% ggplot(aes(x = Abb_ECM, y = Mean_Orange_Norm))+
+  geom_boxplot()+
+  theme_prism()+ 
+  ggtitle("Vimentin Expression on ECM Combinations")+
+  ylab("Vimentin Expression")+
+  xlab("ECM Composition")+
+  theme(axis.text.x = element_text(angle = 90))
+
+DMSOdsewithrep %>% ggplot(aes(x = Abb_ECM, y = Mean_Red_Norm))+
+  geom_boxplot()+
+  theme_prism()+ 
+  ggtitle("Ecad Expression on ECM Combinations")+
+  ylab("Ecad Expression")+
+  xlab("ECM Composition")+
+  theme(axis.text.x = element_text(angle = 90))
+
+DMSOdsewithrep %>% ggplot(aes(x = Abb_ECM, y = Mean_Green_Norm))+
+  geom_boxplot()+
+  theme_prism()+ 
+  ggtitle("PXR Expression on ECM Combinations")+
+  ylab("PXR Expression")+
+  xlab("ECM Composition")+
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+```{r}
+DMSOdsewithrep %>% filter(Abb_ECM %in% c("C1DN", "DNFN")) %>% ggplot(aes(x = Abb_ECM, y = Mean_Red_Norm))+
+  geom_boxplot()+
+  stat_compare_means()+
+  theme_prism()
+
+DMSOdsewithrep %>% filter(Abb_ECM %in% c("C1DN", "C1")) %>% ggplot(aes(x = Abb_ECM, y = Mean_Red_Norm))+
+  geom_boxplot()+
+  stat_compare_means()+
+  theme_prism()
+
+DMSOdsewithrep %>% filter(Abb_ECM %in% c("C1DN", "DN")) %>% ggplot(aes(x = Abb_ECM, y = Mean_Red_Norm))+
+  geom_boxplot()+
+  stat_compare_means()+
+  theme_prism()
+
+DMSOdsewithrep %>% filter(Abb_ECM %in% c("C1TC", "C1C4")) %>% ggplot(aes(x = Abb_ECM, y = Mean_Green_Norm))+
+  geom_boxplot()+
+  stat_compare_means()+
+  theme_prism()
+
+DMSOdsewithrep %>% filter(Abb_ECM %in% c("C1TC", "DNFN")) %>% ggplot(aes(x = Abb_ECM, y = Mean_Green_Norm))+
+  geom_boxplot()+
+  stat_compare_means()+
+  theme_prism()
+```
+##Drug Model
+### Interaction Plots
+```{r}
+Drugdsewithrepcolreorder <- Drugdsewithrep
+
+Drugdsewithrepcolreorder$CollagenIV <- factor(Drugdsewithrepcolreorder$CollagenIV, levels = c(0,0.25,0.5,0.75,1))
+Drugdsewithrepcolreorder$CollagenI <- factor(Drugdsewithrepcolreorder$CollagenI, levels = c(0,0.25,0.5,0.75,1))
+Drugdsewithrepcolreorder$Hyaluronic_Acid <- factor(Drugdsewithrepcolreorder$Hyaluronic_Acid, levels = c(0,0.25,0.5,0.75,1))
+Drugdsewithrepcolreorder$Osteopontin <- factor(Drugdsewithrepcolreorder$Osteopontin, levels = c(0,0.25,0.5,0.75,1))
+Drugdsewithrepcolreorder$Decorin <- factor(Drugdsewithrepcolreorder$Decorin, levels = c(0,0.25,0.5,0.75,1))
+Drugdsewithrepcolreorder$Fibronectin <- factor(Drugdsewithrepcolreorder$Fibronectin, levels = c(0,0.25,0.5,0.75,1))
+Drugdsewithrepcolreorder$Galectin3 <- factor(Drugdsewithrepcolreorder$Galectin3, levels = c(0,0.25,0.5,0.75,1))
+Drugdsewithrepcolreorder$TenascinC <- factor(Drugdsewithrepcolreorder$TenascinC, levels = c(0,0.25,0.5,0.75,1))
+Drugdsewithrepcolreorder$Laminin <- factor(Drugdsewithrepcolreorder$Laminin, levels = c(0,0.25,0.5,0.75,1))
+```
+
+### Ratio:ECM
+```{r}
+Col1drug <- subset(Drugdsewithrepcolreorder, CollagenI != 0)
+Col4drug <- subset(Drugdsewithrepcolreorder, CollagenIV != 0)
+HAdrug <- subset(Drugdsewithrepcolreorder, Hyaluronic_Acid != 0)
+TCdrug <- subset(Drugdsewithrepcolreorder, TenascinC != 0)
+FNdrug <- subset(Drugdsewithrepcolreorder, Fibronectin != 0)
+LNdrug <- subset(Drugdsewithrepcolreorder, Laminin != 0)
+G3drug <- subset(Drugdsewithrepcolreorder, Galectin3 != 0)
+
+Col1drug$Abb_ECM <- factor(Col1drug$Abb_ECM, levels = c("C1", "C1DN", "C1C4", "C1G3",  "C1OPN","C1LN" ,"C1TC" ,"C1FN" ,"C1HA" ))
+Col4drug$Abb_ECM <- factor(Col4drug$Abb_ECM, levels = c("C4", "C1C4"  ,"C4OPN", "C4HA",  "C4FN"  ,"C4G3"  ,"C4LN" , "C4TC" , "C4DN"))
+HAdrug$Abb_ECM <- factor(HAdrug$Abb_ECM, levels = c("HA", "HAFN" , "HAG3"  ,"HAOPN" ,"C4HA" , "LNHA",  "TCHA", "HADN",  "C1HA"))
+FNdrug$Abb_ECM <- factor(FNdrug$Abb_ECM, levels = c("FN", "HAFN", "OPNFN", "LNFN",  "G3FN","DNFN" ,"TCFN" ,  "C4FN" , "C1FN" ))
+G3drug$Abb_ECM <- factor(G3drug$Abb_ECM, levels = c("G3", "HAG3" , "LNG3" , "OPNG3", "C1G3" , "G3FN" ,"C4G3", "DNG3"  ,"TCG3" ))
+
+LNdrug$Abb_ECM <- factor(LNdrug$Abb_ECM, levels = c("LN", "LNG3", "LNDN", "LNFN",  "LNHA","C1LN" ,"C4LN" ,"LNTC" ,"LNOPN" ))
+TCdrug$Abb_ECM <- factor(TCdrug$Abb_ECM, levels = c("TC", "TCDN", "TCG3", "TCFN", "C1TC", "C4TC","TCOPN" ,"TCHA" ,"LNTC"))
+```
+
+#### Vim
+```{r}
+interaction.plot(x.factor = Col1drug$Abb_ECM, trace.factor = droplevels(Col1drug)$CollagenI, response = Col1drug$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Collagen I Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+
+interaction.plot(x.factor = TCdrug$Abb_ECM, trace.factor = droplevels(TCdrug)$Tenascin, response = TCdrug$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Tenascin C Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+
+interaction.plot(x.factor = LNdrug$Abb_ECM, trace.factor = droplevels(LNdrug)$Laminin, response = LNdrug$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Laminin Ratio",  col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+
+interaction.plot(x.factor = FNdrug$Abb_ECM, trace.factor = droplevels(FNdrug)$Fibronectin, response = FNdrug$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Fibronectin Ratio",  col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+
+interaction.plot(x.factor = G3drug$Abb_ECM, trace.factor = droplevels(G3drug)$Galectin3, response = G3drug$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Galectin 3 Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+
+```
+#### Ecad
+```{r}
+interaction.plot(x.factor = TCdrug$Abb_ECM, trace.factor = droplevels(TCdrug)$Tenascin, response = TCdrug$Mean_Orange_Norm, ylab = "Ecad Expression", xlab = "ECM Condition", trace.label = "Tenascin C Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+
+interaction.plot(x.factor = HAdrug$Abb_ECM, trace.factor = droplevels(HAdrug)$Hyaluronic_Acid, response = HAdrug$Mean_Red_Norm, ylab = "Ecad Expression", xlab = "ECM Condition", trace.label = "Hyaluronic Acid Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+```
+#### PXR
+```{r}
+interaction.plot(x.factor = LNdrug$Abb_ECM, trace.factor = droplevels(LNdrug)$Laminin, response = LNdrug$Mean_Green_Norm, ylab = "PXR Expression", xlab = "ECM Condition", trace.label = "Laminin Ratio",  col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+
+interaction.plot(x.factor = FNdrug$Abb_ECM, trace.factor = droplevels(FNdrug)$Fibronectin, response = FNdrug$Mean_Green_Norm, ylab = "PXR Expression", xlab = "ECM Condition", trace.label = "Fibronectin Ratio",  col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+```
+### 3 Way Ecad
+```{r}
+interaction.plot(x.factor = subset(HAdrug, Metadata_Stiffness == "1kPa")$Abb_ECM, trace.factor = droplevels(subset(HAdrug, Metadata_Stiffness == "1kPa"))$Hyaluronic_Acid, response = subset(HAdrug, Metadata_Stiffness == "1kPa")$Mean_Red_Norm, ylab = "Ecad Expression", xlab = "ECM Condition 1 kPa", trace.label = "Hyaluronic Acid Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2, ylim = c(0,0.07))
+
+interaction.plot(x.factor = subset(HAdrug, Metadata_Stiffness == "25kPa")$Abb_ECM, trace.factor = droplevels(subset(HAdrug, Metadata_Stiffness == "25kPa"))$Hyaluronic_Acid, response = subset(HAdrug, Metadata_Stiffness == "25kPa")$Mean_Red_Norm, ylab = "Ecad Expression", xlab = "ECM Condition 25 kPa", trace.label = "Hyaluronic Acid Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2, ylim = c(0,0.07))
+```
+### Main Factor Plots
+#### Vim Ratio
+```{r}
+Drugdsewithrepcolreorder %>% ggplot(aes(x = CollagenIV, y = Mean_Orange_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Collagen IV in Vimentin in Drug")+
+  ylab("Vimentin Expression")+
+  xlab("Ratio of Collagen IV")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("VimCol4Ratio.png", width = 10, height =5)
+
+Drugdsewithrepcolreorder %>% ggplot(aes(x = Hyaluronic_Acid, y = Mean_Orange_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Hyaluronic Acid in Vimentin in Drug")+
+  ylab("Vimentin Expression")+
+  xlab("Ratio of Hyaluronic Acid")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("DrugVimHARatio.png", width = 10, height =5)
+
+Drugdsewithrepcolreorder %>% ggplot(aes(x = Galectin3, y = Mean_Orange_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Galectin 3 in Vimentin in Drug")+
+  ylab("Vimentin Expression")+
+  xlab("Ratio of Galectin 3")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("DrugVimG3Ratio.png", width = 10, height =5)
+
+Drugdsewithrepcolreorder %>% ggplot(aes(x = Laminin, y = Mean_Orange_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Laminin in Vimentin in Drug")+
+  ylab("Vimentin Expression")+
+  xlab("Ratio of Laminin")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("DrugVimLNRatio.png", width = 10, height =5)
+
+Drugdsewithrepcolreorder %>% ggplot(aes(x = Decorin, y = Mean_Orange_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Decorin in Vimentin in Drug")+
+  ylab("Vimentin Expression")+
+  xlab("Ratio of Decorin")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("DrugVimDNRatio.png", width = 10, height =5)
+
+Drugdsewithrepcolreorder %>% ggplot(aes(x = Osteopontin, y = Mean_Orange_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Osteopontin in Vimentin in Drug")+
+  ylab("Vimentin Expression")+
+  xlab("Ratio of Osteopontin")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("DrugVimOPNRatio.png", width = 10, height =5)
+```
+
+#### Ecad Ratio
+```{r}
+Drugdsewithrepcolreorder %>% ggplot(aes(x = CollagenI, y = Mean_Red_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Collagen I in Ecad in Drug")+
+  ylab("Ecad Expression")+
+  xlab("Ratio of Collagen I")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("DrugEcadCol1Ratio.png", width = 10, height =5)
+
+Drugdsewithrepcolreorder %>% ggplot(aes(x = CollagenIV, y = Mean_Red_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Collagen IV in Ecad in Drug")+
+  ylab("Ecad Expression")+
+  xlab("Ratio of Collagen IV")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("DrugEcadCol4Ratio.png", width = 10, height =5)
+
+Drugdsewithrepcolreorder %>% ggplot(aes(x = Laminin, y = Mean_Red_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Laminin in Ecad in Drug")+
+  ylab("Ecad Expression")+
+  xlab("Ratio of Laminin")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("DrugEcadLamRatio.png", width = 10, height =5)
+
+Drugdsewithrepcolreorder %>% ggplot(aes(x = Galectin3, y = Mean_Red_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Galectin 3 in Ecad in Drug")+
+  ylab("Ecad Expression")+
+  xlab("Ratio of Galectin 3")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("DrugEcadG3Ratio.png", width = 10, height =5)
+```
+
+#### PXR Ratio
+```{r}
+Drugdsewithrepcolreorder %>% ggplot(aes(x = CollagenI, y = Mean_Green_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Collagen I in PXR in Drug")+
+  ylab("PXR Expression")+
+  xlab("Ratio of Collagen I")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("DrugPXRC1Ratio.png", width = 10, height =5)
+
+Drugdsewithrepcolreorder %>% ggplot(aes(x = Laminin, y = Mean_Green_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Laminin in PXR in Drug")+
+  ylab("PXR Expression")+
+  xlab("Ratio of Laminin")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("DrugPXRLNRatio.png", width = 10, height =5)
+
+Drugdsewithrepcolreorder %>% ggplot(aes(x = Galectin3, y = Mean_Green_Norm))+
+  geom_boxplot()+
+  theme_prism()+
+  ggtitle("Ratio of Galectin 3 in PXR in Drug")+
+  ylab("PXR Expression")+
+  xlab("Ratio of Galectin 3")+
+  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
+ggsave("DrugPXRG3Ratio.png", width = 10, height =5)
+```
+#### Abb_ECMs
+
+##### Compare Means 
+```{r}
+ECMVimDrugCM <- compare_means(Mean_Orange_Norm ~ Abb_ECM, Drugdsewithrep)
+ECMEcadDrugCM <- compare_means(Mean_Red_Norm ~ Abb_ECM, Drugdsewithrep)
+ECMPXRDrugCM <- compare_means(Mean_Green_Norm ~ Abb_ECM, Drugdsewithrep)
+```
+
+```{r}
+write.csv(ECMVimDrugCM, "ECMVimDrugCM.csv")
+write.csv(ECMEcadDrugCM, "ECMEcadDrugCM.csv")
+write.csv(ECMPXRDrugCM, "ECMPXRDrugCM.csv")
+```
+
+##### P-value Heatmap
+```{r}
+ggplot(ECMVimDrugCMExpanded, aes(x = group1, y = group2, fill= p)) +
+  geom_tile() +
+  #geom_text(aes(label=round(Avg_Mean_Objects,1),
+              #  color=ifelse(Avg_Mean_Objects>75,"black","white")),size=6)+
+  #scale_color_manual(values=c("white"="white","black"="black"),guide="none")+
+  labs(title = "Vimentin on ECM Combinations in Drug", x = "ECM 1", y = "ECM 2",fill="p-value")+
+  scale_fill_viridis_c(limit = c(0, 0.05), option = "D", na.value = "gray")+
+  #scale_fill_distiller(limit = c(0, 0.05), palette=("Viridis"),direction=-1,na.value="gray")+
+  geom_abline(intercept=0,slope=1,color="black",linetype="dashed")+
+  theme_prism()+
+  coord_fixed()+
+theme(title=element_text(size=30),
+      axis.title.x = element_text(size= 30),
+      axis.text.x = element_text( angle = 90, vjust = 0.5),
+      axis.title.y = element_text(size= 30),
+      axis.text.y = element_text( vjust = 0.5),
+      legend.text = element_text(size = 20),
+      legend.key.height = unit(0.9, "in"),
+      legend.title = element_text(size = 30),
+      strip.text =  element_text(size = 30))
+ggsave(filename = "VimECMDrugcomparison.png",
+        width = 12, height = 9,units="in", dpi = 300)
+
+ggplot(ECMEcadDrugCMExpanded, aes(x = group1, y = group2, fill= p)) +
+  geom_tile() +
+  #geom_text(aes(label=round(Avg_Mean_Objects,1),
+              #  color=ifelse(Avg_Mean_Objects>75,"black","white")),size=6)+
+  #scale_color_manual(values=c("white"="white","black"="black"),guide="none")+
+  labs(title = "Ecad on ECM Combinations in Drug", x = "ECM 1", y = "ECM 2",fill="p-value")+
+  scale_fill_viridis_c(limit = c(0, 0.05), option = "D", na.value = "gray")+
+  #scale_fill_distiller(limit = c(0, 0.05), palette=("Viridis"),direction=-1,na.value="gray")+
+  geom_abline(intercept=0,slope=1,color="black",linetype="dashed")+
+  theme_prism()+
+  coord_fixed()+
+theme(title=element_text(size=30),
+      axis.title.x = element_text(size= 30),
+      axis.text.x = element_text( angle = 90, vjust = 0.5),
+      axis.title.y = element_text(size= 30),
+      axis.text.y = element_text( vjust = 0.5),
+      legend.text = element_text(size = 20),
+      legend.key.height = unit(0.9, "in"),
+      legend.title = element_text(size = 30),
+      strip.text =  element_text(size = 30))
+ggsave(filename = "EcadECMDrugcomparison.png",
+        width = 12, height = 9,units="in", dpi = 300)
+
+ggplot(ECMPXRDrugCMExpanded, aes(x = group1, y = group2, fill= p)) +
+  geom_tile() +
+  #geom_text(aes(label=round(Avg_Mean_Objects,1),
+              #  color=ifelse(Avg_Mean_Objects>75,"black","white")),size=6)+
+  #scale_color_manual(values=c("white"="white","black"="black"),guide="none")+
+  labs(title = "PXR on ECM Combinations in Drug", x = "ECM 1", y = "ECM 2",fill="p-value")+
+  scale_fill_viridis_c(limit = c(0, 0.05), option = "D", na.value = "gray")+
+  #scale_fill_distiller(limit = c(0, 0.05), palette=("Viridis"),direction=-1,na.value="gray")+
+  geom_abline(intercept=0,slope=1,color="black",linetype="dashed")+
+  theme_prism()+
+  coord_fixed()+
+theme(title=element_text(size=30),
+      axis.title.x = element_text(size= 30),
+      axis.text.x = element_text( angle = 90, vjust = 0.5),
+      axis.title.y = element_text(size= 30),
+      axis.text.y = element_text( vjust = 0.5),
+      legend.text = element_text(size = 20),
+      legend.key.height = unit(0.9, "in"),
+      legend.title = element_text(size = 30),
+      strip.text =  element_text(size = 30))
+ggsave(filename = "PXRECMDrugcomparison.png",
+        width = 12, height = 9,units="in", dpi = 300)
+```
+#### Box Plots
+```{r}
+Drugdsewithrep %>% ggplot(aes(x = Abb_ECM, y = Mean_Orange_Norm))+
+  geom_boxplot()+
+  theme_prism()+ 
+  ggtitle("Vimentin Expression on ECM Combinations in Drug")+
+  ylab("Vimentin Expression")+
+  xlab("ECM Composition")+
+  theme(axis.text.x = element_text(angle = 90))
+
+Drugdsewithrep %>% ggplot(aes(x = Abb_ECM, y = Mean_Red_Norm))+
+  geom_boxplot()+
+  theme_prism()+ 
+  ggtitle("Ecad Expression on ECM Combinations in Drug")+
+  ylab("Ecad Expression")+
+  xlab("ECM Composition")+
+  theme(axis.text.x = element_text(angle = 90))
+
+Drugdsewithrep %>% ggplot(aes(x = Abb_ECM, y = Mean_Green_Norm))+
+  geom_boxplot()+
+  theme_prism()+ 
+  ggtitle("PXR Expression on ECM Combinations in Drug")+
+  ylab("PXR Expression")+
+  xlab("ECM Composition")+
+  theme(axis.text.x = element_text(angle = 90))
 ```
 
