@@ -664,7 +664,7 @@ theme(title=element_text(size=30),
 ggsave(filename = "PXRECMDrugcomparison.png",
         width = 12, height = 9,units="in", dpi = 300)
 ```
-#### Box Plots
+##### Box Plots
 ```{r}
 Drugdsewithrep %>% ggplot(aes(x = Abb_ECM, y = Mean_Orange_Norm))+
   geom_boxplot()+
@@ -690,4 +690,145 @@ Drugdsewithrep %>% ggplot(aes(x = Abb_ECM, y = Mean_Green_Norm))+
   xlab("ECM Composition")+
   theme(axis.text.x = element_text(angle = 90))
 ```
+## Ranked Bar Plots
+```{r}
+## Mean_Green
+DMSOdsewithrep %>% group_by(Conditions) %>% summarize(Green = mean(Mean_Green_Norm), GreenSE = sd(Mean_Green_Norm)/sqrt(length(Mean_Green_Norm))) %>% ggplot(aes(x = reorder(Conditions, - Green), y = Green))+
+  #facet_grid(rows = vars(Metadata_Ratio))+
+  geom_col()+
+  theme_prism()+
+  ggtitle("Average PXR Expression")+
+  ylab("Average PXR Expression")+
+  xlab("ECM & Ratio Combinations")+
+ # ylim(c(0,0.20))+
+  theme(axis.text.x = element_text(angle = 90))+
+  geom_errorbar(aes(ymin  = Green - GreenSE, ymax = Green + GreenSE))
+
+ggsave("PXRRankedRatio.png", height = 6, width = 24)
+
+## Mean_Orange
+DMSOdsewithrep %>% group_by(Conditions) %>% summarize(Orange = mean(Mean_Orange_Norm), OrangeSE = sd(Mean_Orange_Norm)/sqrt(length(Mean_Orange_Norm))) %>% ggplot(aes(x = reorder(Conditions, - Orange), y = Orange))+
+  #facet_grid(rows = vars(Metadata_Ratio))+
+  geom_col()+
+  theme_prism()+
+  ggtitle("Average Vimentin Expression")+
+  ylab("Average Vimentin Expression")+
+  xlab("ECM & Ratio Combinations")+
+ # ylim(c(0,0.20))+
+  theme(axis.text.x = element_text(angle = 90))+
+  geom_errorbar(aes(ymin  = Orange - OrangeSE, ymax = Orange + OrangeSE))
+
+ggsave("VimRankedRatio.png", height = 6, width = 24)
+
+## Mean_Red
+DMSOdsewithrep %>% group_by(Conditions) %>% summarize(Red = mean(Mean_Red_Norm), RedSE = sd(Mean_Red_Norm)/sqrt(length(Mean_Red_Norm))) %>% ggplot(aes(x = reorder(Conditions, - Red), y = Red))+
+  #facet_grid(rows = vars(Metadata_Ratio))+
+  geom_col()+
+  theme_prism()+
+  ggtitle("Average Ecad Expression")+
+  ylab("Average Ecad Expression")+
+  xlab("ECM & Ratio Combinations")+
+ # ylim(c(0,0.20))+
+  theme(axis.text.x = element_text(angle = 90))+
+  geom_errorbar(aes(ymin  = Red - RedSE, ymax = Red + RedSE))
+
+ggsave("EcadRankedRatio.png", height = 6, width = 24)
+
+```
+## Abb_ECM Box Heatmaps
+```{r}
+heatmap_12 <- DMSOdsewithrep %>% group_by(Abb_ECM, Metadata_Ratio) %>% 
+  summarize(Mean_Green = mean(Mean_Green_Norm),
+            Mean_Orange = mean(Mean_Orange_Norm),
+            Mean_Red = mean(Mean_Red_Norm))
+write.csv(heatmap_12, "heatmap_12.csv")
+```
+Create expanded dataset (with reversed ECMs) before next step
+```{r}
+colnames(heatmap_12ex) <- c("...1", "Abb_ECM", "Metadata_Ratio", "Mean_PXR", "Mean_Vimentin", "Mean_Ecad", "ECM1", "ECM2")
+
+DMSO25 <- heatmap_12ex %>% filter(Metadata_Ratio %in% c("25/75", "100")) 
+DMSO50 <- heatmap_12ex %>% filter(Metadata_Ratio %in% c("50/50", "100"))
+DMSO75 <- heatmap_12ex %>% filter(Metadata_Ratio %in% c("75/25", "100")) 
+```
+
+```{r}
+# Define the list of columns to use for the 'fill' aesthetic
+fill_columns <- c("Mean_PXR","Mean_Ecad","Mean_Vimentin") # Add all the column names you need here
+
+datasets <- list(DMSO25, DMSO50, DMSO75) 
+
+# Loop through each column name
+for (fill_column in fill_columns) {
+  
+  min_value <- min(sapply(datasets, function(df) min(df[[fill_column]], na.rm = TRUE)))
+  max_value <- max(sapply(datasets, function(df) max(df[[fill_column]], na.rm = TRUE)))
+  
+  # Generate individual plots for each dataset with dynamic fill
+  a <- ggplot(DMSO25, aes(x = ECM1, y = ECM2, fill = .data[[fill_column]])) +
+    geom_tile() +
+    coord_fixed() + 
+    theme_prism() + 
+    ggtitle("25:75") +
+    scale_fill_viridis(limits = c(min_value, max_value)) +
+    theme(axis.text.x = element_text(size = 25),
+          axis.title.x = element_text(size = 25),
+          axis.text.y = element_text(size = 25), 
+          axis.title.y = element_text(size = 25),
+          legend.key.height = unit(1, "in"),
+          legend.text = element_text(size = 25),
+          plot.title = element_text(size = 30),
+          panel.background = element_blank(),
+          strip.text = element_text(size = 25),
+          panel.border = element_rect(colour = "black", fill = NA, size = 1))
+  
+  b <- ggplot(DMSO50, aes(x = ECM1, y = ECM2, fill = .data[[fill_column]])) +
+    geom_tile() +
+    coord_fixed() + 
+    theme_prism() + 
+    ggtitle("50:50") +
+    scale_fill_viridis(limits = c(min_value, max_value)) +
+    theme(axis.text.x = element_text(size = 25),
+          axis.title.x = element_text(size = 25),
+          axis.text.y = element_text(size = 25), 
+          axis.title.y = element_text(size = 25),
+          legend.key.height = unit(1, "in"),
+          legend.text = element_text(size = 25),
+          plot.title = element_text(size = 30),
+          panel.background = element_blank(),
+          strip.text = element_text(size = 25),
+          panel.border = element_rect(colour = "black", fill = NA, size = 1))
+  
+  c <- ggplot(DMSO75, aes(x = ECM1, y = ECM2, fill = .data[[fill_column]])) +
+    geom_tile() +
+    coord_fixed() + 
+    theme_prism() + 
+    ggtitle("75:25") +
+    scale_fill_viridis(limits = c(min_value, max_value)) +
+    theme(axis.text.x = element_text(size = 25),
+          axis.title.x = element_text(size = 25),
+          axis.text.y = element_text(size = 25), 
+          axis.title.y = element_text(size = 25),
+          legend.key.height = unit(1, "in"),
+          legend.text = element_text(size = 25),
+          plot.title = element_text(size = 30),
+          panel.background = element_blank(),
+          strip.text = element_text(size = 25),
+          panel.border = element_rect(colour = "black", fill = NA, size = 1))
+
+  
+  # Arrange the plots into grids
+  Clust1grid <-annotate_figure(
+    ggarrange(a, b, c, ncol = 3, nrow = 1),
+    top = text_grob(paste("DMSO -", fill_column), size = 50, face = "bold")
+  )
+  
+  # Save the grids with dynamic file names
+  ggsave(Clust1grid, filename = paste0("DMSO_", fill_column, ".png"), width = 30, height = 10)
+ 
+}
+
+```
+
+
 
