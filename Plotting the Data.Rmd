@@ -874,7 +874,8 @@ ggsave(filename = "TestPCA.png")
 res$desc.var
 ```
 
-## Correlation without Ratio
+## Playing with Correlation 
+### Correlation without Ratio
 ```{r}
 ForCorr <- ds_pheno_1218 %>% filter(Metadata_Treatment == "DMSO") %>% group_by(Abb_ECM) %>% summarize(Mean_Green = mean(Mean_Green_Norm), Mean_Orange = mean(Mean_Orange_Norm), Mean_Red = mean(Mean_Red_Norm))
 
@@ -907,7 +908,7 @@ ForCorr %>% ggplot(aes(Mean_Red, Mean_Green, color = Abb_ECM))+
 ```
 
 
-## Cor Results - Just Abb_ECM
+### Cor Results - Just Abb_ECM
 PXR and Vim are significantly correlated (p = 0.0002062) cor = 0.5260487 
 Vim and Ecad are NOT significantly correlated (p = 0.1659) cor = 0.210131
 PXR and Ecad are significantly correlated (1.395e-10) cor = 0.7874379 
@@ -920,7 +921,7 @@ cor.test(ForCorr$Mean_Red, ForCorr$Mean_Orange)
 cor.test(ForCorr$Mean_Green, ForCorr$Mean_Red)
 ```
 
-## Correlation with Ratio, No Stiffness
+### Correlation with Ratio, No Stiffness
 
 ```{r}
 ForCorrRatio <- ds_pheno_1218 %>% filter(Metadata_Treatment == "DMSO") %>% mutate(Conditions = paste0(Abb_ECM, "_", Metadata_Ratio)) %>% group_by(Conditions) %>% summarize(Mean_Green = mean(Mean_Green_Norm), Mean_Orange = mean(Mean_Orange_Norm), Mean_Red = mean(Mean_Red_Norm))
@@ -954,7 +955,7 @@ ForCorrRatio %>% ggplot(aes(Mean_Red, Mean_Green, color = Conditions))+
 ```
 
 
-## Cor Results - Abb_ECM + Ratio
+### Cor Results - Abb_ECM + Ratio
 PXR and Vim are significantly correlated (p = 7.916e-14) cor = 0.6211482  
 Vim and Ecad are significantly correlated (p = 7.062e-05) cor = 0.3589461 
 PXR and Ecad are significantly correlated (p-value < 2.2e-16) cor = 0.7906376  
@@ -967,7 +968,7 @@ cor.test(ForCorrRatio$Mean_Red, ForCorrRatio$Mean_Orange)
 cor.test(ForCorrRatio$Mean_Green, ForCorrRatio$Mean_Red)
 ```
 
-## Corr Abb_ECM + Stiffness
+### Corr Abb_ECM + Stiffness
 ```{r}
 ForCorrStiff <- ds_pheno_1218 %>% filter(Metadata_Treatment == "DMSO") %>% mutate(Conditions = paste0(Abb_ECM, "_", Metadata_Stiffness)) %>% group_by(Conditions) %>% summarize(Mean_Green = mean(Mean_Green_Norm), Mean_Orange = mean(Mean_Orange_Norm), Mean_Red = mean(Mean_Red_Norm))
 
@@ -999,7 +1000,7 @@ ForCorrStiff %>% ggplot(aes(Mean_Red, Mean_Green, color = Conditions))+
   theme(legend.position = "none")
 ```
 
-## Cor Results - Abb_ECM + Stiffness
+### Cor Results - Abb_ECM + Stiffness
 PXR and Vim are significantly correlated (p = 1.026e-07) cor = 0.5258293   
 Vim and Ecad are significantly correlated (p = 0.0344) cor = 0.2232744 
 PXR and Ecad are significantly correlated (p-value < 2.2e-16) cor = 0.8001456   
@@ -1010,5 +1011,58 @@ cor.test(ForCorrStiff$Mean_Green, ForCorrStiff$Mean_Orange)
 cor.test(ForCorrStiff$Mean_Red, ForCorrStiff$Mean_Orange)
 
 cor.test(ForCorrStiff$Mean_Green, ForCorrStiff$Mean_Red)
+```
+## Correlation Plots
+```{r}
+
+```
+
+## Specific ECM Callouts Graph
+```{r}
+ECMPlot <- ds_pheno_1218 %>% mutate(RatioECM1 = case_when(Metadata_Ratio == "100" ~ "100",
+                                                          Metadata_Ratio == "75/25" ~ "75",
+                                                          Metadata_Ratio == "50/50"~ "50",
+                                                          Metadata_Ratio == "25/75"~ "25"),
+                                    RatioECM2 = case_when(Metadata_Ratio == "100" ~ "",
+                                                          Metadata_Ratio == "75/25" ~ "25",
+                                                          Metadata_Ratio == "50/50"~ "50",
+                                                          Metadata_Ratio == "25/75"~ "75"))
+ECMPlot <- left_join(ECMPlot, ECMSep)
+
+ECMPlot <- ECMPlot %>% mutate(Condition = case_when(Metadata_Ratio == "100" ~ paste0(RatioECM1, ECM1),
+                                                    Metadata_Ratio != "100" ~ paste0(RatioECM1, ECM1, "_", RatioECM2, ECM2)))
+```
+
+```{r}
+ECMPlot <- select(ECMPlot, Metadata_Stiffness, Metadata_Treatment, Condition, Mean_Green_Norm, Mean_Orange_Norm, Mean_Red_Norm)
+
+ECMPlot <- ECMPlot %>% group_by(Metadata_Stiffness, Condition, Metadata_Treatment) %>% summarize(Mean_PXR = mean(Mean_Green_Norm), Mean_Vim = mean(Mean_Orange_Norm), Mean_Ecad = mean(Mean_Red_Norm))
+```
+
+```{r}
+ECMsforPlot <- c("100LN", "75LN_25G3", "75C1_25C4", "25LN_75DN", "25C4_75G3", "75LN_25OPN", "50C1_50HA", "25OPN_75FN")
+
+ECMPlot <- subset(ECMPlot, Condition %in% ECMsforPlot)
+```
+
+Look at Z-score for these... Need to Code that then run
+```{r}
+ECMPlotlong <- pivot_longer(ECMPlot, cols = starts_with("Mean"), names_to = "Channel", values_to = "Mean_Expression")
+
+ECMPlotlongScaled <- ECMPlot %>% mutate(Scaled_Green = )
+ECMPlotlongScaled <- pivot_longer(ECMPlotlongScaled, cols = starts_with("Mean"), names_to = "Channel", values_to = "Mean_Expression")
+
+```
+
+```{r}
+ECMPlotlong %>% filter(Metadata_Treatment == "DMSO") %>% ggplot(aes(x = Mean_Expression, y = Condition, fill = Channel))+
+  geom_col(position = "dodge2")+
+  facet_grid(cols = vars(Metadata_Stiffness))+
+  theme_prism()
+
+ECMPlotlong %>% filter(Metadata_Treatment == "DMSO") %>% ggplot(aes(x = Mean_Expression, y = Condition, fill = Channel))+
+  geom_col(position = "dodge2")+
+  facet_grid(cols = vars(Metadata_Stiffness))+
+  theme_prism()
 ```
 
