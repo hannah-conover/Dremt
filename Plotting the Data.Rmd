@@ -830,5 +830,185 @@ for (fill_column in fill_columns) {
 
 ```
 
+## PCA
+```{r}
+library(FactoMineR)
+library(Factoshiny)
 
+DMSOforPCA <-  subset(DMSOdsewithrep, select = c("Metadata_Stiffness","Conditions", "Mean_Green_Norm", "Mean_Orange_Norm", "Mean_Red_Norm"))
+
+PCAshiny(DMSOforPCA)
+```
+
+```{r}
+PCAClusters <- res$call$X
+
+ggplot(PCAClusters,aes(x = Dim.1,
+                       y = Dim.2,
+                       color = clust
+)) + 
+  geom_point(position = "jitter",size = 3)+
+ # xlim(-2,6)+
+  geom_hline(yintercept = 0)+
+  geom_vline(xintercept = 0)+
+  theme_prism()+
+  scale_color_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
+  # theme(
+  #   axis.title.x = element_text(size= 30),
+  #       axis.text.x = element_text(angle = 0, size= 20),
+  #       axis.title.y = element_text(size= 30),
+  #       axis.text.y = element_text(size= 15),
+  #       strip.text =  element_text(size = 30),
+  #       panel.background = element_blank(),
+  #       legend.key.size = unit(2, 'cm'),
+  #       legend.title = element_text(size = 30),
+  #       legend.text = element_text(size = 30),
+  # )+
+  xlab("Dim. 1 - 68.05%") +
+  ylab("Dim. 2 - 22.71%")
+ 
+ggsave(filename = "TestPCA.png")
+```
+
+```{r}
+res$desc.var
+```
+
+## Correlation without Ratio
+```{r}
+ForCorr <- ds_pheno_1218 %>% filter(Metadata_Treatment == "DMSO") %>% group_by(Abb_ECM) %>% summarize(Mean_Green = mean(Mean_Green_Norm), Mean_Orange = mean(Mean_Orange_Norm), Mean_Red = mean(Mean_Red_Norm))
+
+ForCorr %>% ggplot(aes(Mean_Green, Mean_Orange, color = Abb_ECM))+
+ # facet_grid(rows = vars(Metadata_Stiffness)) + 
+  geom_point()+
+  ylab("Mean Vimentin Expression")+
+  xlab("Mean PXR Expression")+
+  theme_prism()+
+  geom_smooth(method = "lm", formula = y~x, aes(group = 1))+
+  theme(legend.position = "none")
+
+ForCorr %>% ggplot(aes(Mean_Red, Mean_Orange, color = Abb_ECM))+
+ # facet_grid(rows = vars(Metadata_Stiffness)) + 
+  geom_point()+
+  ylab("Mean Vimentin Expression")+
+  xlab("Mean Ecad Expression")+
+  theme_prism()+
+  geom_smooth(method = "lm", formula = y~x, aes(group = 1))+
+  theme(legend.position = "none")
+
+ForCorr %>% ggplot(aes(Mean_Red, Mean_Green, color = Abb_ECM))+
+ # facet_grid(rows = vars(Metadata_Stiffness)) + 
+  geom_point()+
+  ylab("Mean PXR Expression")+
+  xlab("Mean Ecad Expression")+
+  theme_prism()+
+  geom_smooth(method = "lm", formula = y~x, aes(group = 1))+
+  theme(legend.position = "none")
+```
+
+
+## Cor Results - Just Abb_ECM
+PXR and Vim are significantly correlated (p = 0.0002062) cor = 0.5260487 
+Vim and Ecad are NOT significantly correlated (p = 0.1659) cor = 0.210131
+PXR and Ecad are significantly correlated (1.395e-10) cor = 0.7874379 
+
+```{r}
+cor.test(ForCorr$Mean_Green, ForCorr$Mean_Orange)
+
+cor.test(ForCorr$Mean_Red, ForCorr$Mean_Orange)
+
+cor.test(ForCorr$Mean_Green, ForCorr$Mean_Red)
+```
+
+## Correlation with Ratio, No Stiffness
+
+```{r}
+ForCorrRatio <- ds_pheno_1218 %>% filter(Metadata_Treatment == "DMSO") %>% mutate(Conditions = paste0(Abb_ECM, "_", Metadata_Ratio)) %>% group_by(Conditions) %>% summarize(Mean_Green = mean(Mean_Green_Norm), Mean_Orange = mean(Mean_Orange_Norm), Mean_Red = mean(Mean_Red_Norm))
+
+ForCorrRatio %>% ggplot(aes(Mean_Green, Mean_Orange, color = Conditions))+
+ # facet_grid(rows = vars(Metadata_Stiffness)) + 
+  geom_point()+
+  ylab("Mean Vimentin Expression")+
+  xlab("Mean PXR Expression")+
+  theme_prism()+
+  geom_smooth(method = "lm", formula = y~x, aes(group = 1))+
+  theme(legend.position = "none")
+
+ForCorrRatio %>% ggplot(aes(Mean_Red, Mean_Orange, color = Conditions))+
+ # facet_grid(rows = vars(Metadata_Stiffness)) + 
+  geom_point()+
+  ylab("Mean Vimentin Expression")+
+  xlab("Mean Ecad Expression")+
+  theme_prism()+
+  geom_smooth(method = "lm", formula = y~x, aes(group = 1))+
+  theme(legend.position = "none")
+
+ForCorrRatio %>% ggplot(aes(Mean_Red, Mean_Green, color = Conditions))+
+ # facet_grid(rows = vars(Metadata_Stiffness)) + 
+  geom_point()+
+  ylab("Mean PXR Expression")+
+  xlab("Mean Ecad Expression")+
+  theme_prism()+
+  geom_smooth(method = "lm", formula = y~x, aes(group = 1))+
+  theme(legend.position = "none")
+```
+
+
+## Cor Results - Abb_ECM + Ratio
+PXR and Vim are significantly correlated (p = 7.916e-14) cor = 0.6211482  
+Vim and Ecad are significantly correlated (p = 7.062e-05) cor = 0.3589461 
+PXR and Ecad are significantly correlated (p-value < 2.2e-16) cor = 0.7906376  
+
+```{r}
+cor.test(ForCorrRatio$Mean_Green, ForCorrRatio$Mean_Orange)
+
+cor.test(ForCorrRatio$Mean_Red, ForCorrRatio$Mean_Orange)
+
+cor.test(ForCorrRatio$Mean_Green, ForCorrRatio$Mean_Red)
+```
+
+## Corr Abb_ECM + Stiffness
+```{r}
+ForCorrStiff <- ds_pheno_1218 %>% filter(Metadata_Treatment == "DMSO") %>% mutate(Conditions = paste0(Abb_ECM, "_", Metadata_Stiffness)) %>% group_by(Conditions) %>% summarize(Mean_Green = mean(Mean_Green_Norm), Mean_Orange = mean(Mean_Orange_Norm), Mean_Red = mean(Mean_Red_Norm))
+
+ForCorrStiff %>% ggplot(aes(Mean_Green, Mean_Orange, color = Conditions))+
+ # facet_grid(rows = vars(Metadata_Stiffness)) + 
+  geom_point()+
+  ylab("Mean Vimentin Expression")+
+  xlab("Mean PXR Expression")+
+  theme_prism()+
+  geom_smooth(method = "lm", formula = y~x, aes(group = 1))+
+  theme(legend.position = "none")
+
+ForCorrStiff %>% ggplot(aes(Mean_Red, Mean_Orange, color = Conditions))+
+ # facet_grid(rows = vars(Metadata_Stiffness)) + 
+  geom_point()+
+  ylab("Mean Vimentin Expression")+
+  xlab("Mean Ecad Expression")+
+  theme_prism()+
+  geom_smooth(method = "lm", formula = y~x, aes(group = 1))+
+  theme(legend.position = "none")
+
+ForCorrStiff %>% ggplot(aes(Mean_Red, Mean_Green, color = Conditions))+
+ # facet_grid(rows = vars(Metadata_Stiffness)) + 
+  geom_point()+
+  ylab("Mean PXR Expression")+
+  xlab("Mean Ecad Expression")+
+  theme_prism()+
+  geom_smooth(method = "lm", formula = y~x, aes(group = 1))+
+  theme(legend.position = "none")
+```
+
+## Cor Results - Abb_ECM + Stiffness
+PXR and Vim are significantly correlated (p = 1.026e-07) cor = 0.5258293   
+Vim and Ecad are significantly correlated (p = 0.0344) cor = 0.2232744 
+PXR and Ecad are significantly correlated (p-value < 2.2e-16) cor = 0.8001456   
+
+```{r}
+cor.test(ForCorrStiff$Mean_Green, ForCorrStiff$Mean_Orange)
+
+cor.test(ForCorrStiff$Mean_Red, ForCorrStiff$Mean_Orange)
+
+cor.test(ForCorrStiff$Mean_Green, ForCorrStiff$Mean_Red)
+```
 
