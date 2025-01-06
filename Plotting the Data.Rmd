@@ -1013,8 +1013,64 @@ cor.test(ForCorrStiff$Mean_Red, ForCorrStiff$Mean_Orange)
 cor.test(ForCorrStiff$Mean_Green, ForCorrStiff$Mean_Red)
 ```
 ## Correlation Plots
+### Calculating Survival
 ```{r}
+controlmean_1218 <- ds_pheno_1218 %>% filter(Metadata_Treatment == "DMSO") %>% group_by(Abb_ECM, Metadata_Ratio, Metadata_Stiffness, Metadata_Experiment)
 
+controlmean_1218$ControlMean <- controlmean_1218$Mean_Nuclei
+
+controlmeanfinal <-  dplyr::select(controlmean_1218, Abb_ECM, Metadata_Ratio, Metadata_Stiffness, Metadata_Experiment, ControlMean)
+
+FOC12_18 <- left_join(ds_pheno_1218, controlmeanfinal)
+
+FOC12_18$FOC <- FOC12_18$Mean_Nuclei/FOC12_18$ControlMean
+
+FOC12_18$Condition <- paste(FOC12_18$Abb_ECM, FOC12_18$Metadata_Ratio)
+
+Survival <- FOC12_18[,c("Metadata_Stiffness", "Metadata_Experiment", "Metadata_Treatment", "Condition", "Abb_ECM", "Metadata_Ratio", "ControlMean", "FOC")]
+
+Survival <- subset(Survival, Metadata_Treatment == "10 uM")
+
+Survival <- subset(Survival, select = -c(Metadata_Treatment))
+
+Phenotypes <- FOC12_18[,c("Metadata_Stiffness", "Metadata_Experiment", "Metadata_Treatment", "Condition", "Abb_ECM", "Metadata_Ratio", "Mean_Red_Norm", "Mean_Orange_Norm", "Mean_Green_Norm")]
+
+SurvivalPheno <- left_join(Survival, Phenotypes)
+
+SP1 <- subset(SurvivalPheno, Metadata_Stiffness == "1kPa" & Metadata_Treatment == "DMSO")
+SP25 <- subset(SurvivalPheno, Metadata_Stiffness == "25kPa"& Metadata_Treatment == "DMSO")
+
+SP1 <- SP1 %>% select("FOC", "Mean_Orange_Norm", "Mean_Red_Norm", "Mean_Green_Norm")
+SP25 <- SP25 %>% select("FOC", "Mean_Orange_Norm", "Mean_Red_Norm", "Mean_Green_Norm")
+
+colnames(SP1) <- c("Survival", "Vimentin", "Ecad", "PXR")
+colnames(SP25) <- c("Survival", "Vimentin", "Ecad", "PXR")
+```
+
+
+```{r}
+library(corrplot)
+library(RColorBrewer)
+library(ggcorrplot)
+
+SPcor1 <- cor(SP1)
+SPcor25 <- cor(SP25)
+
+testRes1<- cor.mtest(SP1)
+testRes25 <- cor.mtest(SP25)
+
+png("SPcor1corr.png", width = 6, height = 4, units = "in", res = 1200)
+corrplot(SPcor1, p.mat = testRes1$p, sig.level = 0.05, type = "upper", order = "hclust", col = brewer.pal(n=8, name = "RdYlBu"), diag = FALSE, addCoef.col = 'black')
+dev.off()
+
+png("SPcor25corr.png", width = 6, height = 4, units = "in", res = 1200)
+corrplot(SPcor25, p.mat = testRes25$p, sig.level = 0.05, type = "upper", order = "hclust", col = brewer.pal(n=8, name = "RdYlBu"), diag = FALSE, addCoef.col = 'black')
+dev.off()
+
+ggcorrplot(SPcor1, method = "circle", hc.order = TRUE, type = "lower", lab = TRUE, ggtheme = theme_bw)
+ggsave("SPcor1.png")
+ggcorrplot(SPcor25, method = "circle", hc.order = TRUE, type = "lower", lab = TRUE, ggtheme = theme_bw)
+ggsave("SPcor25.png")
 ```
 
 ## Specific ECM Callouts Graph
@@ -1047,22 +1103,55 @@ ECMPlot <- subset(ECMPlot, Condition %in% ECMsforPlot)
 
 Look at Z-score for these... Need to Code that then run
 ```{r}
-ECMPlotlong <- pivot_longer(ECMPlot, cols = starts_with("Mean"), names_to = "Channel", values_to = "Mean_Expression")
+ECMsPlot <- ECMPlot %>% mutate(Z_PXR = (Mean_PXR - mean(ECMPlot$Mean_PXR))/sd(ECMPlot$Mean_PXR), 
+                                      Z_Vim = (Mean_Vim - mean(ECMPlot$Mean_Vim))/sd(ECMPlot$Mean_Vim), 
+                                      Z_Ecad = (Mean_Ecad - mean(ECMPlot$Mean_Ecad))/sd(ECMPlot$Mean_Ecad))
+```
 
-ECMPlotlongScaled <- ECMPlot %>% mutate(Scaled_Green = )
-ECMPlotlongScaled <- pivot_longer(ECMPlotlongScaled, cols = starts_with("Mean"), names_to = "Channel", values_to = "Mean_Expression")
+
+```{r}
+ECMPlotlong <- pivot_longer(ECMsPlot, cols = -c("Metadata_Stiffness", "Condition", "Metadata_Treatment"), names_to = c(".value", "Channel"), names_sep = "_")
+
+# ECMPlotlongScaled <- ECMPlot %>% mutate(Scaled_Green = )
+# ECMPlotlongScaled <- pivot_longer(ECMPlotlongScaled, cols = starts_with("Mean"), names_to = "Channel", values_to = "Mean_Expression")
 
 ```
 
 ```{r}
-ECMPlotlong %>% filter(Metadata_Treatment == "DMSO") %>% ggplot(aes(x = Mean_Expression, y = Condition, fill = Channel))+
-  geom_col(position = "dodge2")+
-  facet_grid(cols = vars(Metadata_Stiffness))+
-  theme_prism()
+channelpal <- c("Vim" = "#E69F00", "Ecad" = "#CC79A7", "PXR" = "#009E73" )
 
-ECMPlotlong %>% filter(Metadata_Treatment == "DMSO") %>% ggplot(aes(x = Mean_Expression, y = Condition, fill = Channel))+
+ECMPlotlong %>% filter(Metadata_Treatment == "DMSO") %>% ggplot(aes(x = Z, y = Condition, fill = Channel))+
   geom_col(position = "dodge2")+
   facet_grid(cols = vars(Metadata_Stiffness))+
-  theme_prism()
+  theme_prism()+
+  scale_fill_manual(values = channelpal)+
+ggtitle("Normalized Expression on Select Microenvironments")
+ggsave("Zscorecomparison.png", width = 10, height = 5)
+
+ECMPlotlong %>% filter(Metadata_Treatment == "DMSO") %>% ggplot(aes(x = Mean, y = Condition, fill = Channel))+
+  geom_col(position = "dodge2")+
+  facet_grid(cols = vars(Metadata_Stiffness))+
+  theme_prism()+
+  scale_fill_manual(values = channelpal)+
+ggtitle("Mean Expression on Select Microenvironments")
+ggsave("Meancomparison.png", width = 10, height = 5)
+
+```
+
+## Plotting Drug vs DMSO 
+```{r}
+dsewithrep$Metadata_Treatment <- factor(dsewithrep$Metadata_Treatment, levels = c("DMSO", "10 uM"))
+
+dsewithrep %>% select(c("Metadata_Stiffness", "Metadata_Treatment", "Conditions", "Mean_Green_Norm", "Mean_Orange_Norm", "Mean_Red_Norm")) %>% pivot_longer(cols = starts_with("Mean_"), names_to = "Channel", values_to = "Mean_Expression") %>% 
+  mutate(Phenotype = case_when(Channel == "Mean_Green_Norm" ~ "PXR", Channel == "Mean_Red_Norm" ~ "Ecad", Channel == "Mean_Orange_Norm" ~"Vimentin"))%>%
+  ggplot(aes(x = Metadata_Treatment, y = Mean_Expression ))+
+  facet_grid(cols = vars(Phenotype))+
+  theme_prism()+
+  geom_boxplot()+
+  ggtitle("Mean Expression of Channels in Sorafenib Treatment")+
+  xlab("Sorafenib Treatment")+
+  ylab("Mean Expression (aiu)")+
+  stat_compare_means()
+ggsave("DrugvDMSObox.png")
 ```
 
