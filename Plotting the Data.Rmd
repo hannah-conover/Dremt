@@ -830,50 +830,6 @@ for (fill_column in fill_columns) {
 
 ```
 
-## PCA
-```{r}
-library(FactoMineR)
-library(Factoshiny)
-
-DMSOforPCA <-  subset(DMSOdsewithrep, select = c("Metadata_Stiffness","Conditions", "Mean_Green_Norm", "Mean_Orange_Norm", "Mean_Red_Norm"))
-
-PCAshiny(DMSOforPCA)
-```
-
-```{r}
-PCAClusters <- res$call$X
-
-ggplot(PCAClusters,aes(x = Dim.1,
-                       y = Dim.2,
-                       color = clust
-)) + 
-  geom_point(position = "jitter",size = 3)+
- # xlim(-2,6)+
-  geom_hline(yintercept = 0)+
-  geom_vline(xintercept = 0)+
-  theme_prism()+
-  scale_color_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
-  # theme(
-  #   axis.title.x = element_text(size= 30),
-  #       axis.text.x = element_text(angle = 0, size= 20),
-  #       axis.title.y = element_text(size= 30),
-  #       axis.text.y = element_text(size= 15),
-  #       strip.text =  element_text(size = 30),
-  #       panel.background = element_blank(),
-  #       legend.key.size = unit(2, 'cm'),
-  #       legend.title = element_text(size = 30),
-  #       legend.text = element_text(size = 30),
-  # )+
-  xlab("Dim. 1 - 68.05%") +
-  ylab("Dim. 2 - 22.71%")
- 
-ggsave(filename = "TestPCA.png")
-```
-
-```{r}
-res$desc.var
-```
-
 ## Playing with Correlation 
 ### Correlation without Ratio
 ```{r}

@@ -1,0 +1,273 @@
+---
+title: "Updated PCA"
+output: html_document
+date: "2025-01-10"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(FactoMineR)
+library(Factoshiny)
+library(ggplot2)
+library(ggprism)
+library(tidyr)
+library(plyr)
+library(dplyr)
+
+```
+
+## Setting up the dataset
+Combining EdU and Survival Information from Experiments to Phenotype experiment
+
+### EdU and Survival
+```{r}
+## The EdU and Survival info is still at the ds_e_pheno, needs to be summarized together prior to merging with DREMT info
+EdUtoadd <- FOC[, c("Metadata_Experiment", "Metadata_Stiffness", "Metadata_Treatment", "Metadata_Ratio", "Metadata_ECMs", "Mean_Percent_Positive")]
+
+colnames(EdUtoadd) <- c("Metadata_Experiment", "Metadata_Stiffness", "Metadata_Treatment", "Metadata_Ratio", "Metadata_ECMs", "Percent_Positive_EdU")
+
+EdUtoadd <- subset(EdUtoadd, Metadata_Treatment == "DMSO")
+
+## Summarize to ds_pheno level
+EdUreduced <- EdUtoadd %>% dplyr::group_by(Metadata_Stiffness, Metadata_Ratio, Metadata_ECMs) %>% dplyr::summarize(Proliferation = mean(Percent_Positive_EdU))
+
+EdUreduced <- EdUreduced[,c("Metadata_Stiffness", "Metadata_Ratio", "Metadata_ECMs", "Proliferation")]
+
+## Fold Change
+FoldChange <- FOC[, c("Metadata_Experiment", "Metadata_Stiffness", "Metadata_Treatment", "Metadata_Ratio", "Metadata_ECMs", "FOC")]
+
+## Summarize to ds_pheno level
+FoldChange <- FoldChange %>% dplyr::group_by(Metadata_Stiffness, Metadata_Treatment, Metadata_Ratio, Metadata_ECMs) %>% dplyr::summarize(Survival = mean(FOC))
+
+FoldChange <- subset(FoldChange, Metadata_Treatment == "10 uM")
+
+FoldChange <- subset(FoldChange, select = -c(Metadata_Treatment))
+
+## Join together to add 
+
+EdUreduced <- join(EdUreduced, FoldChange)
+```
+
+### Formatting DREMT Info
+```{r}
+DREMTtoadd <- DMSOdsewithrep[,c("Metadata_Stiffness", "Metadata_Ratio", "Abb_ECM", "Metadata_ECMs","Mean_Green_Norm", "Mean_Orange_Norm", "Mean_Red_Norm", "Mean_Nuclei")]
+
+## summarize to ds_pheno level
+DREMTreduced <- DREMTtoadd %>% dplyr::group_by(Metadata_Stiffness, Metadata_Ratio, Metadata_ECMs, Abb_ECM) %>% 
+ dplyr:: summarize(Mean_Vimentin = mean(Mean_Orange_Norm),
+            Mean_Ecad = mean(Mean_Red_Norm),
+            Mean_PXR = mean(Mean_Green_Norm),
+            Adhesion = mean(Mean_Nuclei))
+```
+
+### Putting it All Together
+```{r}
+DMSOforPCA <- join(DREMTreduced, EdUreduced)
+
+DMSOforPCA  <- DMSOforPCA[,-3]
+```
+
+
+## PCA Running
+ONLY FOR DMSO Responses -Report_2025-01-10
+```{r}
+
+PCAshiny(DMSOforPCA)
+```
+
+## Graphing the Clusters
+```{r}
+PCAClusters <- res$call$X
+
+ggplot(PCAClusters,aes(x = Dim.1,
+                       y = Dim.2,
+                       color = clust
+)) + 
+  geom_point(position = "jitter",size = 3)+
+ # xlim(-2,6)+
+  geom_hline(yintercept = 0)+
+  geom_vline(xintercept = 0)+
+  theme_prism()+
+  scale_color_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
+  # theme(
+  #   axis.title.x = element_text(size= 30),
+  #       axis.text.x = element_text(angle = 0, size= 20),
+  #       axis.title.y = element_text(size= 30),
+  #       axis.text.y = element_text(size= 15),
+  #       strip.text =  element_text(size = 30),
+  #       panel.background = element_blank(),
+  #       legend.key.size = unit(2, 'cm'),
+  #       legend.title = element_text(size = 30),
+  #       legend.text = element_text(size = 30),
+  # )+
+  xlab("Dim. 1 - 43.79%") +
+  ylab("Dim. 2 - 22.71%")
+ 
+ggsave(filename = "PCAClusters1-10.png")
+```
+
+## Variable Descriptions
+```{r}
+res$desc.var
+```
+
+## Identifying Individuals
+```{r}
+datawithcluster <- res$data.clust
+
+MetatoAbbECMs <- unique(DMSOdsewithrep[c("Metadata_ECMs", "Abb_ECM")])
+
+datawithcluster <- left_join(datawithcluster, MetatoAbbECMs)
+```
+
+## Cluster Heatmaps
+Import Metadata_ECMsbackward.csv and Metadata_ECMsforward.csv before running
+```{r}
+DC_125 <- subset(datawithcluster, Metadata_Stiffness == "1kPa" & Metadata_Ratio %in% c("Metadata_Ratio_25/75", "Metadata_Ratio_100"))
+DC_150 <- subset(datawithcluster, Metadata_Stiffness == "1kPa" & Metadata_Ratio %in% c("Metadata_Ratio_50/50", "Metadata_Ratio_100"))
+DC_175 <- subset(datawithcluster, Metadata_Stiffness == "1kPa" & Metadata_Ratio %in% c("Metadata_Ratio_75/25", "Metadata_Ratio_100"))
+
+DC_2525 <- subset(datawithcluster, Metadata_Stiffness == "25kPa" & Metadata_Ratio %in% c("Metadata_Ratio_25/75", "Metadata_Ratio_100"))
+DC_2550 <- subset(datawithcluster, Metadata_Stiffness == "25kPa" & Metadata_Ratio %in% c("Metadata_Ratio_50/50", "Metadata_Ratio_100"))
+DC_2575 <- subset(datawithcluster, Metadata_Stiffness == "25kPa" & Metadata_Ratio %in% c("Metadata_Ratio_75/25", "Metadata_Ratio_100"))
+
+DC_125for <- left_join(DC_125, Metadata_ECMsforward)
+DC_150for <- left_join(DC_150, Metadata_ECMsforward)
+DC_175for <- left_join(DC_175, Metadata_ECMsforward)
+
+DC_2525for <- left_join(DC_2525, Metadata_ECMsforward)
+DC_2550for <- left_join(DC_2550, Metadata_ECMsforward)
+DC_2575for <- left_join(DC_2575, Metadata_ECMsforward)
+  
+DC_125back <- left_join(DC_125, Metadata_ECMsbackward)
+DC_150back <- left_join(DC_150, Metadata_ECMsbackward)
+DC_175back <- left_join(DC_175, Metadata_ECMsbackward)
+
+DC_2525back <- left_join(DC_2525, Metadata_ECMsbackward)
+DC_2550back <- left_join(DC_2550, Metadata_ECMsbackward)
+DC_2575back <- left_join(DC_2575, Metadata_ECMsbackward)
+  
+DC_125 <- rbind(DC_125for,DC_125back)
+DC_150 <- rbind(DC_150for,DC_150back)
+DC_175 <- rbind(DC_175for,DC_175back)
+
+DC_2525 <- rbind(DC_2525for,DC_2525back)
+DC_2550 <- rbind(DC_2550for,DC_2550back)
+DC_2575 <- rbind(DC_2575for,DC_2575back)
+```
+### Plotting
+```{r}
+library(viridis)
+library(ggpubr)
+
+a <- ggplot(DC_125 , aes(x = ECM1, y = ECM2, fill = clust))+
+  geom_tile()+
+  coord_fixed()+ 
+  theme_prism()+ 
+  ggtitle("1 kPa 25:75")+
+  scale_fill_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
+  theme(axis.text.x = element_text( size = 25),
+        axis.title.x = element_text(size = 25),
+        axis.text.y = element_text(size = 25), 
+        axis.title.y = element_text(size = 25),
+        legend.key.height = unit(1, "in"),
+        legend.text = element_text(size = 25),
+        plot.title = element_text(size =30),
+        panel.background = element_blank(),
+        strip.text = element_text(size = 25),
+        panel.border = element_rect(colour = "black", fill=NA, size=1))
+
+b <- ggplot(DC_150, aes(x = ECM1, y = ECM2, fill = clust))+
+  geom_tile()+
+  coord_fixed()+ 
+  theme_prism()+ 
+  scale_fill_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
+  ggtitle("1 kPa 50:50")+
+  theme(axis.text.x = element_text( size = 25),
+        axis.title.x = element_text(size = 25),
+        axis.text.y = element_text(size = 25), 
+        axis.title.y = element_text(size = 25),
+        legend.key.height = unit(1, "in"),
+        legend.text = element_text(size = 25),
+        plot.title = element_text(size =30),
+        panel.background = element_blank(),
+        strip.text = element_text(size = 25),
+        panel.border = element_rect(colour = "black", fill=NA, size=1))
+
+c <- ggplot(DC_175, aes(x = ECM1, y = ECM2, fill = clust))+
+  geom_tile()+
+  coord_fixed()+ 
+  theme_prism()+ 
+  scale_fill_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
+  ggtitle("1 kPa 75:25")+
+  theme(axis.text.x = element_text( size = 25),
+        axis.title.x = element_text(size = 25),
+        axis.text.y = element_text(size = 25), 
+        axis.title.y = element_text(size = 25),
+        legend.key.height = unit(1, "in"),
+        legend.text = element_text(size = 25),
+        plot.title = element_text(size =30),
+        panel.background = element_blank(),
+        strip.text = element_text(size = 25),
+        panel.border = element_rect(colour = "black", fill=NA, size=1))
+
+d <- ggplot(DC_2525, aes(x = ECM1, y = ECM2, fill = clust))+
+  geom_tile()+
+  coord_fixed()+ 
+  theme_prism()+ 
+  scale_fill_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
+  ggtitle("25 kPa 25:75")+
+  theme(axis.text.x = element_text( size = 25),
+        axis.title.x = element_text(size = 25),
+        axis.text.y = element_text(size = 25), 
+        axis.title.y = element_text(size = 25),
+        legend.key.height = unit(1, "in"),
+        legend.text = element_text(size = 25),
+        plot.title = element_text(size =30),
+        panel.background = element_blank(),
+        strip.text = element_text(size = 25),
+        panel.border = element_rect(colour = "black", fill=NA, size=1))
+
+e <- ggplot(DC_2550, aes(x = ECM1, y = ECM2, fill = clust))+
+  geom_tile()+
+  coord_fixed()+ 
+  theme_prism()+ 
+  scale_fill_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
+  ggtitle("25 kPa 50:50")+
+  theme(axis.text.x = element_text( size = 25),
+        axis.title.x = element_text(size = 25),
+        axis.text.y = element_text(size = 25), 
+        axis.title.y = element_text(size = 25),
+        legend.key.height = unit(1, "in"),
+        legend.text = element_text(size = 25),
+        plot.title = element_text(size =30),
+        panel.background = element_blank(),
+        strip.text = element_text(size = 25),
+        panel.border = element_rect(colour = "black", fill=NA, size=1))
+
+f <- ggplot(DC_2575, aes(x = ECM1, y = ECM2, fill = clust))+
+  geom_tile()+
+  coord_fixed()+ 
+  theme_prism()+ 
+  scale_fill_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
+  ggtitle("25 kPa 75:25")+
+  theme(axis.text.x = element_text( size = 25),
+        axis.title.x = element_text(size = 25),
+        axis.text.y = element_text(size = 25), 
+        axis.title.y = element_text(size = 25),
+        legend.key.height = unit(1, "in"),
+        legend.text = element_text(size = 25),
+        plot.title = element_text(size =30),
+        panel.background = element_blank(),
+        strip.text = element_text(size = 25),
+        panel.border = element_rect(colour = "black", fill=NA, size=1))
+
+Clust1grid <- ggarrange(a,b,c, ncol = 3, nrow =1)
+Clust25grid <- ggarrange(d,e,f, ncol = 3, nrow = 1)
+
+ggsave(Clust1grid, filename = "Clust1kPa.png", width = 30, height = 10)
+ggsave(Clust25grid, filename = "Clust25kPa.png", width = 30, height = 10)
+
+```
+

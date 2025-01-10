@@ -446,15 +446,15 @@ library(GAD)
 library(blmeco)
 DMSOdsewithrep <- subset(combinedds_Ratio, Metadata_Treatment == "DMSO")
 
-DMSOdsewithrep$CollagenI <- relevel(as.factor(DMSOdsewithrep$CollagenI), ref = 5)
-DMSOdsewithrep$CollagenIV <- relevel(as.factor(DMSOdsewithrep$CollagenIV), ref = 5)
-DMSOdsewithrep$Laminin <- relevel(as.factor(DMSOdsewithrep$Laminin), ref = 5)
-DMSOdsewithrep$Hyaluronic_Acid <- relevel(as.factor(DMSOdsewithrep$Hyaluronic_Acid), ref = 5)
-DMSOdsewithrep$TenascinC <- relevel(as.factor(DMSOdsewithrep$TenascinC), ref = 5)
-DMSOdsewithrep$Osteopontin <- relevel(as.factor(DMSOdsewithrep$Osteopontin), ref = 5)
-DMSOdsewithrep$Galectin3 <- relevel(as.factor(DMSOdsewithrep$Galectin3), ref = 5)
-DMSOdsewithrep$Fibronectin <- relevel(as.factor(DMSOdsewithrep$Fibronectin), ref = 5)
-DMSOdsewithrep$Decorin <- relevel(as.factor(DMSOdsewithrep$Decorin), ref = 5)
+DMSOdsewithrep$CollagenI <- relevel(factor(DMSOdsewithrep$CollagenI, levels = c(0,0.25,0.5,0.75,1)), ref = 5)
+DMSOdsewithrep$CollagenIV <- relevel(factor(DMSOdsewithrep$CollagenIV, levels = c(0,0.25,0.5,0.75,1)), ref = 5)
+DMSOdsewithrep$Laminin <- relevel(factor(DMSOdsewithrep$Laminin, levels = c(0,0.25,0.5,0.75,1)), ref = 5)
+DMSOdsewithrep$Hyaluronic_Acid <- relevel(factor(DMSOdsewithrep$Hyaluronic_Acid, levels = c(0,0.25,0.5,0.75,1)), ref = 5)
+DMSOdsewithrep$TenascinC <- relevel(factor(DMSOdsewithrep$TenascinC, levels = c(0,0.25,0.5,0.75,1)), ref = 5)
+DMSOdsewithrep$Osteopontin <- relevel(factor(DMSOdsewithrep$Osteopontin, levels = c(0,0.25,0.5,0.75,1)), ref = 5)
+DMSOdsewithrep$Galectin3 <- relevel(factor(DMSOdsewithrep$Galectin3, levels = c(0,0.25,0.5,0.75,1)), ref = 5)
+DMSOdsewithrep$Fibronectin <- relevel(factor(DMSOdsewithrep$Fibronectin, levels = c(0,0.25,0.5,0.75,1)), ref = 5)
+DMSOdsewithrep$Decorin <- relevel(factor(DMSOdsewithrep$Decorin, levels = c(0,0.25,0.5,0.75,1)), ref = 5)
 
 
 vimmodel <- lmer(Mean_Orange_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
@@ -1003,10 +1003,10 @@ r2_nakagawa(vimmodeldrug)
 r2_nakagawa(ecadmodeldrug)
 r2_nakagawa(pxrmodeldrug)
 ```
-
+## Testing Other Things
 ```{r}
 library(lme4)
-test1 <- lmer(Mean_Green_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+test1 <- lmer(Mean_Green_Norm ~ (1|Metadata_Stiffness:(Metadata_Experiment:Metadata_Block:Replicate))+
                 Metadata_Stiffness + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin + Metadata_Stiffness:(CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin), data = DMSOdsewithrep)
 
 test15  <- lmer(Mean_Green_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
@@ -1063,6 +1063,18 @@ hist(residuals3, breaks = 30)
 hist(residuals6, breaks = 30)
 hist(residualspxr, breaks = 30)
 ```
+
+###Random effect structure 
+Random effect structure is specified by Exp:Block:Rep which accounts for the random effects without overfitting the model to a Singular Fit
+```{r}
+test5<- lmer(Mean_Green_Norm ~ 
+               #(1|Metadata_Experiment:Metadata_Block)+ 
+               (1|Metadata_Experiment:Metadata_Block:Replicate) + 
+                Metadata_Stiffness+  CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin + Abb_ECM + Metadata_Stiffness:( CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin)+ Metadata_Stiffness:Abb_ECM + Abb_ECM:( CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin) + Metadata_Stiffness:Abb_ECM:(CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin), data = DMSOdsewithrep)
+
+anova(test4, test5)
+```
+
 ##Mixture Design Exploration
 ```{r}
 library(mixexp)

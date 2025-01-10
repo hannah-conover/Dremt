@@ -1,0 +1,46 @@
+,Metadata_ECMs,ECM1,ECM2
+1,Laminin,LN,LN
+2,Collagen IDecorin,C1,DN
+3,Collagen ICollagen IV,C1,C4
+4,Hyaluronic AcidFibronectin,HA,FN
+5,Hyaluronic AcidGalectin 3,HA,G3
+6,LamininGalectin 3,LN,G3
+7,Tenascin CDecorin,TC,DN
+8,Collagen IVOsteopontin,C4,OPN
+9,Collagen I,C1,C1
+10,OsteopontinGalectin 3,OPN,G3
+11,Collagen IV,C4,C4
+12,Hyaluronic AcidOsteopontin,HA,OPN
+13,Fibronectin,FN,FN
+14,OsteopontinDecorin,OPN,DN
+15,OsteopontinFibronectin,OPN,FN
+16,LamininDecorin,LN,DN
+17,LamininFibronectin,LN,FN
+18,Collagen IGalectin 3,C1,G3
+19,Collagen IVHyaluronic Acid,C4,HA
+20,Galectin 3Fibronectin,G3,FN
+21,Collagen IVFibronectin,C4,FN
+22,Collagen IOsteopontin,C1,OPN
+23,DecorinFibronectin,DN,FN
+24,Collagen IVGalectin 3,C4,G3
+25,LamininHyaluronic Acid,LN,HA
+26,Galectin 3,G3,G3
+27,DecorinGalectin 3,DN,G3
+28,Collagen ILaminin,C1,LN
+29,Tenascin CGalectin 3,TC,G3
+30,Tenascin CFibronectin,TC,FN
+31,Collagen ITenascin C,C1,TC
+32,Collagen IVLaminin,C4,LN
+33,Collagen IFibronectin,C1,FN
+34,Collagen IVTenascin C,C4,TC
+35,Collagen IVDecorin,C4,DN
+36,Tenascin COsteopontin,TC,OPN
+37,Tenascin CHyaluronic Acid,TC,HA
+38,Collagen IHyaluronic Acid,C1,HA
+39,LamininTenascin C,LN,TC
+40,Hyaluronic Acid,HA,HA
+41,Hyaluronic AcidDecorin,HA,DN
+42,LamininOsteopontin,LN, OPN
+43,Tenascin C,TC,TC
+44,Decorin,DN,DN
+45,Osteopontin,OPN,OPN
