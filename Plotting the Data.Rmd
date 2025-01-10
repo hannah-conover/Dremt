@@ -1059,12 +1059,12 @@ SPcor25 <- cor(SP25)
 testRes1<- cor.mtest(SP1)
 testRes25 <- cor.mtest(SP25)
 
-png("SPcor1corr.png", width = 6, height = 4, units = "in", res = 1200)
-corrplot(SPcor1, p.mat = testRes1$p, sig.level = 0.05, type = "upper", order = "hclust", col = brewer.pal(n=8, name = "RdYlBu"), diag = FALSE, addCoef.col = 'black')
+png("SPcor1corr.png", width = 6, height = 6, units = "in", res = 1200)
+corrplot(SPcor1, p.mat = testRes1$p, sig.level = 0.05, type = "upper", order = "hclust", col = brewer.pal(n=8, name = "RdYlBu"), diag = FALSE, addCoef.col = 'black', title = "Correlation of Phenotypes and Survival on 1 kPa")
 dev.off()
 
-png("SPcor25corr.png", width = 6, height = 4, units = "in", res = 1200)
-corrplot(SPcor25, p.mat = testRes25$p, sig.level = 0.05, type = "upper", order = "hclust", col = brewer.pal(n=8, name = "RdYlBu"), diag = FALSE, addCoef.col = 'black')
+png("SPcor25corr.png", width = 6, height = 6, units = "in", res = 1200)
+corrplot(SPcor25, p.mat = testRes25$p, sig.level = 0.05, type = "upper", order = "hclust", col = brewer.pal(n=8, name = "RdYlBu"), diag = FALSE, addCoef.col = 'black', title = "Correlation of Phenotypes and Survival on 25 kPa")
 dev.off()
 
 ggcorrplot(SPcor1, method = "circle", hc.order = TRUE, type = "lower", lab = TRUE, ggtheme = theme_bw)
@@ -1153,5 +1153,15 @@ dsewithrep %>% select(c("Metadata_Stiffness", "Metadata_Treatment", "Conditions"
   ylab("Mean Expression (aiu)")+
   stat_compare_means()
 ggsave("DrugvDMSObox.png")
+```
+## Overall PCA
+
+### Need to Add EdU
+```{r}
+DMSOSurvPhe <- subset(SurvivalPheno, Metadata_Treatment == "DMSO")
+
+DMSOforBigPCA <-  subset(DMSOSurvPhe, select = c("Metadata_Stiffness","Condition", "Mean_Green_Norm", "Mean_Orange_Norm", "Mean_Red_Norm", "ControlMean", "FOC"))
+
+PCAshiny(DMSOforBigPCA)
 ```
 

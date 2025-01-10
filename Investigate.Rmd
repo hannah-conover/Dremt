@@ -1,0 +1,59 @@
+---
+title: 'Classification'
+author: 'Dataset res.PCA'
+output:
+  html_document: default
+---
+.
+
+- - -
+
+```{r, echo = FALSE}
+library(FactoMineR)
+load('C:/Users/SantaLucia/Documents/git/DREMT 12-18 Modeling Analysis/Workspace.RData')
+```
+
+```{r, echo = FALSE, fig.align = 'center', fig.height = 5.5, fig.width = 5.5}
+drawn <-
+integer(0)
+par(mar = c(4.1, 4.1, 1.1, 2.1))
+plot.HCPC(res, choice = 'tree', title = '')
+```
+
+**Figure 1.1 - Hierarchical tree.**
+
+The classification made on individuals reveals 3 clusters.
+
+
+```{r, echo = FALSE, fig.align = 'center', fig.height = 5.5, fig.width = 5.5}
+par(mar = c(4.1, 4.1, 1.1, 2.1))
+plot.HCPC(res, choice = 'map', draw.tree = FALSE, title = '')
+```
+
+**Figure 1.2 - Ascending Hierarchical Classification of the individuals.**
+
+The **cluster 1** is made of individuals sharing :
+
+- high values for the variable *ControlMean*.
+- low values for the variables *Mean_Green_Norm*, *Mean_Orange_Norm*, *Mean_Red_Norm* and *FOC* (variables are sorted from the weakest).
+
+The **cluster 2** is made of individuals sharing :
+
+- high values for the variable *FOC*.
+- low values for the variables *ControlMean*, *Mean_Red_Norm* and *Mean_Green_Norm* (variables are sorted from the weakest).
+
+The **cluster 3** is made of individuals sharing :
+
+- high values for the variables *Mean_Red_Norm*, *Mean_Green_Norm* and *Mean_Orange_Norm* (variables are sorted from the strongest).
+- low values for the variable *ControlMean*.
+
+```{r, echo = FALSE, fig.align = 'center', fig.height = 5.5, fig.width = 5.5}
+par(mar = c(4.1, 4.1, 1.1, 2.1))
+plot.HCPC(res, choice = '3D.map', ind.names=FALSE, title = '')
+```
+
+**Figure 1.3 - Hierarchical tree on the factorial map.**
+
+The hierarchical tree can be drawn on the factorial map with the individuals colored according to their clusters.
+
+

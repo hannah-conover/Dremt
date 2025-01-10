@@ -443,6 +443,7 @@ Low dispersion! Can be used to estimate/predict responses
 ```{r}
 library(lme4)
 library(GAD)
+library(blmeco)
 DMSOdsewithrep <- subset(combinedds_Ratio, Metadata_Treatment == "DMSO")
 
 DMSOdsewithrep$CollagenI <- relevel(as.factor(DMSOdsewithrep$CollagenI), ref = 5)
@@ -506,22 +507,22 @@ vimanova <- vimanova %>% mutate(psig = case_when(
       p_value < 0.001 ~ "***",
       p_value < 0.01  ~ "**",
       p_value < 0.05  ~ "*",
-      p_value < 0.1   ~ ".",
-      TRUE            ~ "ns"))
+      p_value > 0.05   ~ "",
+      TRUE            ~ ""))
 
 ecadanova <- ecadanova %>% mutate(psig = case_when(
       p_value < 0.001 ~ "***",
       p_value < 0.01  ~ "**",
       p_value < 0.05  ~ "*",
-      p_value < 0.1   ~ ".",
-      TRUE            ~ "ns"))
+      p_value > 0.05   ~ "",
+      TRUE            ~ ""))
 
 pxranova <- pxranova %>% mutate(psig = case_when(
       p_value < 0.001 ~ "***",
       p_value < 0.01  ~ "**",
       p_value < 0.05  ~ "*",
-      p_value < 0.1   ~ ".",
-      TRUE            ~ "ns"))
+      p_value > 0.05   ~ "",
+      TRUE            ~ ""))
 ```
 ### Summary of Results
 Key Takeaways: Stiffness is not a significant main factor and no significant 3-way interactions -> main factors still interpretable
@@ -556,8 +557,8 @@ Anova_plot <- ggplot(data = vimanova,
                           aes(x = rownames(vimanova),
                               y = p_value)) +
   geom_bar(stat = "identity") + 
-  geom_text(aes(x = rownames(vimanova), label = psig, y = 0.75),  
-            size = 20, vjust = 0.8, hjust = 0, nudge_y = 0.25) +
+  geom_text(aes(x = rownames(vimanova), label = psig, y = 1),  
+            size = 20, vjust = 0.8, nudge_y = 0.25) +
   # geom_errorbar(aes(ymin = Coefficient -
   #                     SE,
   #                   ymax = Coefficient +
@@ -576,13 +577,13 @@ theme(axis.title.x = element_text(size= 30),
  #  ylim(-0.5, 0.5)+
   coord_flip()
 ggsave(filename = "anova_Vimentin.png", 
-        width = 15, height = 15,units="in")
+        width = 20, height = 15,units="in")
 
 Regression_plot <- ggplot(data = ecadanova,
                           aes(x = rownames(ecadanova),
                               y = p_value)) +
   geom_bar(stat = "identity") + 
-  geom_text(aes(x = rownames(ecadanova), label = psig, y = 0.75),  
+  geom_text(aes(x = rownames(ecadanova), label = psig, y = 0.65),  
             size = 20, vjust = 0.8, hjust = 0, nudge_y = 0.25) +
   # geom_errorbar(aes(x = reorder(Parameter, Coefficient),
   #                   ymin = Coefficient -
@@ -603,13 +604,13 @@ theme(axis.title.x = element_text(size= 30),
    #ylim(-0.5, 0.5)+
   coord_flip()
 ggsave(filename = "anova_Ecad.png", 
-        width = 15, height = 15,units="in")
+        width = 20, height = 15,units="in")
 
 Regression_plot <- ggplot(data = pxranova,
                           aes(x = rownames(pxranova),
                               y = p_value)) +
   geom_bar(stat = "identity") + 
-  geom_text(aes(x = rownames(pxranova), label = psig, y = 0.75),  
+  geom_text(aes(x = rownames(pxranova), label = psig, y = 0.65),  
             size = 20, vjust = 0.8, hjust = 0, nudge_y = 0.25) +
   # geom_errorbar(aes(x = reorder(Parameter, Coefficient),
   #                   ymin = Coefficient -
@@ -630,7 +631,7 @@ theme(axis.title.x = element_text(size= 30),
   # ylim(-0.5, 0.5)+
   coord_flip()
 ggsave(filename = "ANOVA_PXR.png", 
-        width = 15, height = 15,units="in")
+        width = 20, height = 15,units="in")
 ```
 
 
@@ -1004,8 +1005,156 @@ r2_nakagawa(pxrmodeldrug)
 ```
 
 ```{r}
+library(lme4)
+test1 <- lmer(Mean_Green_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+                Metadata_Stiffness + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin + Metadata_Stiffness:(CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin), data = DMSOdsewithrep)
+
+test15  <- lmer(Mean_Green_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+                Metadata_Stiffness+ Conditions +  Metadata_Stiffness:Conditions, data = DMSOdsewithrep)
+
+test2 <- lmer(Mean_Green_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+                Metadata_Stiffness + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin + Abb_ECM + Metadata_Stiffness:( CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin)+ Metadata_Stiffness:Abb_ECM , data = DMSOdsewithrep)
+
+
+test3 <- lmer(Mean_Green_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+                Metadata_Stiffness+  CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin + Abb_ECM + Metadata_Stiffness:( CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin)+ Metadata_Stiffness:Abb_ECM + Abb_ECM:( CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin) , data = DMSOdsewithrep)
+
+test35 <- lmer(Mean_Green_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+                Metadata_Stiffness+ Metadata_Stiffness*(Metadata_Ratio)+ Metadata_Stiffness:Abb_ECM + Abb_ECM*Metadata_Ratio , data = DMSOdsewithrep)
+
+test4 <- lmer(Mean_Green_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+                Metadata_Stiffness+  CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin + Abb_ECM + Metadata_Stiffness:( CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin)+ Metadata_Stiffness:Abb_ECM + Abb_ECM:( CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin) + Metadata_Stiffness:Abb_ECM:( CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin), data = DMSOdsewithrep)
+
+anova(test1, test15, test2, test3, test35, test4)
+```
+
+```{r}
+
+DMSOdsewithrep <- subset(combinedds_Ratio, Metadata_Treatment == "DMSO")
+test3 <- lmer(Mean_Green_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+                Metadata_Stiffness+  CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin + Abb_ECM + Metadata_Stiffness:(CollagenI +  CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin)+ Metadata_Stiffness:Abb_ECM + Abb_ECM:(CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin) , data = DMSOdsewithrep) 
+
+test6 <- lmer(Mean_Green_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+  Metadata_Stiffness+  poly(CollagenI,2)  + poly(CollagenIV,2) + poly(Hyaluronic_Acid,2) + poly(TenascinC,2) + poly(Laminin,2)  + poly(Fibronectin,2) + poly(Galectin3,2) + poly(Osteopontin,2) + poly(Decorin,2) + Abb_ECM + Metadata_Stiffness:(CollagenI+ CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin)+ Metadata_Stiffness:Abb_ECM + Abb_ECM:( CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin) , data = DMSOdsewithrep) 
+
+anova(test3, test6, pxrmodel)
+```
+
+```{r}
+residuals3 <- resid(test3)
+residuals6 <- resid(test6)
+
+residualspxr <- resid(pxrmodel)
+
+fitted3 <- fitted(test3)
+fitted6 <- fitted(test6)
+fittedpxr <- fitted(pxrmodel)
+
+plot(fitted3, residuals3)
+
+plot(fitted6, residuals6)
+
+plot(fittedpxr, residualspxr)
+
+qqnorm(residuals3, main = "Q-Q Plot of Residuals")
+qqnorm(residuals6, main = "Q-Q Plot of Residuals")
+qqnorm(residualspxr, main = "Q-Q Plot of Residuals")
+
+hist(residuals3, breaks = 30)
+hist(residuals6, breaks = 30)
+hist(residualspxr, breaks = 30)
+```
+##Mixture Design Exploration
+```{r}
+library(mixexp)
+mix_design <- SLD(9,4)
+
+DMSOdsewithrep %>% group_by(CollagenI, CollagenIV) %>% summarize(Mean_Green_Norm = mean(Mean_Green_Norm)) %>% ggplot(DMSOdsewithrep, aes(x = CollagenI, y = CollagenIV)) +
+geom_point(aes(color =Mean_Green_Norm, size = Mean_Green_Norm), na.rm = TRUE) +
+labs(x = "Collagen I", y = "Collagen IV") +
+theme_minimal()
 
 ```
 
+```{r}
+library(lme4)
+test10 <- lmer(Mean_Green_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+                Metadata_Stiffness +  poly(CollagenI,2)  + poly(CollagenIV,2) + poly(Hyaluronic_Acid,2) + poly(TenascinC,2) + poly(Laminin,2)  + poly(Fibronectin,2) + poly(Galectin3,2) + poly(Osteopontin,2) + poly(Decorin,2) +  CollagenI * CollagenIV + 
+               CollagenI * Hyaluronic_Acid + 
+               CollagenI * TenascinC + 
+               CollagenI * Laminin + 
+               CollagenI * Fibronectin + 
+               CollagenI * Galectin3 + 
+               CollagenI * Osteopontin + 
+               CollagenI * Decorin +
+               
+               CollagenIV * Hyaluronic_Acid + 
+               CollagenIV * TenascinC + 
+               CollagenIV * Laminin + 
+               CollagenIV * Fibronectin + 
+               CollagenIV * Galectin3 + 
+               CollagenIV * Osteopontin + 
+               CollagenIV * Decorin +
+               
+               Hyaluronic_Acid * TenascinC + 
+               Hyaluronic_Acid * Laminin + 
+               Hyaluronic_Acid * Fibronectin + 
+               Hyaluronic_Acid * Galectin3 + 
+               Hyaluronic_Acid * Osteopontin + 
+               Hyaluronic_Acid * Decorin +
+               
+               TenascinC * Laminin + 
+               TenascinC * Fibronectin + 
+               TenascinC * Galectin3 + 
+               TenascinC * Osteopontin + 
+               TenascinC * Decorin +
+               
+               Laminin * Fibronectin + 
+               Laminin * Galectin3 + 
+               Laminin * Osteopontin + 
+               Laminin * Decorin +
+               
+               Fibronectin * Galectin3 + 
+               Fibronectin * Osteopontin + 
+               Fibronectin * Decorin +
+               
+               Galectin3 * Osteopontin + 
+               Galectin3 * Decorin +
+               
+               Osteopontin * Decorin + Metadata_Stiffness:(CollagenI +  CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin) , data = DMSOdsewithrep) 
 
+anova(test3, pxrmodel, test10)
+```
+
+```{r}
+residuals10 <- resid(test10)
+
+fitted10 <- fitted(test10)
+
+plot(fitted10, residuals10)
+
+
+qqnorm(residuals10, main = "Q-Q Plot of Residuals")
+
+hist(residuals10, breaks = 30)
+
+```
+NOT CLR -> Literally the same as making them factors... so no point - another rabbit hole.
+```{r}
+library(lme4)
+ecm_data <- DMSOdsewithrep[, c("CollagenI", "CollagenIV", "Hyaluronic_Acid", "Laminin" ,        "TenascinC" ,      "Galectin3"    ,   "Fibronectin" ,    "Osteopontin"   ,  "Decorin")]
+ecm_data_clr<- clr(ecm_data + 0.0000001)
+
+colnames(ecm_data_clr) <- c("CollagenI_CLR", "CollagenIV_CLR", "Hyaluronic_Acid_CLR", "Laminin_CLR" ,        "TenascinC_CLR" ,      "Galectin3_CLR"    ,   "Fibronectin_CLR" ,    "Osteopontin_CLR"   ,  "Decorin_CLR")
+DMSOdsewithrep <- cbind(DMSOdsewithrep, ecm_data_clr)
+
+# testnclr <- lmer(Mean_Green_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+#                 Metadata_Stiffness+  CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin + Abb_ECM + Metadata_Stiffness:( CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin)+ Metadata_Stiffness:Abb_ECM + Abb_ECM:( CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin) , data = testDMSOwithclr)
+# 
+# test6nclr <- lmer(Mean_Green_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+  Metadata_Stiffness+  poly(CollagenI,2)  + poly(CollagenIV,2) + poly(Hyaluronic_Acid,2) + poly(TenascinC,2) + poly(Laminin,2)  + poly(Fibronectin,2) + poly(Galectin3,2) + poly(Osteopontin,2) + poly(Decorin,2) + Abb_ECM + Metadata_Stiffness:(CollagenI+ CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin)+ Metadata_Stiffness:Abb_ECM + Abb_ECM:( CollagenI + CollagenIV + Hyaluronic_Acid + TenascinC + Laminin + Fibronectin + Galectin3 + Osteopontin + Decorin) , data = testDMSOwithclr) 
+
+testclr <- lmer(Mean_Green_Norm ~ (1|Metadata_Stiffness:Metadata_Experiment:Metadata_Block:Replicate)+
+                Metadata_Stiffness+  CollagenI_CLR + CollagenIV_CLR + Hyaluronic_Acid_CLR + TenascinC_CLR + Laminin_CLR + Fibronectin_CLR + Galectin3_CLR + Osteopontin_CLR + Decorin_CLR + Abb_ECM + Metadata_Stiffness:(CollagenI_CLR +  CollagenIV_CLR + Hyaluronic_Acid_CLR + TenascinC_CLR + Laminin_CLR + Fibronectin_CLR + Galectin3_CLR + Osteopontin_CLR + Decorin_CLR)+ Metadata_Stiffness:Abb_ECM + Abb_ECM:(CollagenI_CLR + CollagenIV_CLR + Hyaluronic_Acid_CLR + TenascinC_CLR + Laminin_CLR + Fibronectin_CLR + Galectin3_CLR + Osteopontin_CLR + Decorin_CLR) + Metadata_Stiffness:Abb_ECM:(CollagenI_CLR +  CollagenIV_CLR + Hyaluronic_Acid_CLR + TenascinC_CLR + Laminin_CLR + Fibronectin_CLR + Galectin3_CLR + Osteopontin_CLR + Decorin_CLR) , data = DMSOdsewithrep) 
+
+anova(testclr,pxrmodel)
+```
 
