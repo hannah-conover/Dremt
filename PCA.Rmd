@@ -111,6 +111,41 @@ ggplot(PCAClusters,aes(x = Dim.1,
 ggsave(filename = "PCAClusters1-10.png")
 ```
 
+## Adding Callouts
+```{r}
+PCAClustersLab <- PCAClusters
+
+PCAClustersLab$Individual <- row.names(PCAClustersLab)
+
+PCAClustersLab <- PCAClustersLab %>% mutate(label = case_when(Individual == 139 ~ "A",
+                                                      Individual == 209 ~ "B",
+                                                      Individual == 153 ~ "C",
+                                                      Individual == 51 ~ "D",
+                                                      Individual == 216 ~ "E", 
+                                                      Individual == 193 ~ "F",
+                                                      Individual == 35 ~ "G",
+                                                      Individual == 111 ~ "H"))
+```
+
+```{r}
+library(ggrepel)
+ggplot(PCAClustersLab,aes(x = Dim.1,
+                       y = Dim.2,
+                       color = clust
+)) + 
+  geom_point(position = "jitter",size = 3)+
+ # xlim(-2,6)+
+  geom_hline(yintercept = 0)+
+  geom_vline(xintercept = 0)+
+  geom_label_repel(aes(label = label), min.segment.length = 0, color = "black", segment.size = 01)+
+  theme_prism()+
+  scale_color_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
+  xlab("Dim. 1 - 43.79%") +
+  ylab("Dim. 2 - 21.77%")
+ 
+ggsave(filename = "PCAClusters1-10Lab.png")
+```
+
 ## Stiffness Relationship
 
 ```{r}
