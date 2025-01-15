@@ -47,6 +47,10 @@ FoldChange <- subset(FoldChange, select = -c(Metadata_Treatment))
 ## Join together to add 
 
 EdUreduced <- join(EdUreduced, FoldChange)
+
+Ratios <- FOC %>% distinct(Metadata_ECMs, Metadata_Ratio, CollagenI, CollagenIV, Hyaluronic_Acid, TenascinC, Galectin3, Decorin, Fibronectin, Osteopontin, Laminin)
+
+EdUreduced <- join(EdUreduced, Ratios)
 ```
 
 ### Formatting DREMT Info
@@ -70,7 +74,7 @@ DMSOforPCA  <- DMSOforPCA[,-3]
 
 
 ## PCA Running
-ONLY FOR DMSO Responses -Report_2025-01-10
+ONLY FOR DMSO Responses -Report_2025-01-10 (&10-15)
 ```{r}
 
 PCAshiny(DMSOforPCA)
@@ -102,10 +106,51 @@ ggplot(PCAClusters,aes(x = Dim.1,
   #       legend.text = element_text(size = 30),
   # )+
   xlab("Dim. 1 - 43.79%") +
-  ylab("Dim. 2 - 22.71%")
+  ylab("Dim. 2 - 21.77%")
  
 ggsave(filename = "PCAClusters1-10.png")
 ```
+
+## Stiffness Relationship
+
+```{r}
+datacluster <- mutate(datawithcluster, Individual = row.names(datawithcluster))
+
+PCAStiff <- mutate(PCAClusters, Individual = row.names(PCAClusters))
+
+PCAStiff <- merge(datacluster, PCAStiff)
+```
+
+
+NEED TO RUN - Find the Assignments with Cluster....
+```{r}
+ggplot(PCAStiff,aes(x = Dim.1,
+                       y = Dim.2,
+                       color = Metadata_Stiffness
+)) + 
+  geom_point(position = "jitter",size = 3)+
+  # xlim(-2,6)+
+  geom_hline(yintercept = 0)+
+  geom_vline(xintercept = 0)+
+  theme_prism()+
+ # scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9"), name = "Cluster")+
+  # theme(
+  #   axis.title.x = element_text(size= 30),
+  #       axis.text.x = element_text(angle = 0, size= 20),
+  #       axis.title.y = element_text(size= 30),
+  #       axis.text.y = element_text(size= 15),
+  #       strip.text =  element_text(size = 30),
+  #       panel.background = element_blank(),
+  #       legend.key.size = unit(2, 'cm'),
+  #       legend.title = element_text(size = 30),
+  #       legend.text = element_text(size = 30),
+  # )+
+xlab("Dim. 1 - 43.79%") +
+  ylab("Dim. 2 - 21.77%")
+
+ggsave(filename = "StiffPCA.png")
+```
+
 
 ## Variable Descriptions
 ```{r}
@@ -119,6 +164,8 @@ datawithcluster <- res$data.clust
 MetatoAbbECMs <- unique(DMSOdsewithrep[c("Metadata_ECMs", "Abb_ECM")])
 
 datawithcluster <- left_join(datawithcluster, MetatoAbbECMs)
+
+res$desc.ind
 ```
 
 ## Cluster Heatmaps

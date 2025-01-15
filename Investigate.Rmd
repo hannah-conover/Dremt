@@ -34,23 +34,23 @@ plot.HCPC(res, choice = 'map', draw.tree = FALSE, title = '')
 
 The **cluster 1** is made of individuals sharing :
 
-- high values for the variables *Adhesion* and *Proliferation* (variables are sorted from the strongest).
+- high values for the variables *Adhesion*, *Proliferation* and *CollagenIV* (variables are sorted from the strongest).
 - low values for the variables *Mean_PXR*, *Mean_Vimentin*, *Mean_Ecad* and *Survival* (variables are sorted from the weakest).
 
 The **cluster 2** is made of individuals such as *34*, *51* and *80*. This group is characterized by :
 
 - high values for the variable *Survival*.
-- low values for the variables *Proliferation*, *Mean_PXR*, *Mean_Vimentin*, *Mean_Ecad* and *Adhesion* (variables are sorted from the weakest).
+- low values for the variables *Proliferation*, *Mean_PXR*, *Mean_Vimentin*, *Mean_Ecad*, *Adhesion* and *CollagenI* (variables are sorted from the weakest).
 
 The **cluster 3** is made of individuals sharing :
 
 - high values for the variables *Mean_Vimentin*, *Proliferation* and *Mean_PXR* (variables are sorted from the strongest).
-- low values for the variables *Survival* and *Adhesion* (variables are sorted from the weakest).
+- low values for the variables *Survival*, *Adhesion* and *CollagenIV* (variables are sorted from the weakest).
 
 The **cluster 4** is made of individuals sharing :
 
 - high values for the variables *Mean_Ecad*, *Mean_PXR* and *Mean_Vimentin* (variables are sorted from the strongest).
-- low values for the variables *Proliferation* and *Adhesion* (variables are sorted from the weakest).
+- low values for the variables *Proliferation*, *Adhesion* and *Decorin* (variables are sorted from the weakest).
 
 ```{r, echo = FALSE, fig.align = 'center', fig.height = 5.5, fig.width = 5.5}
 par(mar = c(4.1, 4.1, 1.1, 2.1))
