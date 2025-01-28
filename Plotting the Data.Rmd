@@ -97,6 +97,10 @@ DMSOdsewithrepcolreorder$TenascinC <- factor(DMSOdsewithrepcolreorder$TenascinC,
 DMSOdsewithrepcolreorder$Laminin <- factor(DMSOdsewithrepcolreorder$Laminin, levels = c(0,0.25,0.5,0.75,1))
 ```
 
+```{r}
+VEPECMmeansNuc <- DMSOdsewithrepcolreorder %>% group_by(Metadata_Stiffness, Abb_ECM, Laminin, CollagenI, CollagenIV, Hyaluronic_Acid, Fibronectin, Decorin, Osteopontin, Galectin3, TenascinC) %>% summarize(Mean_PXR = mean(Mean_Green_Norm, na.rm = TRUE), Mean_Vim = mean(Mean_Orange_Norm, na.rm = TRUE), Mean_Ecad = mean(Mean_Red_Norm, na.rm = TRUE))
+```
+
 ### PXR Sig S:R
 ```{r}
 interaction.plot(x.factor = DMSOdsewithrepcolreorder$CollagenIV, trace.factor = DMSOdsewithrepcolreorder$Metadata_Stiffness, response = DMSOdsewithrepcolreorder$Mean_Green_Norm, ylab = "PXR Expression", xlab = "Collagen IV Ratio", trace.label = "Stiffness (kPa)")
@@ -105,13 +109,68 @@ interaction.plot(x.factor = DMSOdsewithrepcolreorder$Osteopontin, trace.factor =
 
 interaction.plot(x.factor = DMSOdsewithrepcolreorder$Decorin, trace.factor = DMSOdsewithrepcolreorder$Metadata_Stiffness, response = DMSOdsewithrepcolreorder$Mean_Green_Norm, ylab = "PXR Expression", xlab = "Decorin Ratio", trace.label = "Stiffness (kPa)")
 
+
+VEPECMmeansNuc %>% group_by(Metadata_Stiffness, CollagenIV) %>% summarize(Mean_PXR = mean(Mean_PXR)) %>% ggplot( aes(x = CollagenIV, y = Mean_PXR, col = Metadata_Stiffness))+
+  #facet_grid(cols = vars(Metadata_Stiffness))+
+  geom_path(aes(group = Metadata_Stiffness), linewidth = 1.5)+
+  geom_point(size = 3)+
+  theme_prism(border = TRUE)+
+  xlab("Ratio of Collagen IV")+
+  ylab("PXR Expression")+
+  scale_color_manual(values = c("#db6d22", "#2100bb"))
+
+  ggsave("PXR Intx/StiffnessvsC1PXR.png")
+  
+  VEPECMmeansNuc %>% group_by(Metadata_Stiffness, Osteopontin) %>% summarize(Mean_PXR = mean(Mean_PXR)) %>%ggplot( aes(x = Osteopontin, y = Mean_PXR, col = Metadata_Stiffness))+
+  #facet_grid(cols = vars(Metadata_Stiffness))+
+  geom_path(aes(group = Metadata_Stiffness), linewidth = 1.5)+
+  geom_point(size = 3)+
+  theme_prism(border = TRUE)+
+  xlab("Ratio of Osteopontin")+
+ ylab("PXR Expression")+
+  scale_color_manual(values = c("#db6d22", "#2100bb"))
+
+  ggsave("PXR Intx/StiffnessvsOPNPXR.png")
+  
+  VEPECMmeansNuc %>% group_by(Metadata_Stiffness, Decorin) %>% summarize(Mean_PXR = mean(Mean_PXR)) %>%ggplot( aes(x = Decorin, y = Mean_PXR, col = Metadata_Stiffness))+
+  #facet_grid(cols = vars(Metadata_Stiffness))+
+  geom_path(aes(group = Metadata_Stiffness), linewidth = 1.5)+
+  geom_point(size = 3)+
+  theme_prism(border = TRUE)+
+  xlab("Ratio of Decorin")+
+  ylab("PXR Expression")+
+  scale_color_manual(values = c("#db6d22", "#2100bb"))
+
+  ggsave("PXR Intx/StiffnessvsDNPXR.png")
 ```
+
 
 ### ECAD Sig S:R
 ```{r}
 interaction.plot(x.factor = DMSOdsewithrepcolreorder$Osteopontin, trace.factor = DMSOdsewithrepcolreorder$Metadata_Stiffness, response = DMSOdsewithrepcolreorder$Mean_Red_Norm, ylab = "Ecad Expression", xlab = "Osteopontin Ratio", trace.label = "Stiffness (kPa)")
 
 interaction.plot(x.factor = DMSOdsewithrepcolreorder$Decorin, trace.factor = DMSOdsewithrepcolreorder$Metadata_Stiffness, response = DMSOdsewithrepcolreorder$Mean_Red_Norm, ylab = "Ecad Expression", xlab = "Decorin Ratio", trace.label = "Stiffness (kPa)")
+
+VEPECMmeansNuc %>% group_by(Metadata_Stiffness, Osteopontin) %>% summarize(Mean_Ecad = mean(Mean_Ecad)) %>%ggplot( aes(x = Osteopontin, y = Mean_Ecad, col = Metadata_Stiffness))+
+  #facet_grid(cols = vars(Metadata_Stiffness))+
+  geom_path(aes(group = Metadata_Stiffness), linewidth = 1.5)+
+  geom_point(size = 3)+
+  theme_prism(border = TRUE)+
+  xlab("Ratio of Decorin")+
+  ylab("Ecad Expression")+
+  scale_color_manual(values = c("#db6d22", "#2100bb"))
+ggsave("Ecad Intx/StiffnessvsOPNEcad.png")
+
+VEPECMmeansNuc %>% group_by(Metadata_Stiffness, Decorin) %>% summarize(Mean_Ecad = mean(Mean_Ecad)) %>%ggplot( aes(x = Decorin, y = Mean_Ecad, col = Metadata_Stiffness))+
+  #facet_grid(cols = vars(Metadata_Stiffness))+
+  geom_path(aes(group = Metadata_Stiffness), linewidth = 1.5)+
+  geom_point(size = 3)+
+  theme_prism(border = TRUE)+
+  xlab("Ratio of Decorin")+
+  ylab("Ecad Expression")+
+  scale_color_manual(values = c("#db6d22", "#2100bb"))
+
+  ggsave("Ecad Intx/StiffnessvsDNEcad.png")
 ```
 
 ### VIM Sig R:ECM
@@ -134,6 +193,7 @@ G3$Abb_ECM <- factor(G3$Abb_ECM, levels = c("G3", "HAG3" , "LNG3" , "OPNG3", "C1
 ```{r}
 interaction.plot(x.factor = Col1$Abb_ECM, trace.factor = droplevels(Col1)$CollagenI, response = Col1$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Collagen I Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
 
+
 interaction.plot(x.factor = Col4$Abb_ECM, trace.factor = droplevels(Col4)$CollagenIV, response = Col4$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Collagen IV Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
 
 interaction.plot(x.factor = HA$Abb_ECM, trace.factor = droplevels(HA)$Hyaluronic_Acid, response = HA$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Hyaluronic Acid Ratio",  col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
@@ -142,6 +202,70 @@ interaction.plot(x.factor = FN$Abb_ECM, trace.factor = droplevels(FN)$Fibronecti
 
 interaction.plot(x.factor = G3$Abb_ECM, trace.factor = droplevels(G3)$Galectin3, response = G3$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Galectin 3 Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
 
+VEPECMmeansNuc %>% filter(CollagenI != 0) %>% group_by(Abb_ECM, CollagenI) %>% summarize(Mean_Vim = mean(Mean_Vim)) %>%ggplot( aes(x = Abb_ECM, y = Mean_Vim, col = CollagenI))+
+  #facet_grid(cols = vars(Metadata_Stiffness))+
+  geom_path(aes(group = CollagenI, linetype = CollagenI), linewidth = 1.5)+
+  geom_point(size = 3)+
+  theme_prism(border = TRUE)+
+  xlab("ECM Composition")+
+  labs(color = "Collagen I")+
+  scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
+  scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
+  ylab("Vimentin Expression")
+  
+ggsave("Vim Intx/CollagenIRatiovsECMEdU.png", width = 10, height = 5)
+
+VEPECMmeansNuc %>% filter(CollagenIV != 0) %>% group_by(Abb_ECM, CollagenIV) %>% summarize(Mean_Vim = mean(Mean_Vim)) %>%ggplot( aes(x = Abb_ECM, y = Mean_Vim, col = CollagenIV))+
+  #facet_grid(cols = vars(Metadata_Stiffness))+
+  geom_path(aes(group = CollagenIV, linetype = CollagenIV), linewidth = 1.5)+
+  geom_point(size = 3)+
+  theme_prism(border = TRUE)+
+  xlab("ECM Composition")+
+  labs(color = "Collagen IV")+
+  scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
+  scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
+  ylab("Vimentin Expression")
+  
+ggsave("Vim Intx/CollagenIVRatiovsECMEdU.png", width = 10, height = 5)
+
+VEPECMmeansNuc %>% filter(Hyaluronic_Acid != 0) %>% group_by(Abb_ECM, Hyaluronic_Acid) %>% summarize(Mean_Vim = mean(Mean_Vim)) %>%ggplot( aes(x = Abb_ECM, y = Mean_Vim, col = Hyaluronic_Acid))+
+  #facet_grid(cols = vars(Metadata_Stiffness))+
+  geom_path(aes(group = Hyaluronic_Acid, linetype = Hyaluronic_Acid), linewidth = 1.5)+
+  geom_point(size = 3)+
+  theme_prism(border = TRUE)+
+  xlab("ECM Composition")+
+  labs(color = "Hyaluronic Acid")+
+  scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
+  scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
+  ylab("Vimentin Expression")
+  
+ggsave("Vim Intx/Hyaluronic_AcidRatiovsECMEdU.png", width = 10, height = 5)
+
+VEPECMmeansNuc %>% filter(Fibronectin != 0) %>% group_by(Abb_ECM, Fibronectin) %>% summarize(Mean_Vim = mean(Mean_Vim)) %>%ggplot( aes(x = Abb_ECM, y = Mean_Vim, col = Fibronectin))+
+  #facet_grid(cols = vars(Metadata_Stiffness))+
+  geom_path(aes(group = Fibronectin, linetype = Fibronectin), linewidth = 1.5)+
+  geom_point(size = 3)+
+  theme_prism(border = TRUE)+
+  xlab("ECM Composition")+
+  labs(color = "Fibronectin")+
+  scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
+  scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
+  ylab("Vimentin Expression")
+  
+ggsave("Vim Intx/FibronectinRatiovsECMEdU.png", width = 10, height = 5)
+
+VEPECMmeansNuc %>% filter(Galectin3 != 0) %>% group_by(Abb_ECM, Galectin3) %>% summarize(Mean_Vim = mean(Mean_Vim)) %>%ggplot( aes(x = Abb_ECM, y = Mean_Vim, col = Galectin3))+
+  #facet_grid(cols = vars(Metadata_Stiffness))+
+  geom_path(aes(group = Galectin3, linetype = Galectin3), linewidth = 1.5)+
+  geom_point(size = 3)+
+  theme_prism(border = TRUE)+
+  xlab("ECM Composition")+
+  labs(color = "Galectin 3")+
+  scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
+  scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
+  ylab("Vimentin Expression")
+  
+ggsave("Vim Intx/Galectin3RatiovsECMEdU.png", width = 10, height = 5)
 ```
 ### PXR Sig R:ECM
 ```{r}
@@ -1121,3 +1245,96 @@ DMSOforBigPCA <-  subset(DMSOSurvPhe, select = c("Metadata_Stiffness","Condition
 PCAshiny(DMSOforBigPCA)
 ```
 
+## Anova Comparison
+
+```{r}
+ResponsesforComp <- anovaoverview
+
+ResponsesforComp$Terms <- row.names(anovaoverview)
+
+ResponsesforComp <- ResponsesforComp[, c("Terms", "Vim psig", "Ecad psig", "PXR psig")]
+```
+
+```{r}
+ResponsesforComplong <- pivot_longer(ResponsesforComp, cols = ends_with("sig"),  names_to = "Response", values_to = "Significance")
+
+ResponsesforComplong <- ResponsesforComplong %>% mutate(Value = case_when( Significance == NA ~ 0,
+                                                                             Significance == "*" ~ 1,
+                                                                             Significance == "**" ~ 2,
+                                                                             Significance == "***" ~ 3
+))
+
+```
+
+```{r}
+ResponsesforComplong$Terms <- gsub("Abb_ECM", "ECM", ResponsesforComplong$Terms)
+ResponsesforComplong$Terms <- gsub("Metadata_Stiffness", "Stiffness", ResponsesforComplong$Terms)
+ResponsesforComplong$Terms <- gsub("Metadata_Treatment", "Treatment", ResponsesforComplong$Terms)
+ResponsesforComplong$Terms <- factor(ResponsesforComplong$Terms, levels = unique(ResponsesforComplong$Terms))
+
+ResponsesforComplong$Response <- gsub("Vim psig", "Vimentin", ResponsesforComplong$Response)
+ResponsesforComplong$Response <- gsub("Ecad psig", "Ecad", ResponsesforComplong$Response)
+ResponsesforComplong$Response <- gsub("PXR psig", "PXR", ResponsesforComplong$Response)
+```
+
+```{r}
+ResponsesforComplong %>% ggplot(aes(x = Terms, y = Value, fill = Response))+
+  facet_grid(cols = vars(Response))+
+  geom_col(position = "dodge", color = "white")+
+  theme_prism()+
+  coord_flip()+
+  scale_fill_manual(values = c("Vimentin" = "#E69F00","Ecad" = "#CC79a7", "PXR" = "#009e73"))+
+  ylab("Significance (*s)")+
+  # scale_x_discrete(limits = rev)+
+  theme(axis.text.y = element_text(size = 10),
+        strip.text.x = element_text(size = 30))
+
+ggsave("Respanovacomp.png", width = 15, height = 10, dpi = 1200)
+```
+
+### Drug Response
+
+```{r}
+DrugResponsesforComp <- anovaoverviewdrug
+
+DrugResponsesforComp$Terms <- row.names(anovaoverviewdrug)
+
+DrugResponsesforComp <- DrugResponsesforComp[, c("Terms", "Vim psig", "Ecad psig", "PXR psig")]
+```
+
+```{r}
+DrugResponsesforComplong <- pivot_longer(DrugResponsesforComp, cols = ends_with("sig"),  names_to = "Response", values_to = "Significance")
+
+DrugResponsesforComplong <- DrugResponsesforComplong %>% mutate(Value = case_when( Significance == NA ~ 0,
+                                                                             Significance == "*" ~ 1,
+                                                                             Significance == "**" ~ 2,
+                                                                             Significance == "***" ~ 3
+))
+
+```
+
+```{r}
+DrugResponsesforComplong$Terms <- gsub("Abb_ECM", "ECM", DrugResponsesforComplong$Terms)
+DrugResponsesforComplong$Terms <- gsub("Metadata_Stiffness", "Stiffness", DrugResponsesforComplong$Terms)
+DrugResponsesforComplong$Terms <- gsub("Metadata_Treatment", "Treatment", DrugResponsesforComplong$Terms)
+DrugResponsesforComplong$Terms <- factor(DrugResponsesforComplong$Terms, levels = unique(DrugResponsesforComp$Terms))
+
+DrugResponsesforComplong$Response <- gsub("Vim psig", "Vimentin", DrugResponsesforComplong$Response)
+DrugResponsesforComplong$Response <- gsub("Ecad psig", "Ecad", DrugResponsesforComplong$Response)
+DrugResponsesforComplong$Response <- gsub("PXR psig", "PXR", DrugResponsesforComplong$Response)
+```
+
+```{r}
+DrugResponsesforComplong %>% ggplot(aes(x = Terms, y = Value, fill = Response))+
+  facet_grid(cols = vars(Response))+
+  geom_col(position = "dodge", color = "white")+
+  theme_prism()+
+  coord_flip()+
+  scale_fill_manual(values = c("Vimentin" = "#E69F00","Ecad" = "#CC79a7", "PXR" = "#009e73"))+
+  ylab("Significance (*s)")+
+  # scale_x_discrete(limits = rev)+
+  theme(axis.text.y = element_text(size = 10),
+        strip.text.x = element_text(size = 30))
+
+ggsave("DrugRespanovacomp.png", width = 15, height = 10, dpi = 1200)
+```
