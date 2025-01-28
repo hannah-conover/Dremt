@@ -211,7 +211,8 @@ VEPECMmeansNuc %>% filter(CollagenI != 0) %>% group_by(Abb_ECM, CollagenI) %>% s
   labs(color = "Collagen I")+
   scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
   scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
-  ylab("Vimentin Expression")
+  ylab("Vimentin Expression")+
+  ggtitle("Collagen I Ratio over ECMs")
   
 ggsave("Vim Intx/CollagenIRatiovsECMEdU.png", width = 10, height = 5)
 
@@ -224,7 +225,8 @@ VEPECMmeansNuc %>% filter(CollagenIV != 0) %>% group_by(Abb_ECM, CollagenIV) %>%
   labs(color = "Collagen IV")+
   scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
   scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
-  ylab("Vimentin Expression")
+  ylab("Vimentin Expression")+
+  ggtitle("Collagen IV Ratio over ECMs")
   
 ggsave("Vim Intx/CollagenIVRatiovsECMEdU.png", width = 10, height = 5)
 
@@ -237,7 +239,8 @@ VEPECMmeansNuc %>% filter(Hyaluronic_Acid != 0) %>% group_by(Abb_ECM, Hyaluronic
   labs(color = "Hyaluronic Acid")+
   scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
   scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
-  ylab("Vimentin Expression")
+  ylab("Vimentin Expression")+
+  ggtitle("Hyaluronic Acid Ratio over ECMs")
   
 ggsave("Vim Intx/Hyaluronic_AcidRatiovsECMEdU.png", width = 10, height = 5)
 
@@ -250,7 +253,8 @@ VEPECMmeansNuc %>% filter(Fibronectin != 0) %>% group_by(Abb_ECM, Fibronectin) %
   labs(color = "Fibronectin")+
   scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
   scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
-  ylab("Vimentin Expression")
+  ylab("Vimentin Expression")+
+  ggtitle("Fibronectin Ratio over ECMs")
   
 ggsave("Vim Intx/FibronectinRatiovsECMEdU.png", width = 10, height = 5)
 
@@ -263,7 +267,8 @@ VEPECMmeansNuc %>% filter(Galectin3 != 0) %>% group_by(Abb_ECM, Galectin3) %>% s
   labs(color = "Galectin 3")+
   scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
   scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
-  ylab("Vimentin Expression")
+  ylab("Vimentin Expression")+
+  ggtitle("Galectin 3 Ratio over ECMs")
   
 ggsave("Vim Intx/Galectin3RatiovsECMEdU.png", width = 10, height = 5)
 ```
@@ -280,7 +285,8 @@ VEPECMmeansNuc %>% filter(Galectin3 != 0) %>% group_by(Abb_ECM, Galectin3) %>% s
   labs(color = "Galectin 3")+
   scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
   scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
-  ylab("PXR Expression")
+  ylab("PXR Expression")+
+  ggtitle("Galectin 3 Ratio over ECMs")
   
 ggsave("PXR Intx/Galectin3RatiovsECMPXR.png", width = 10, height = 5)
 ```
