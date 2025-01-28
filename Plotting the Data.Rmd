@@ -270,6 +270,19 @@ ggsave("Vim Intx/Galectin3RatiovsECMEdU.png", width = 10, height = 5)
 ### PXR Sig R:ECM
 ```{r}
 interaction.plot(x.factor = G3$Abb_ECM, trace.factor = droplevels(G3)$Galectin3, response = G3$Mean_Green_Norm, ylab = "PXR Expression", xlab = "ECM Condition", trace.label = "Galectin 3 Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
+
+VEPECMmeansNuc %>% filter(Galectin3 != 0) %>% group_by(Abb_ECM, Galectin3) %>% summarize(Mean_PXR = mean(Mean_PXR)) %>%ggplot( aes(x = Abb_ECM, y = Mean_PXR, col = Galectin3))+
+  #facet_grid(cols = vars(Metadata_Stiffness))+
+  geom_path(aes(group = Galectin3, linetype = Galectin3), linewidth = 1.5)+
+  geom_point(size = 3)+
+  theme_prism(border = TRUE)+
+  xlab("ECM Composition")+
+  labs(color = "Galectin 3")+
+  scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
+  scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
+  ylab("PXR Expression")
+  
+ggsave("PXR Intx/Galectin3RatiovsECMPXR.png", width = 10, height = 5)
 ```
 ## Main Factor Plots
 
