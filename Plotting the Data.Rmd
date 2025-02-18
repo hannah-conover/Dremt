@@ -156,7 +156,7 @@ VEPECMmeansNuc %>% group_by(Metadata_Stiffness, Osteopontin) %>% summarize(Mean_
   geom_path(aes(group = Metadata_Stiffness), linewidth = 1.5)+
   geom_point(size = 3)+
   theme_prism(border = TRUE)+
-  xlab("Ratio of Decorin")+
+  xlab("Ratio of Osteopontin")+
   ylab("Ecad Expression")+
   scale_color_manual(values = c("#db6d22", "#2100bb"))
 ggsave("Ecad Intx/StiffnessvsOPNEcad.png")

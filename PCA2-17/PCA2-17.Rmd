@@ -1,12 +1,10 @@
 ---
-title: "Updated PCA"
+title: "PCA2-17"
 output: html_document
-date: "2025-01-10"
+date: "2025-02-18"
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-
+## Library Loading
+```{r}
 library(FactoMineR)
 library(Factoshiny)
 library(ggplot2)
@@ -14,51 +12,47 @@ library(ggprism)
 library(tidyr)
 library(plyr)
 library(dplyr)
-
 ```
-
-## Setting up the dataset
-Combining EdU and Survival Information from Experiments to Phenotype experiment
 
 ### EdU and Survival
 ```{r}
 ## The EdU and Survival info is still at the ds_e_pheno, needs to be summarized together prior to merging with DREMT info
-EdUtoadd <- FOC[, c("Metadata_Experiment", "Metadata_Stiffness", "Metadata_Treatment", "Metadata_Ratio", "Metadata_ECMs", "Mean_Percent_Positive")]
+EdUtoadd217 <- FOC[, c("Metadata_Experiment", "Metadata_Stiffness", "Metadata_Treatment", "Metadata_Ratio", "Metadata_ECMs", "Mean_Percent_Positive")]
 
-colnames(EdUtoadd) <- c("Metadata_Experiment", "Metadata_Stiffness", "Metadata_Treatment", "Metadata_Ratio", "Metadata_ECMs", "Percent_Positive_EdU")
-
-EdUtoadd <- subset(EdUtoadd, Metadata_Treatment == "DMSO")
+colnames(EdUtoadd217) <- c("Metadata_Experiment", "Metadata_Stiffness", "Metadata_Treatment", "Metadata_Ratio", "Metadata_ECMs", "Percent_Positive_EdU")
 
 ## Summarize to ds_pheno level
-EdUreduced <- EdUtoadd %>% dplyr::group_by(Metadata_Stiffness, Metadata_Ratio, Metadata_ECMs) %>% dplyr::summarize(Proliferation = mean(Percent_Positive_EdU))
+EdUreduced217 <- EdUtoadd217 %>% dplyr::group_by(Metadata_Treatment, Metadata_Stiffness, Metadata_Ratio, Metadata_ECMs) %>% dplyr::summarize(Proliferation = mean(Percent_Positive_EdU, na.rm = TRUE))
 
-EdUreduced <- EdUreduced[,c("Metadata_Stiffness", "Metadata_Ratio", "Metadata_ECMs", "Proliferation")]
+EdUreduced217 <- pivot_wider(EdUreduced217, names_from = Metadata_Treatment, values_from = Proliferation, names_prefix = "Proliferation_")
 
 ## Fold Change
-FoldChange <- FOC[, c("Metadata_Experiment", "Metadata_Stiffness", "Metadata_Treatment", "Metadata_Ratio", "Metadata_ECMs", "FOC")]
+FoldChange217 <- FOC[, c("Metadata_Experiment", "Metadata_Stiffness", "Metadata_Treatment", "Metadata_Ratio", "Metadata_ECMs", "FOC")]
 
 ## Summarize to ds_pheno level
-FoldChange <- FoldChange %>% dplyr::group_by(Metadata_Stiffness, Metadata_Treatment, Metadata_Ratio, Metadata_ECMs) %>% dplyr::summarize(Survival = mean(FOC))
+FoldChange217 <- FoldChange217 %>% dplyr::group_by(Metadata_Stiffness, Metadata_Treatment, Metadata_Ratio, Metadata_ECMs) %>% dplyr::summarize(Survival = mean(FOC, na.rm = TRUE))
 
-FoldChange <- subset(FoldChange, Metadata_Treatment == "10 uM")
+FoldChange217 <- subset(FoldChange217, Metadata_Treatment != "DMSO")
 
-FoldChange <- subset(FoldChange, select = -c(Metadata_Treatment))
+FoldChange217 <- pivot_wider(FoldChange217, names_from = Metadata_Treatment, values_from = Survival, names_prefix = "Survival_")
 
-## Join together to add 
+#FoldChange217 <- subset(FoldChange, select = -c(Metadata_Treatment))
 
-EdUreduced <- join(EdUreduced, FoldChange)
+## Join together to add
+
+EdUSurv <- join(EdUreduced217, FoldChange217)
 
 Ratios <- FOC %>% distinct(Metadata_ECMs, Metadata_Ratio, CollagenI, CollagenIV, Hyaluronic_Acid, TenascinC, Galectin3, Decorin, Fibronectin, Osteopontin, Laminin)
 
-EdUreduced <- join(EdUreduced, Ratios)
+EdUSurv <- join(EdUSurv, Ratios)
 ```
 
 ### Formatting DREMT Info
 ```{r}
-DREMTtoadd <- DMSOdsewithrep[,c("Metadata_Stiffness", "Metadata_Ratio", "Abb_ECM", "Metadata_ECMs","Mean_Green_Norm", "Mean_Orange_Norm", "Mean_Red_Norm", "Mean_Nuclei")]
+DREMTtoadd217 <- DMSOdsewithrep[,c("Metadata_Stiffness", "Metadata_Ratio", "Abb_ECM", "Metadata_ECMs","Mean_Green_Norm", "Mean_Orange_Norm", "Mean_Red_Norm", "Mean_Nuclei")]
 
 ## summarize to ds_pheno level
-DREMTreduced <- DREMTtoadd %>% dplyr::group_by(Metadata_Stiffness, Metadata_Ratio, Metadata_ECMs, Abb_ECM) %>% 
+DREMTreduced217 <- DREMTtoadd217 %>% dplyr::group_by(Metadata_Stiffness, Metadata_Ratio, Metadata_ECMs, Abb_ECM) %>% 
  dplyr:: summarize(Mean_Vimentin = mean(Mean_Orange_Norm),
             Mean_Ecad = mean(Mean_Red_Norm),
             Mean_PXR = mean(Mean_Green_Norm),
@@ -67,24 +61,23 @@ DREMTreduced <- DREMTtoadd %>% dplyr::group_by(Metadata_Stiffness, Metadata_Rati
 
 ### Putting it All Together
 ```{r}
-DMSOforPCA <- join(DREMTreduced, EdUreduced)
+DMSOforPCA217 <- join(DREMTreduced217, EdUSurv)
 
-DMSOforPCA  <- DMSOforPCA[,-3]
+#DMSOforPCA217  <- DMSOforPCA217[,-3]
 ```
 
 
 ## PCA Running
-ONLY FOR DMSO Responses -Report_2025-01-10 (&10-15)
+Adding Survival and EdU for All Treatments
 ```{r}
-
-PCAshiny(DMSOforPCA)
+PCAshiny(DMSOforPCA217)
 ```
 
 ## Graphing the Clusters
 ```{r}
-PCAClusters3D <- res$call$X
+PCAClusters217 <- res$call$X
 
-ggplot(PCAClusters3D,aes(x = Dim.1,
+ggplot(PCAClusters217,aes(x = Dim.1,
                        y = Dim.2,
                        color = clust
 )) + 
@@ -105,12 +98,12 @@ ggplot(PCAClusters3D,aes(x = Dim.1,
   #       legend.title = element_text(size = 30),
   #       legend.text = element_text(size = 30),
   # )+
-  xlab("Dim. 1 - 43.79%") +
-  ylab("Dim. 2 - 21.77%")
+  xlab("Dim. 1 - 31.30%") +
+  ylab("Dim. 2 - 20.84%")
  
-ggsave(filename = "PCAClusters1-27.png")
+ggsave(filename = "PCAClusters2-17.png")
 
-ggplot(PCAClusters3D,aes(x = Dim.2,
+ggplot(PCAClusters217,aes(x = Dim.2,
                        y = Dim.3,
                        color = clust
 )) + 
@@ -120,12 +113,12 @@ ggplot(PCAClusters3D,aes(x = Dim.2,
   geom_vline(xintercept = 0)+
   theme_prism()+
   scale_color_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
-  xlab("Dim. 2 - 21.77%") +
-  ylab("Dim. 3 - 13.64%")
+  xlab("Dim. 2 - 20.84%") +
+  ylab("Dim. 3 - 14.89%")
  
-ggsave(filename = "PCAClusters1-27D23.png")
+ggsave(filename = "PCAClusters2-17D23.png")
 
-ggplot(PCAClusters3D,aes(x = Dim.1,
+ggplot(PCAClusters217,aes(x = Dim.1,
                        y = Dim.3,
                        color = clust
 )) + 
@@ -135,63 +128,27 @@ ggplot(PCAClusters3D,aes(x = Dim.1,
   geom_vline(xintercept = 0)+
   theme_prism()+
   scale_color_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
-  xlab("Dim. 1 - 43.79%") +
-  ylab("Dim. 3 - 13.64%")
+  xlab("Dim. 1 - 31.30%") +
+  ylab("Dim. 3 - 14.89%")
  
-ggsave(filename = "PCAClusters1-27D13.png")
+ggsave(filename = "PCAClusters2-17D13.png")
 ```
 
-## Adding Callouts
-```{r}
-PCAClustersLab <- PCAClusters
-
-PCAClustersLab$Individual <- row.names(PCAClustersLab)
-
-PCAClustersLab <- PCAClustersLab %>% mutate(label = case_when(Individual == 139 ~ "A",
-                                                      Individual == 209 ~ "B",
-                                                      Individual == 153 ~ "C",
-                                                      Individual == 51 ~ "D",
-                                                      Individual == 216 ~ "E", 
-                                                      Individual == 193 ~ "F",
-                                                      Individual == 35 ~ "G",
-                                                      Individual == 111 ~ "H"))
-```
 
 ```{r}
-library(ggrepel)
-ggplot(PCAClustersLab,aes(x = Dim.1,
-                       y = Dim.2,
-                       color = clust
-)) + 
-  geom_point(position = "jitter",size = 3)+
- # xlim(-2,6)+
-  geom_hline(yintercept = 0)+
-  geom_vline(xintercept = 0)+
-  geom_label_repel(aes(label = label), min.segment.length = 0, color = "black", segment.size = 01)+
-  theme_prism()+
-  scale_color_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
-  xlab("Dim. 1 - 43.79%") +
-  ylab("Dim. 2 - 21.77%")
- 
-ggsave(filename = "PCAClusters1-10Lab.png")
-```
-
-## Stiffness Relationship
-
-```{r}
-datacluster3D <- res$data.clust
+datacluster217 <- res$data.clust
   
-datacluster3D <- mutate(datawithcluster, Individual = row.names(datacluster3D))
+datacluster217 <- mutate(datacluster217, Individual = row.names(datacluster217))
 
-PCAStiff3D <- mutate(PCAClusters3D, Individual = row.names(PCAClusters3D))
+PCAStiff217 <- mutate(PCAClusters217, Individual = row.names(PCAClusters217))
 
-PCAStiff3D <- merge(datacluster3D, PCAStiff3D)
+PCAStiff217<- merge(datacluster217, PCAClusters217)
 ```
 
 
 NEED TO RUN - Find the Assignments with Cluster....
 ```{r}
-ggplot(PCAStiff3D,aes(x = Dim.1,
+ggplot(PCAStiff217,aes(x = Dim.1,
                        y = Dim.2,
                        color = Metadata_Stiffness
 )) + 
@@ -212,12 +169,11 @@ ggplot(PCAStiff3D,aes(x = Dim.1,
   #       legend.title = element_text(size = 30),
   #       legend.text = element_text(size = 30),
   # )+
-xlab("Dim. 1 - 43.79%") +
-  ylab("Dim. 2 - 21.77%")
+xlab("Dim. 1 - 31.30%") +
+  ylab("Dim. 2 - 20.84%")
 
 ggsave(filename = "StiffPCA.png")
 ```
-
 
 ## Variable Descriptions
 ```{r}
@@ -228,25 +184,26 @@ res$desc.axes
 
 ## Identifying Individuals
 ```{r}
-datawithcluster <- res$data.clust
+datawithcluster217 <- res$data.clust
 
 MetatoAbbECMs <- unique(DMSOdsewithrep[c("Metadata_ECMs", "Abb_ECM")])
 
-datawithcluster <- left_join(datawithcluster, MetatoAbbECMs)
+datawithcluster217 <- left_join(datawithcluster217, MetatoAbbECMs)
 
 res$desc.ind
 ```
 
+
 ## Cluster Heatmaps
 Import Metadata_ECMsbackward.csv and Metadata_ECMsforward.csv before running
 ```{r}
-DC_125 <- subset(datawithcluster, Metadata_Stiffness == "1kPa" & Metadata_Ratio %in% c("Metadata_Ratio_25/75", "Metadata_Ratio_100"))
-DC_150 <- subset(datawithcluster, Metadata_Stiffness == "1kPa" & Metadata_Ratio %in% c("Metadata_Ratio_50/50", "Metadata_Ratio_100"))
-DC_175 <- subset(datawithcluster, Metadata_Stiffness == "1kPa" & Metadata_Ratio %in% c("Metadata_Ratio_75/25", "Metadata_Ratio_100"))
+DC_125 <- subset(datawithcluster217, Metadata_Stiffness == "1kPa" & Metadata_Ratio %in% c("Metadata_Ratio_25/75", "Metadata_Ratio_100"))
+DC_150 <- subset(datawithcluster217, Metadata_Stiffness == "1kPa" & Metadata_Ratio %in% c("Metadata_Ratio_50/50", "Metadata_Ratio_100"))
+DC_175 <- subset(datawithcluster217, Metadata_Stiffness == "1kPa" & Metadata_Ratio %in% c("Metadata_Ratio_75/25", "Metadata_Ratio_100"))
 
-DC_2525 <- subset(datawithcluster, Metadata_Stiffness == "25kPa" & Metadata_Ratio %in% c("Metadata_Ratio_25/75", "Metadata_Ratio_100"))
-DC_2550 <- subset(datawithcluster, Metadata_Stiffness == "25kPa" & Metadata_Ratio %in% c("Metadata_Ratio_50/50", "Metadata_Ratio_100"))
-DC_2575 <- subset(datawithcluster, Metadata_Stiffness == "25kPa" & Metadata_Ratio %in% c("Metadata_Ratio_75/25", "Metadata_Ratio_100"))
+DC_2525 <- subset(datawithcluster217, Metadata_Stiffness == "25kPa" & Metadata_Ratio %in% c("Metadata_Ratio_25/75", "Metadata_Ratio_100"))
+DC_2550 <- subset(datawithcluster217, Metadata_Stiffness == "25kPa" & Metadata_Ratio %in% c("Metadata_Ratio_50/50", "Metadata_Ratio_100"))
+DC_2575 <- subset(datawithcluster217, Metadata_Stiffness == "25kPa" & Metadata_Ratio %in% c("Metadata_Ratio_75/25", "Metadata_Ratio_100"))
 
 DC_125for <- left_join(DC_125, Metadata_ECMsforward)
 DC_150for <- left_join(DC_150, Metadata_ECMsforward)
@@ -272,6 +229,7 @@ DC_2525 <- rbind(DC_2525for,DC_2525back)
 DC_2550 <- rbind(DC_2550for,DC_2550back)
 DC_2575 <- rbind(DC_2575for,DC_2575back)
 ```
+
 ### Plotting
 ```{r}
 library(viridis)
@@ -386,4 +344,5 @@ ggsave(Clust1grid, filename = "Clust1kPa.png", width = 30, height = 10)
 ggsave(Clust25grid, filename = "Clust25kPa.png", width = 30, height = 10)
 
 ```
+
 
