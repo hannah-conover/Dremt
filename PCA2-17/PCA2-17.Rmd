@@ -73,6 +73,10 @@ Adding Survival and EdU for All Treatments
 PCAshiny(DMSOforPCA217)
 ```
 
+```{r}
+res.PCA<-PCA(DMSOforPCA217[,-c(3)],ncp=3,quali.sup=c(1,2,3),quanti.sup=c(8,9,11,13,14,15,16,17,18,19,20,21),graph=FALSE)
+```
+
 ## Graphing the Clusters
 ```{r}
 PCAClusters217 <- res$call$X
@@ -98,8 +102,8 @@ ggplot(PCAClusters217,aes(x = Dim.1,
   #       legend.title = element_text(size = 30),
   #       legend.text = element_text(size = 30),
   # )+
-  xlab("Dim. 1 - 31.30%") +
-  ylab("Dim. 2 - 20.84%")
+  xlab("Dim. 1 - 44.99%") +
+  ylab("Dim. 2 - 24.25%")
  
 ggsave(filename = "PCAClusters2-17.png")
 
@@ -113,8 +117,8 @@ ggplot(PCAClusters217,aes(x = Dim.2,
   geom_vline(xintercept = 0)+
   theme_prism()+
   scale_color_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
-  xlab("Dim. 2 - 20.84%") +
-  ylab("Dim. 3 - 14.89%")
+  xlab("Dim. 2 - 24.25%") +
+  ylab("Dim. 3 - 13.63%")
  
 ggsave(filename = "PCAClusters2-17D23.png")
 
@@ -128,8 +132,8 @@ ggplot(PCAClusters217,aes(x = Dim.1,
   geom_vline(xintercept = 0)+
   theme_prism()+
   scale_color_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
-  xlab("Dim. 1 - 31.30%") +
-  ylab("Dim. 3 - 14.89%")
+  xlab("Dim. 1 - 44.99%") +
+  ylab("Dim. 3 - 13.63%")
  
 ggsave(filename = "PCAClusters2-17D13.png")
 ```
@@ -169,8 +173,8 @@ ggplot(PCAStiff217,aes(x = Dim.1,
   #       legend.title = element_text(size = 30),
   #       legend.text = element_text(size = 30),
   # )+
-xlab("Dim. 1 - 31.30%") +
-  ylab("Dim. 2 - 20.84%")
+ xlab("Dim. 1 - 44.99%") +
+  ylab("Dim. 2 - 24.25%")
 
 ggsave(filename = "StiffPCA.png")
 ```
@@ -193,6 +197,53 @@ datawithcluster217 <- left_join(datawithcluster217, MetatoAbbECMs)
 res$desc.ind
 ```
 
+### Adding Callouts
+```{r}
+PCAClustersLab217 <- datawithcluster217
+
+PCAClustersLab217$Individual <- row.names(PCAClustersLab217)
+
+PCAClustersLab217 <- PCAClustersLab217 %>% mutate(label = case_when(Individual == 172 ~ "A",
+                                                      Individual == 209 ~ "B",
+                                                      Individual == 64 ~ "C",
+                                                      Individual == 95 ~ "D",
+                                                      Individual == 190 ~ "E", 
+                                                      Individual == 124 ~ "F",
+                                                      Individual == 72 ~ "G",
+                                                      Individual == 80 ~ "H"))
+
+PCAClustersLab218 <- PCAClusters217
+
+PCAClustersLab218$Individual <- row.names(PCAClustersLab218)
+
+PCAClustersLab218 <- PCAClustersLab218 %>% mutate(label = case_when(Individual == 172 ~ "A",
+                                                      Individual == 209 ~ "B",
+                                                      Individual == 64 ~ "C",
+                                                      Individual == 95 ~ "D",
+                                                      Individual == 190 ~ "E", 
+                                                      Individual == 124 ~ "F",
+                                                      Individual == 72 ~ "G",
+                                                      Individual == 80 ~ "H"))
+```
+
+```{r}
+library(ggrepel)
+ggplot(PCAClustersLab218,aes(x = Dim.1,
+                       y = Dim.2,
+                       color = clust
+)) + 
+  geom_point(position = "jitter",size = 3)+
+ # xlim(-2,6)+
+  geom_hline(yintercept = 0)+
+  geom_vline(xintercept = 0)+
+  geom_label_repel(aes(label = label), min.segment.length = 0, color = "black", segment.size = 01)+
+  theme_prism()+
+  scale_color_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
+ xlab("Dim. 1 - 44.99%") +
+  ylab("Dim. 2 - 24.25%")
+ 
+ggsave(filename = "PCAClusters2-18Lab.png")
+```
 
 ## Cluster Heatmaps
 Import Metadata_ECMsbackward.csv and Metadata_ECMsforward.csv before running
@@ -345,4 +396,27 @@ ggsave(Clust25grid, filename = "Clust25kPa.png", width = 30, height = 10)
 
 ```
 
+## Contributions of Factors to Dimensions
+```{r}
+library(corrplot)
+
+corrplot(res.PCA$var$cor, is.corr = FALSE)
+
+corrplot(res.PCA$var$cos2, is.corr = FALSE)
+
+corrplot(res.PCA$var$contrib, is.corr = FALSE)
+
+corrplot(res.PCA$quanti.sup$cor, is.corr = FALSE)
+corrplot(res.PCA$quanti.sup$cos2, is.corr = FALSE)
+corrplot(res.PCA$quanti.sup$contrib, is.corr = FALSE)
+
+```
+
+```{r}
+corstufftest <- rbind(res.PCA$var$cor, res.PCA$quanti.sup$cor)
+
+corrplot(corstufftest, is.corr = FALSE)
+
+corrplot(rbind(res.PCA$var$cos2, res.PCA$quanti.sup$cos2), is.corr = FALSE)
+```
 
