@@ -48,6 +48,10 @@ drawn <-
 c("95", "209", "34")
 par(mar = c(4.1, 4.1, 1.1, 2.1))
 plot.PCA(res, select = drawn, axes = c(1,2), choix = 'ind', invisible = 'quali', title = '', cex = cex)
+
+plot.PCA(res, select = drawn, axes = c(1,3), choix = 'ind', invisible = 'quali', title = '', cex = cex)
+
+plot.PCA(res, select = drawn, axes = c(2,3), choix = 'ind', invisible = 'quali', title = '', cex = cex)
 ```
 
 **Figure 3.1 - Individuals factor map (PCA)**
@@ -85,6 +89,9 @@ c("Mean_PXR", "Proliferation_DMSO", "Survival_20 uM", "Mean_Vimentin",
 "Mean_Ecad", "Adhesion")
 par(mar = c(4.1, 4.1, 1.1, 2.1))
 plot.PCA(res, select = drawn, axes = 1:2, choix = 'var', title = '', cex = cex)
+plot.PCA(res, select = drawn, axes = 1:3, choix = 'var', title = '', cex = cex)
+plot.PCA(res, select = drawn, axes = 2:3, choix = 'var', title = '', cex = cex)
+
 ```
 
 **Figure 3.3 - Variables factor map (PCA)**

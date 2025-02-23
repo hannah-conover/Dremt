@@ -400,23 +400,91 @@ ggsave(Clust25grid, filename = "Clust25kPa.png", width = 30, height = 10)
 ```{r}
 library(corrplot)
 
-corrplot(res.PCA$var$cor, is.corr = FALSE)
+png(file = "CorrMFPCA.png", width = 1024, height = 1024)
+corrplot(res.PCA$var$cor, is.corr = FALSE, tl.col = "black", cl.ratio = 0.5, tl.cex = 4, cl.cex = 3)
+dev.off()
 
 corrplot(res.PCA$var$cos2, is.corr = FALSE)
 
 corrplot(res.PCA$var$contrib, is.corr = FALSE)
 
-corrplot(res.PCA$quanti.sup$cor, is.corr = FALSE)
+png(file = "CorrMFPCASupp.png", width = 1024, height = 1024)
+corrplot(res.PCA$quanti.sup$cor, is.corr = FALSE, tl.col = "black", cl.ratio = 1, tl.cex = 4, cl.cex = 3)
+dev.off()
 corrplot(res.PCA$quanti.sup$cos2, is.corr = FALSE)
-corrplot(res.PCA$quanti.sup$contrib, is.corr = FALSE)
+#corrplot(res.PCA$quanti.sup$contrib, is.corr = FALSE)
 
 ```
 
 ```{r}
 corstufftest <- rbind(res.PCA$var$cor, res.PCA$quanti.sup$cor)
 
-corrplot(corstufftest, is.corr = FALSE)
+png(file = "CorrMFPCAAll.png", width = 1024, height = 1024)
+corrplot(corstufftest, is.corr = FALSE, tl.col = "black", cl.ratio = 1.5, tl.cex = 4, cl.cex = 3)
+dev.off()
 
 corrplot(rbind(res.PCA$var$cos2, res.PCA$quanti.sup$cos2), is.corr = FALSE)
+```
+
+```{r}
+library(scatterplot3d)
+
+values <- c("#003f5c", "#7a5195", "#ef5675", "#ffa600")
+values <- values[as.factor(PCAClusters217[,4])]
+
+scatterplot3d(PCAClusters217[,1:3], color = values, pch = 16,
+               xlab = "Dim. 1 - 44.99%",
+                ylab= "Dim. 2 - 24.25%",
+              zlab = "Dim. 3 - 13.63%", 
+              angle = 60)
+```
+## Variable Contrib to Cluster
+```{r}
+VarClust1 <- res$desc.var$quanti$`1`[,1]
+VarClust2 <- res$desc.var$quanti$'2'[,1]
+VarClust3 <- res$desc.var$quanti$'3'[,1] 
+VarClust4 <- res$desc.var$quanti$'4'[,1]
+
+VarClust1 <- data.frame(as.list(VarClust1))
+VarClust2 <- data.frame(as.list(VarClust2))
+VarClust3 <- data.frame(as.list(VarClust3))
+VarClust4 <- data.frame(as.list(VarClust4))
+
+VarClust1 <- data.frame(t(VarClust1))
+VarClust2 <- data.frame(t(VarClust2))
+VarClust3 <- data.frame(t(VarClust3))
+VarClust4 <- data.frame(t(VarClust4))
+
+colnames(VarClust1) <- "Cluster.1"
+colnames(VarClust2) <- "Cluster.2"
+colnames(VarClust3) <- "Cluster.3"
+colnames(VarClust4) <- "Cluster.4"
+
+VarClust2 <- rbind(VarClust2, NA)
+
+VarClust1$Terms <- row.names(VarClust1)
+VarClust2$Terms <- row.names(VarClust2)
+VarClust3$Terms <- row.names(VarClust3)
+VarClust4$Terms <- row.names(VarClust4)
+
+VarClust <- merge(VarClust1, VarClust2, all = TRUE)
+VarClust <- merge(VarClust, VarClust3, all = TRUE)
+VarClust <- merge(VarClust, VarClust4, all = TRUE)
+
+VarClust <- VarClust[-1,]
+
+row.names(VarClust) <- VarClust$Terms
+
+VarClust <- VarClust[,-1]
+
+VarClust[is.na(VarClust)] <- 0
+
+VarClust <- as.matrix(VarClust)
+
+
+
+png(file = "ClusterVtest.png", width = 1024, height = 1024)
+corrplot(VarClust, is.corr = FALSE, tl.col = "black", cl.ratio = 0.5, tl.cex = 4, cl.cex = 3)
+dev.off()
 ```
 

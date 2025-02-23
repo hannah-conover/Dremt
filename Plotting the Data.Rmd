@@ -128,6 +128,7 @@ VEPECMmeansNuc %>% group_by(Metadata_Stiffness, CollagenIV) %>% summarize(Mean_P
   theme_prism(border = TRUE)+
   xlab("Ratio of Osteopontin")+
  ylab("PXR Expression")+
+     ggtitle("PXR - Stiffness over Osteopontin Ratio")+
   scale_color_manual(values = c("#db6d22", "#2100bb"))
 
   ggsave("PXR Intx/StiffnessvsOPNPXR.png")
@@ -158,6 +159,7 @@ VEPECMmeansNuc %>% group_by(Metadata_Stiffness, Osteopontin) %>% summarize(Mean_
   theme_prism(border = TRUE)+
   xlab("Ratio of Osteopontin")+
   ylab("Ecad Expression")+
+  ggtitle("E-Cadherin - Stiffness over Osteopontin Ratio")+
   scale_color_manual(values = c("#db6d22", "#2100bb"))
 ggsave("Ecad Intx/StiffnessvsOPNEcad.png")
 
@@ -268,7 +270,7 @@ VEPECMmeansNuc %>% filter(Galectin3 != 0) %>% group_by(Abb_ECM, Galectin3) %>% s
   scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
   scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
   ylab("Vimentin Expression")+
-  ggtitle("Galectin 3 Ratio over ECMs")
+  ggtitle("Vimentin - Galectin 3 Ratio over ECMs")
   
 ggsave("Vim Intx/Galectin3RatiovsECMEdU.png", width = 10, height = 5)
 ```
@@ -286,7 +288,7 @@ VEPECMmeansNuc %>% filter(Galectin3 != 0) %>% group_by(Abb_ECM, Galectin3) %>% s
   scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
   scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
   ylab("PXR Expression")+
-  ggtitle("Galectin 3 Ratio over ECMs")
+  ggtitle("PXR - Galectin 3 Ratio over ECMs")
   
 ggsave("PXR Intx/Galectin3RatiovsECMPXR.png", width = 10, height = 5)
 ```
@@ -1222,10 +1224,11 @@ channelpal <- c("Vim" = "#E69F00", "Ecad" = "#CC79A7", "PXR" = "#009E73" )
 ECMPlotlong %>% filter(Metadata_Treatment == "DMSO") %>% ggplot(aes(x = Z, y = Condition, fill = Channel))+
   geom_col(position = "dodge2")+
   facet_grid(cols = vars(Metadata_Stiffness))+
-  theme_prism()+
+  theme_prism(base_size = 18)+
   scale_fill_manual(values = channelpal)+
-ggtitle("Normalized Expression on Select Microenvironments")
-ggsave("Zscorecomparison.png", width = 10, height = 5)
+ggtitle("Normalized Expression on Select Microenvironments")+
+  theme(strip.text.x = element_text(size = 20))
+ggsave("Zscorecomparison.png", width = 10, height = 10)
 
 ECMPlotlong %>% filter(Metadata_Treatment == "DMSO") %>% ggplot(aes(x = Mean, y = Condition, fill = Channel))+
   geom_col(position = "dodge2")+
@@ -1308,7 +1311,7 @@ ResponsesforComplong %>% ggplot(aes(x = Terms, y = Value, fill = Response))+
   theme(axis.text.y = element_text(size = 10),
         strip.text.x = element_text(size = 30))
 
-ggsave("Respanovacomp.png", width = 15, height = 10, dpi = 1200)
+ggsave("Respanovacomp.png", width = 10, height = 10, dpi = 1200)
 ```
 
 ### Drug Response
