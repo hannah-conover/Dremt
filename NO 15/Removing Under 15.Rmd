@@ -1,0 +1,248 @@
+---
+title: "Remove Under 15"
+output: html_document
+date: "2025-02-25"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Removing Islands with Less Than 10 Cells/Island
+```{r}
+ds_s_pheno_225 <- ds_s_pheno_1218 %>% filter(Nuclei > 10)
+```
+
+
+## Summarizing to Slide (ds_e_pheno)
+```{r}
+ds_e_pheno_225 <- ddply(ds_s_pheno_225, 
+               .(Metadata_Slide, 
+                 Metadata_Stiffness,
+                 Metadata_Experiment, 
+                 Metadata_Row,
+                 Metadata_Treatment,
+                 Metadata_Column,
+                 Metadata_Ratio,
+                 Metadata_ECMs,
+                 Abb_ECM), 
+               summarize,
+               
+               ## Nuclei Count
+               Mean_Nuclei = mean(Nuclei),
+               SD_Nuclei = sd(Nuclei),
+               Mean_logNuclei = mean(logNuclei),
+               SD_logNuclei = sd(logNuclei),
+               
+               ## Green PXR Channel Analysis
+               Mean_Green = mean(Mean_Green),
+               SD_Green = sqrt(sum(SD_Green^2)/NROW(SD_Green)),
+               Mean_Green_Norm = mean(Mean_Green_Norm),
+               SD_Green_Norm = sqrt(sum(SD_Green_Norm^2)/NROW(SD_Green_Norm)),
+               
+               ## Red Ecad Channel Analysis
+               Mean_Red = mean(Mean_Red),
+               SD_Red = sqrt(sum(SD_Red^2)/NROW(SD_Red)),
+               Mean_Red_Norm = mean(Mean_Red_Norm),
+               SD_Red_Norm = sqrt(sum(SD_Red_Norm^2)/NROW(SD_Red_Norm)),
+               
+               ## Orange Vimentin Channel Analysis
+               Mean_Orange = mean(Mean_Orange),
+               SD_Orange = sqrt(sum(SD_Orange^2)/NROW(SD_Orange)),
+               Mean_Orange_Norm = mean(Mean_Orange_Norm),
+               SD_Orange_Norm = sqrt(sum(SD_Orange_Norm^2)/NROW(SD_Orange_Norm))
+)
+```
+
+## Summarizing to Experiment (ds_pheno)
+```{r}
+ds_pheno_225 <- ddply(ds_e_pheno_225, 
+               .(Metadata_Stiffness,
+                 Metadata_Experiment, 
+                 Metadata_Row,
+                 Metadata_Treatment,
+                 Metadata_Column,
+                 Metadata_Ratio,
+                 Metadata_ECMs,
+                 Abb_ECM), 
+               summarize,
+               
+               ## Nuclei Count
+               Mean_Nuclei = mean(Mean_Nuclei),
+               SD_Nuclei = sqrt(sum(SD_Nuclei^2)/NROW(SD_Nuclei)),
+               Mean_logNuclei = mean(Mean_logNuclei),
+               SD_logNuclei = sqrt(sum(SD_logNuclei^2)/NROW(SD_logNuclei)),
+               
+               ## Green PXR Channel Analysis
+               Mean_Green = mean(Mean_Green),
+               SD_Green = sqrt(sum(SD_Green^2)/NROW(SD_Green)),
+               Mean_Green_Norm = mean(Mean_Green_Norm),
+               SD_Green_Norm = sqrt(sum(SD_Green_Norm^2)/NROW(SD_Green_Norm)),
+               
+               ## Red Ecad Channel Analysis
+               Mean_Red = mean(Mean_Red),
+               SD_Red = sqrt(sum(SD_Red^2)/NROW(SD_Red)),
+               Mean_Red_Norm = mean(Mean_Red_Norm),
+               SD_Red_Norm = sqrt(sum(SD_Red_Norm^2)/NROW(SD_Red_Norm)),
+               
+               ## Orange Vimentin Channel Analysis
+               Mean_Orange = mean(Mean_Orange),
+               SD_Orange = sqrt(sum(SD_Orange^2)/NROW(SD_Orange)),
+               Mean_Orange_Norm = mean(Mean_Orange_Norm),
+               SD_Orange_Norm = sqrt(sum(SD_Orange_Norm^2)/NROW(SD_Orange_Norm))
+)
+```
+
+## Box Plots
+```{r}
+ds_e_pheno_225$Metadata_Treatment <- factor(ds_e_pheno_225$Metadata_Treatment, levels = c("DMSO", "10 uM"))
+
+ds_e_pheno_225 %>% ggplot(aes(x = Metadata_Stiffness, y = Mean_Green_Norm)) +
+  facet_grid(cols = vars(Metadata_Treatment)) +
+  geom_boxplot(show.legend = TRUE)+
+  stat_summary(fun = mean, geom = "point", shape = 8, color = "red")+
+  
+  xlab("Stiffness (kPa)")+
+  ylab("Average PXR Expression") +
+  theme_prism() + 
+  ggtitle("Average PXR Expression")+
+  stat_compare_means(comparisons = list(c("1kPa", "25kPa")),label = "p.signif")+
+  
+theme(axis.text.x = element_text(size = 25),
+        axis.title.x = element_text(size = 25),
+        axis.text.y = element_text(size = 25), 
+        axis.title.y = element_text(size = 25),
+        plot.title = element_text(size =30),
+        panel.background = element_blank(),
+        strip.text = element_text(size = 25),
+        panel.border = element_rect(colour = "black", fill=NA, size=1))
+
+ds_e_pheno_225 %>%  ggplot(aes(x = Metadata_Stiffness, y = Mean_Orange_Norm)) +
+  facet_grid(cols = vars(Metadata_Treatment)) +
+  geom_boxplot(show.legend = TRUE)+
+   stat_summary(fun = mean, geom = "point", shape = 8, color = "red")+
+  xlab("Stiffness (kPa)")+
+  ylab("Average Vimentin Expression") +
+  theme_prism() + 
+  ggtitle("Average Vimentin Expression")+
+  
+stat_compare_means(comparisons = list(c("1kPa", "25kPa")),label = "p.signif")+
+  
+theme(axis.text.x = element_text(size = 25),
+        axis.title.x = element_text(size = 25),
+        axis.text.y = element_text(size = 25), 
+        axis.title.y = element_text(size = 25),
+        plot.title = element_text(size =30),
+        panel.background = element_blank(),
+        strip.text = element_text(size = 25),
+        panel.border = element_rect(colour = "black", fill=NA, size=1))
+
+ds_e_pheno_225 %>% ggplot(aes(x = Metadata_Stiffness, y = Mean_Red_Norm)) +
+  facet_grid(cols = vars(Metadata_Treatment)) +
+  geom_boxplot(show.legend = TRUE)+
+   stat_summary(fun = mean, geom = "point", shape = 8, color = "red")+
+  xlab("Stiffness (kPa)")+
+  ylab("Average Ecad Expression") +
+  theme_prism() + 
+  ggtitle("Average Ecad Expression")+
+  stat_compare_means(comparisons = list(c("1kPa", "25kPa")),label = "p.signif")+
+theme(axis.text.x = element_text(size = 25),
+        axis.title.x = element_text(size = 25),
+        axis.text.y = element_text(size = 25), 
+        axis.title.y = element_text(size = 25),
+        plot.title = element_text(size =30),
+        panel.background = element_blank(),
+        strip.text = element_text(size = 25),
+        panel.border = element_rect(colour = "black", fill=NA, size=1))
+```
+
+```{r}
+ds_e_pheno_225 <- ds_e_pheno_225 %>% mutate(Conditions = paste0(Abb_ECM, Metadata_Ratio))
+  
+ds_e_pheno_225 %>% group_by(Conditions, Metadata_Stiffness)%>% 
+  ggplot(aes(Mean_Nuclei, Mean_Orange_Norm, color = Conditions))+
+  facet_grid(rows = vars(Metadata_Stiffness)) + 
+  geom_point()+
+  # ylab("Drug/DMSO Control (Survival)")+
+  # xlab("Cell Number DMSO Control")+
+  theme_prism(border = TRUE)+
+   geom_vline(xintercept = 15)+
+  # geom_hline(yintercept = 0.5)+
+  theme(legend.position = "none")
+
+ds_e_pheno_225 %>% group_by(Conditions, Metadata_Stiffness)%>% 
+  ggplot(aes(Mean_Nuclei, Mean_Red_Norm, color = Conditions))+
+  facet_grid(rows = vars(Metadata_Stiffness)) + 
+  geom_point()+
+  # ylab("Drug/DMSO Control (Survival)")+
+  # xlab("Cell Number DMSO Control")+
+  theme_prism(border = TRUE)+
+   geom_vline(xintercept = 15)+
+  # geom_hline(yintercept = 0.5)+
+  theme(legend.position = "none")
+
+ds_e_pheno_225 %>% group_by(Conditions, Metadata_Stiffness)%>% 
+  ggplot(aes(Mean_Nuclei, Mean_Green_Norm, color = Conditions))+
+  facet_grid(rows = vars(Metadata_Stiffness)) + 
+  geom_point()+
+  # ylab("Drug/DMSO Control (Survival)")+
+  # xlab("Cell Number DMSO Control")+
+  theme_prism(border = TRUE)+
+  geom_vline(xintercept = 15)+
+  # geom_hline(yintercept = 0.5)+
+  theme(legend.position = "none")
+```
+
+## P Heatmap
+```{r}
+heatmapDMSO <- ds_e_pheno_225[,c("Abb_ECM", "Metadata_Slide", "Metadata_Experiment", "Metadata_Ratio", "Metadata_Stiffness", "Metadata_Treatment", "Mean_Green_Norm", "Mean_Red_Norm", "Mean_Orange_Norm")]
+
+heatmapDMSO <- subset(heatmapDMSO, Metadata_Treatment == "DMSO")
+
+heatmapDMSO <- heatmapDMSO %>% group_by(Abb_ECM, Metadata_Stiffness, Metadata_Ratio)%>%summarize(Mean_ECAD = mean(Mean_Red_Norm), Mean_Vim = mean(Mean_Orange_Norm), Mean_PXR = mean(Mean_Green_Norm), .groups = "drop")
+
+heatmapDMSO <- heatmapDMSO %>% mutate(Stiffness = Metadata_Stiffness, Microenvironment = paste0(Abb_ECM, Metadata_Ratio))
+
+heatmapDMSO <- heatmapDMSO[,c("Stiffness" ,"Microenvironment", "Mean_ECAD", "Mean_Vim", "Mean_PXR")]
+
+heatmapDMSO <- pivot_wider(data = heatmapDMSO, names_from = "Stiffness", values_from = c("Mean_ECAD", "Mean_Vim", "Mean_PXR"))
+ 
+heatmapDMSO <- as.matrix(heatmapDMSO)
+
+rownames(heatmapDMSO) <- heatmapDMSO[,1]
+
+heatmapDMSO <- heatmapDMSO[,2:7]
+
+# heatmapDMSO <- heatmapDMSO[,c("Mean_ECAD 1kPa", "Mean_ECAD 25kPa",  "Mean_Vim 1kPa", "Mean_Vim 25kPa", "Mean_PXR 1kPa", "Mean_PXR 25kPa")]
+# 
+heatmapDMSO<- as.matrix(heatmapDMSO)
+
+class(heatmapDMSO) <- "numeric"
+
+```
+
+```{r}
+colannDMSO <- c("Mean_ECAD_1kPa", "Mean_ECAD_25kPa",  "Mean_Vim_1kPa", "Mean_Vim_25kPa", "Mean_PXR_1kPa", "Mean_PXR_25kPa")
+
+coldfDMSO <- data.frame(ReadoutStiff = colannDMSO)
+
+coldfDMSO <- coldfDMSO %>% mutate(                        
+Readout = case_when(ReadoutStiff %in% c("Mean_ECAD_1kPa", "Mean_ECAD_25kPa") ~ "ECad", 
+                      ReadoutStiff %in% c("Mean_Vim_1kPa", "Mean_Vim_25kPa") ~ "Vimentin",
+                      ReadoutStiff %in% c("Mean_PXR_1kPa", "Mean_PXR_25kPa") ~ "PXR"),
+Stiffness = if_else(ReadoutStiff %in% c("Mean_ECAD_1kPa",  "Mean_Vim_1kPa", "Mean_PXR_1kPa"), "1kPa", "25kPa"))
+  
+colgroupingDMSO <- data.frame(Readout = coldfDMSO[,2], Stiffness = coldfDMSO[,3], row.names = coldfDMSO[,1])
+```
+
+```{r}
+library(pheatmap)
+library(RColorBrewer)
+
+pheatmap(heatmapDMSO, color = colorRampPalette(rev(brewer.pal(n=7, name = "RdBu")))(100), scale = "column", angle_col = 45, height = 12, width = 5, fontsize_row = 8, annotation_col = colgroupingDMSO, annotation_colors = list(Readout = c("ECad" = "#D55E00", "Vimentin" = "#E69F00", "PXR" = "#009E73"), Stiffness = c("1kPa"= "#56B4E9", "25kPa" = "#0072B2")), filename = "DMSOheatmapcol.png")
+
+pheatmap(heatmapDMSO, color = colorRampPalette(rev(brewer.pal(n=7, name = "RdBu")))(100), scale = "column", angle_col = 45, height = 12, width = 5, cluster_cols = FALSE, fontsize_row = 8,
+         annotation_col = colgroupingDMSO, annotation_colors = list(Readout = c("ECad" = "#D55E00", "Vimentin" = "#E69F00", "PXR" = "#009E73"), Stiffness = c("1kPa"= "#56B4E9", "25kPa" = "#0072B2")),
+         filename = "DMSOheatmapnone.png")
+```
+

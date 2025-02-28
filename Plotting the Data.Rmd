@@ -1360,3 +1360,39 @@ DrugResponsesforComplong %>% ggplot(aes(x = Terms, y = Value, fill = Response))+
 
 ggsave("DrugRespanovacomp.png", width = 15, height = 10, dpi = 1200)
 ```
+
+```{r}
+dsewithrep %>% group_by(Conditions, Metadata_Stiffness)%>% 
+  ggplot(aes(Mean_Nuclei, Mean_Orange_Norm, color = Conditions))+
+  facet_grid(rows = vars(Metadata_Stiffness)) + 
+  geom_point()+
+  # ylab("Drug/DMSO Control (Survival)")+
+  # xlab("Cell Number DMSO Control")+
+  theme_prism(border = TRUE)+
+   geom_vline(xintercept = 15)+
+  # geom_hline(yintercept = 0.5)+
+  theme(legend.position = "none")
+
+dsewithrep %>% group_by(Conditions, Metadata_Stiffness)%>% 
+  ggplot(aes(Mean_Nuclei, Mean_Red_Norm, color = Conditions))+
+  facet_grid(rows = vars(Metadata_Stiffness)) + 
+  geom_point()+
+  # ylab("Drug/DMSO Control (Survival)")+
+  # xlab("Cell Number DMSO Control")+
+  theme_prism(border = TRUE)+
+   geom_vline(xintercept = 15)+
+  # geom_hline(yintercept = 0.5)+
+  theme(legend.position = "none")
+
+dsewithrep %>% group_by(Conditions, Metadata_Stiffness)%>% 
+  ggplot(aes(Mean_Nuclei, Mean_Green_Norm, color = Conditions))+
+  facet_grid(rows = vars(Metadata_Stiffness)) + 
+  geom_point()+
+  # ylab("Drug/DMSO Control (Survival)")+
+  # xlab("Cell Number DMSO Control")+
+  theme_prism(border = TRUE)+
+  geom_vline(xintercept = 15)+
+  # geom_hline(yintercept = 0.5)+
+  theme(legend.position = "none")
+```
+
