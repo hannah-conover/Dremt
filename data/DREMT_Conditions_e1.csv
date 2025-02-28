@@ -1,0 +1,145 @@
+Column,Row,ECMs,Ratio
+01,01,Dextran,
+02,01,Dextran,
+03,01,Dextran,
+04,01,Dextran,
+01,02,Dextran,
+02,02,Laminin,100
+03,02,Collagen IDecorin,75/25
+04,02,Collagen ICollagen IV,50/50
+01,03,Dextran,
+02,03,Collagen IV,100
+03,03,Collagen ICollagen IV,25/75
+04,03,Hyaluronic AcidOsteopontin,50/50
+01,04,Dextran,
+02,04,LamininDecorin,25/75
+03,04,OsteopontinGalectin 3,75/25
+04,04,Collagen IVHyaluronic Acid,75/25
+05,01,Dextran,
+06,01,Dextran,
+07,01,Dextran,
+08,01,Dextran,
+05,02,Hyaluronic AcidFibronectin,25/75
+06,02,Hyaluronic AcidGalectin 3,75/25
+07,02,LamininGalectin 3,25/75
+08,02,Tenascin CDecorin,50/50
+05,03,Fibronectin,100
+06,03,OsteopontinDecorin,50/50
+07,03,OsteopontinFibronectin,75/25
+08,03,LamininDecorin,50/50
+05,04,Galectin 3Fibronectin,75/25
+06,04,Collagen IVOsteopontin,75/25
+07,04,Collagen IVFibronectin,50/50
+08,04,Collagen IOsteopontin,75/25
+09,01,Dextran,
+10,01,Dextran,
+11,01,Dextran,
+12,01,Dextran,
+09,02,LamininGalectin 3,75/25
+10,02,Collagen IVOsteopontin,50/50
+11,02,Collagen I,100
+12,02,OsteopontinGalectin 3,50/50
+09,03,LamininFibronectin,25/75
+10,03,Collagen IGalectin 3,75/25
+11,03,LamininFibronectin,50/50
+12,03,Hyaluronic AcidGalectin 3,25/75
+09,04,DecorinFibronectin,50/50
+10,04,OsteopontinFibronectin,25/75
+11,04,Collagen IOsteopontin,50/50
+12,04,Collagen IVGalectin 3,25/75
+01,05,Dextran,
+02,05,Collagen IVHyaluronic Acid,50/50
+03,05,LamininHyaluronic Acid,75/25
+04,05,Galectin 3,100
+01,06,Dextran,
+02,06,OsteopontinDecorin,75/25
+03,06,Tenascin CGalectin 3,25/75
+04,06,Tenascin CFibronectin,50/50
+01,07,Dextran,
+02,07,Tenascin COsteopontin,50/50
+03,07,Tenascin CHyaluronic Acid,25/75
+04,07,LamininHyaluronic Acid,50/50
+01,08,Dextran,
+02,08,Hyaluronic Acid,100
+03,08,Hyaluronic AcidDecorin,75/25
+04,08,LamininOsteopontin,75/25
+05,05,Collagen IVGalectin 3,50/50
+06,05,Hyaluronic AcidFibronectin,50/50
+07,05,Hyaluronic AcidFibronectin,75/25
+08,05,Collagen IVFibronectin,25/75
+05,06,Tenascin CGalectin 3,75/25
+06,06,Collagen ITenascin C,25/75
+07,06,Collagen IVLaminin,75/25
+08,06,Collagen IFibronectin,50/50
+05,07,Collagen IDecorin,25/75
+06,07,Collagen IFibronectin,75/25
+07,07,Collagen IVTenascin C,50/50
+08,07,Collagen IHyaluronic Acid,50/50
+05,08,Collagen ILaminin,75/25
+06,08,Hyaluronic AcidGalectin 3,50/50
+07,08,Collagen ILaminin,50/50
+08,08,Galectin 3Fibronectin,50/50
+09,05,Hyaluronic AcidOsteopontin,25/75
+10,05,DecorinGalectin 3,75/25
+11,05,Collagen ILaminin,25/75
+12,05,Hyaluronic AcidOsteopontin,75/25
+09,06,Collagen IVTenascin C,75/25
+10,06,Collagen IVDecorin,50/50
+11,06,Collagen IVFibronectin,75/25
+12,06,Collagen IVOsteopontin,25/75
+09,07,LamininTenascin C,25/75
+10,07,LamininTenascin C,75/25
+11,07,Tenascin CDecorin,25/75
+12,07,Collagen IVHyaluronic Acid,25/75
+09,08,Tenascin COsteopontin,75/25
+10,08,Collagen IHyaluronic Acid,25/75
+11,08,OsteopontinGalectin 3,25/75
+12,08,Tenascin CFibronectin,25/75
+01,09,Dextran,
+02,09,Tenascin CHyaluronic Acid,50/50
+03,09,Tenascin CFibronectin,75/25
+04,09,Collagen IDecorin,50/50
+01,10,Dextran,
+02,10,Collagen IGalectin 3,25/75
+03,10,DecorinGalectin 3,50/50
+04,10,LamininTenascin C,50/50
+01,11,Dextran,
+02,11,LamininGalectin 3,50/50
+03,11,OsteopontinFibronectin,50/50
+04,11,Collagen ITenascin C,75/25
+01,12,Dextran,
+02,12,LamininDecorin,75/25
+03,12,Galectin 3Fibronectin,25/75
+04,12,Collagen IVLaminin,25/75
+05,09,Hyaluronic AcidDecorin,25/75
+06,09,LamininHyaluronic Acid,25/75
+07,09,Collagen ITenascin C,50/50
+08,09,Tenascin C,100
+05,10,Collagen IGalectin 3,50/50
+06,10,LamininOsteopontin,25/75
+07,10,Collagen ICollagen IV,75/25
+08,10,Collagen IVDecorin,25/75
+05,11,Tenascin CGalectin 3,50/50
+06,11,DecorinGalectin 3,25/75
+07,11,Decorin,100
+08,11,DecorinFibronectin,25/75
+05,12,Tenascin CHyaluronic Acid,75/25
+06,12,Hyaluronic AcidDecorin,50/50
+07,12,LamininOsteopontin,50/50
+08,12,Collagen IVLaminin,50/50
+09,09,Collagen IFibronectin,25/75
+10,09,Tenascin CDecorin,75/25
+11,09,Tenascin COsteopontin,25/75
+12,09,OsteopontinDecorin,25/75
+09,10,DecorinFibronectin,75/25
+10,10,LamininFibronectin,75/25
+11,10,Collagen IHyaluronic Acid,75/25
+12,10,Collagen IVGalectin 3,75/25
+09,11,Osteopontin,100
+10,11,Collagen IVTenascin C,25/75
+11,11,Collagen IVDecorin,75/25
+12,11,Collagen IOsteopontin,25/75
+09,12,,
+10,12,,
+11,12,,
+12,12,,

@@ -54,33 +54,7 @@ interaction.plot(x.factor = subset(DMSOdsewithrep, Abb_ECM %in% c("DNFN", "C1"))
 
 ```
 
-## Estimated Marginal Means (EMMeans) (Post-Hoc Testing)
-```{r}
-grid <- ref_grid(vimmodel, at = list(Metadata_Stiffness = levels("Metadata_Stiffness"), Abb_ECM = levels("Abb_ECM")), rg.limit = 10000)
 
-EMStiffAbb <- lsmeans(vimmodel, ~ Metadata_Stiffness*Abb_ECM, ref_grid = grid)
-pairs(EMStiffAbb)
-```
-
-```{r}
-#install.packages("ggeffects")
-library(ggeffects)
-
-# Compute marginal effects
-stiffness_effects <- ggpredict(vimmodel, terms = "Metadata_Stiffness")
-print(stiffness_effects)
-
-abbecm_effects <- ggpredict(vimmodel, terms = "Abb_ECM")
-print(abbecm_effects)
-
-stiffnessecm_effects <- ggeffect(vimmodel, terms = c("Metadata_Stiffness", "Abb_ECM"))
-print(stiffnessecm_effects)
-
-# abbecm_effects <- ggpredict(vimmodel, terms = "Abb_ECM")
-# print(abbecm_effects)
-# # Plot marginal effects
-# plot(marginal_effects)
-```
 
 ## Interaction Plots from ANOVA
 ```{r}
@@ -102,13 +76,9 @@ VEPECMmeansNuc <- DMSOdsewithrepcolreorder %>% group_by(Metadata_Stiffness, Abb_
 ```
 
 ### PXR Sig S:R
+
+C4, DN
 ```{r}
-interaction.plot(x.factor = DMSOdsewithrepcolreorder$CollagenIV, trace.factor = DMSOdsewithrepcolreorder$Metadata_Stiffness, response = DMSOdsewithrepcolreorder$Mean_Green_Norm, ylab = "PXR Expression", xlab = "Collagen IV Ratio", trace.label = "Stiffness (kPa)")
-
-interaction.plot(x.factor = DMSOdsewithrepcolreorder$Osteopontin, trace.factor = DMSOdsewithrepcolreorder$Metadata_Stiffness, response = DMSOdsewithrepcolreorder$Mean_Green_Norm, ylab = "PXR Expression", xlab = "Osteopontin Ratio", trace.label = "Stiffness (kPa)")
-
-interaction.plot(x.factor = DMSOdsewithrepcolreorder$Decorin, trace.factor = DMSOdsewithrepcolreorder$Metadata_Stiffness, response = DMSOdsewithrepcolreorder$Mean_Green_Norm, ylab = "PXR Expression", xlab = "Decorin Ratio", trace.label = "Stiffness (kPa)")
-
 
 VEPECMmeansNuc %>% group_by(Metadata_Stiffness, CollagenIV) %>% summarize(Mean_PXR = mean(Mean_PXR)) %>% ggplot( aes(x = CollagenIV, y = Mean_PXR, col = Metadata_Stiffness))+
   #facet_grid(cols = vars(Metadata_Stiffness))+
@@ -119,19 +89,19 @@ VEPECMmeansNuc %>% group_by(Metadata_Stiffness, CollagenIV) %>% summarize(Mean_P
   ylab("PXR Expression")+
   scale_color_manual(values = c("#db6d22", "#2100bb"))
 
-  ggsave("PXR Intx/StiffnessvsC1PXR.png")
+  ggsave("PXR Intx/StiffnessvsC4PXR.png")
   
-  VEPECMmeansNuc %>% group_by(Metadata_Stiffness, Osteopontin) %>% summarize(Mean_PXR = mean(Mean_PXR)) %>%ggplot( aes(x = Osteopontin, y = Mean_PXR, col = Metadata_Stiffness))+
-  #facet_grid(cols = vars(Metadata_Stiffness))+
-  geom_path(aes(group = Metadata_Stiffness), linewidth = 1.5)+
-  geom_point(size = 3)+
-  theme_prism(border = TRUE)+
-  xlab("Ratio of Osteopontin")+
- ylab("PXR Expression")+
-     ggtitle("PXR - Stiffness over Osteopontin Ratio")+
-  scale_color_manual(values = c("#db6d22", "#2100bb"))
-
-  ggsave("PXR Intx/StiffnessvsOPNPXR.png")
+ #  VEPECMmeansNuc %>% group_by(Metadata_Stiffness, Osteopontin) %>% summarize(Mean_PXR = mean(Mean_PXR)) %>%ggplot( aes(x = Osteopontin, y = Mean_PXR, col = Metadata_Stiffness))+
+ #  #facet_grid(cols = vars(Metadata_Stiffness))+
+ #  geom_path(aes(group = Metadata_Stiffness), linewidth = 1.5)+
+ #  geom_point(size = 3)+
+ #  theme_prism(border = TRUE)+
+ #  xlab("Ratio of Osteopontin")+
+ # ylab("PXR Expression")+
+ #     ggtitle("PXR - Stiffness over Osteopontin Ratio")+
+ #  scale_color_manual(values = c("#db6d22", "#2100bb"))
+ # 
+ #  ggsave("PXR Intx/StiffnessvsOPNPXR.png")
   
   VEPECMmeansNuc %>% group_by(Metadata_Stiffness, Decorin) %>% summarize(Mean_PXR = mean(Mean_PXR)) %>%ggplot( aes(x = Decorin, y = Mean_PXR, col = Metadata_Stiffness))+
   #facet_grid(cols = vars(Metadata_Stiffness))+
@@ -147,21 +117,19 @@ VEPECMmeansNuc %>% group_by(Metadata_Stiffness, CollagenIV) %>% summarize(Mean_P
 
 
 ### ECAD Sig S:R
+LN, FN, DN
 ```{r}
-interaction.plot(x.factor = DMSOdsewithrepcolreorder$Osteopontin, trace.factor = DMSOdsewithrepcolreorder$Metadata_Stiffness, response = DMSOdsewithrepcolreorder$Mean_Red_Norm, ylab = "Ecad Expression", xlab = "Osteopontin Ratio", trace.label = "Stiffness (kPa)")
 
-interaction.plot(x.factor = DMSOdsewithrepcolreorder$Decorin, trace.factor = DMSOdsewithrepcolreorder$Metadata_Stiffness, response = DMSOdsewithrepcolreorder$Mean_Red_Norm, ylab = "Ecad Expression", xlab = "Decorin Ratio", trace.label = "Stiffness (kPa)")
-
-VEPECMmeansNuc %>% group_by(Metadata_Stiffness, Osteopontin) %>% summarize(Mean_Ecad = mean(Mean_Ecad)) %>%ggplot( aes(x = Osteopontin, y = Mean_Ecad, col = Metadata_Stiffness))+
-  #facet_grid(cols = vars(Metadata_Stiffness))+
-  geom_path(aes(group = Metadata_Stiffness), linewidth = 1.5)+
-  geom_point(size = 3)+
-  theme_prism(border = TRUE)+
-  xlab("Ratio of Osteopontin")+
-  ylab("Ecad Expression")+
-  ggtitle("E-Cadherin - Stiffness over Osteopontin Ratio")+
-  scale_color_manual(values = c("#db6d22", "#2100bb"))
-ggsave("Ecad Intx/StiffnessvsOPNEcad.png")
+# VEPECMmeansNuc %>% group_by(Metadata_Stiffness, Osteopontin) %>% summarize(Mean_Ecad = mean(Mean_Ecad)) %>%ggplot( aes(x = Osteopontin, y = Mean_Ecad, col = Metadata_Stiffness))+
+#   #facet_grid(cols = vars(Metadata_Stiffness))+
+#   geom_path(aes(group = Metadata_Stiffness), linewidth = 1.5)+
+#   geom_point(size = 3)+
+#   theme_prism(border = TRUE)+
+#   xlab("Ratio of Osteopontin")+
+#   ylab("Ecad Expression")+
+#   ggtitle("E-Cadherin - Stiffness over Osteopontin Ratio")+
+#   scale_color_manual(values = c("#db6d22", "#2100bb"))
+# ggsave("Ecad Intx/StiffnessvsOPNEcad.png")
 
 VEPECMmeansNuc %>% group_by(Metadata_Stiffness, Decorin) %>% summarize(Mean_Ecad = mean(Mean_Ecad)) %>%ggplot( aes(x = Decorin, y = Mean_Ecad, col = Metadata_Stiffness))+
   #facet_grid(cols = vars(Metadata_Stiffness))+
@@ -173,64 +141,46 @@ VEPECMmeansNuc %>% group_by(Metadata_Stiffness, Decorin) %>% summarize(Mean_Ecad
   scale_color_manual(values = c("#db6d22", "#2100bb"))
 
   ggsave("Ecad Intx/StiffnessvsDNEcad.png")
+  
+  VEPECMmeansNuc %>% group_by(Metadata_Stiffness, Laminin) %>% summarize(Mean_Ecad = mean(Mean_Ecad)) %>%ggplot( aes(x = Laminin, y = Mean_Ecad, col = Metadata_Stiffness))+
+  #facet_grid(cols = vars(Metadata_Stiffness))+
+  geom_path(aes(group = Metadata_Stiffness), linewidth = 1.5)+
+  geom_point(size = 3)+
+  theme_prism(border = TRUE)+
+  xlab("Ratio of Laminin")+
+  ylab("Ecad Expression")+
+  scale_color_manual(values = c("#db6d22", "#2100bb"))
+
+  ggsave("Ecad Intx/StiffnessvsLNEcad.png")
+  
+  VEPECMmeansNuc %>% group_by(Metadata_Stiffness, Fibronectin) %>% summarize(Mean_Ecad = mean(Mean_Ecad)) %>%ggplot( aes(x = Fibronectin, y = Mean_Ecad, col = Metadata_Stiffness))+
+  #facet_grid(cols = vars(Metadata_Stiffness))+
+  geom_path(aes(group = Metadata_Stiffness), linewidth = 1.5)+
+  geom_point(size = 3)+
+  theme_prism(border = TRUE)+
+  xlab("Ratio of Fibronectin")+
+  ylab("Ecad Expression")+
+  scale_color_manual(values = c("#db6d22", "#2100bb"))
+
+  ggsave("Ecad Intx/StiffnessvsFNEcad.png")
 ```
 
 ### VIM Sig R:ECM
-Need to run and then run the next chunk
-```{r}
-Col1 <- subset(DMSOdsewithrepcolreorder, CollagenI != 0)
-Col4 <- subset(DMSOdsewithrepcolreorder, CollagenIV != 0)
-HA <- subset(DMSOdsewithrepcolreorder, Hyaluronic_Acid != 0)
-FN <- subset(DMSOdsewithrepcolreorder, Fibronectin != 0)
-G3 <- subset(DMSOdsewithrepcolreorder, Galectin3 != 0)
-
-Col1$Abb_ECM <- factor(Col1$Abb_ECM, levels = c("C1", "C1DN", "C1C4", "C1G3",  "C1OPN","C1LN" ,"C1TC" ,"C1FN" ,"C1HA" ))
-Col4$Abb_ECM <- factor(Col4$Abb_ECM, levels = c("C4", "C1C4"  ,"C4OPN", "C4HA",  "C4FN"  ,"C4G3"  ,"C4LN" , "C4TC" , "C4DN"))
-HA$Abb_ECM <- factor(HA$Abb_ECM, levels = c("HA", "HAFN" , "HAG3"  ,"HAOPN" ,"C4HA" , "LNHA",  "TCHA", "HADN",  "C1HA"))
-FN$Abb_ECM <- factor(FN$Abb_ECM, levels = c("FN", "HAFN", "OPNFN", "LNFN",  "G3FN","DNFN" ,"TCFN" ,  "C4FN" , "C1FN" ))
-G3$Abb_ECM <- factor(G3$Abb_ECM, levels = c("G3", "HAG3" , "LNG3" , "OPNG3", "C1G3" , "G3FN" ,"C4G3", "DNG3"  ,"TCG3" ))
-
-```
 
 ```{r}
-interaction.plot(x.factor = Col1$Abb_ECM, trace.factor = droplevels(Col1)$CollagenI, response = Col1$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Collagen I Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
-
-
-interaction.plot(x.factor = Col4$Abb_ECM, trace.factor = droplevels(Col4)$CollagenIV, response = Col4$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Collagen IV Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
-
-interaction.plot(x.factor = HA$Abb_ECM, trace.factor = droplevels(HA)$Hyaluronic_Acid, response = HA$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Hyaluronic Acid Ratio",  col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
-
-interaction.plot(x.factor = FN$Abb_ECM, trace.factor = droplevels(FN)$Fibronectin, response = FN$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Fibronectin Ratio",  col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
-
-interaction.plot(x.factor = G3$Abb_ECM, trace.factor = droplevels(G3)$Galectin3, response = G3$Mean_Orange_Norm, ylab = "Vimentin Expression", xlab = "ECM Condition", trace.label = "Galectin 3 Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
-
-VEPECMmeansNuc %>% filter(CollagenI != 0) %>% group_by(Abb_ECM, CollagenI) %>% summarize(Mean_Vim = mean(Mean_Vim)) %>%ggplot( aes(x = Abb_ECM, y = Mean_Vim, col = CollagenI))+
+VEPECMmeansNuc %>% filter(TenascinC != 0) %>% group_by(Abb_ECM, TenascinC) %>% summarize(Mean_Vim = mean(Mean_Vim)) %>%ggplot( aes(x = Abb_ECM, y = Mean_Vim, col = TenascinC))+
   #facet_grid(cols = vars(Metadata_Stiffness))+
-  geom_path(aes(group = CollagenI, linetype = CollagenI), linewidth = 1.5)+
+  geom_path(aes(group = TenascinC, linetype = TenascinC), linewidth = 1.5)+
   geom_point(size = 3)+
   theme_prism(border = TRUE)+
   xlab("ECM Composition")+
-  labs(color = "Collagen I")+
+  labs(color = "Tenascin C")+
   scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
   scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
   ylab("Vimentin Expression")+
-  ggtitle("Collagen I Ratio over ECMs")
+  ggtitle("Tenascin C Ratio over ECMs")
   
-ggsave("Vim Intx/CollagenIRatiovsECMEdU.png", width = 10, height = 5)
-
-VEPECMmeansNuc %>% filter(CollagenIV != 0) %>% group_by(Abb_ECM, CollagenIV) %>% summarize(Mean_Vim = mean(Mean_Vim)) %>%ggplot( aes(x = Abb_ECM, y = Mean_Vim, col = CollagenIV))+
-  #facet_grid(cols = vars(Metadata_Stiffness))+
-  geom_path(aes(group = CollagenIV, linetype = CollagenIV), linewidth = 1.5)+
-  geom_point(size = 3)+
-  theme_prism(border = TRUE)+
-  xlab("ECM Composition")+
-  labs(color = "Collagen IV")+
-  scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
-  scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
-  ylab("Vimentin Expression")+
-  ggtitle("Collagen IV Ratio over ECMs")
-  
-ggsave("Vim Intx/CollagenIVRatiovsECMEdU.png", width = 10, height = 5)
+ggsave("Vim Intx/TCRatiovsECM.png", width = 10, height = 5)
 
 VEPECMmeansNuc %>% filter(Hyaluronic_Acid != 0) %>% group_by(Abb_ECM, Hyaluronic_Acid) %>% summarize(Mean_Vim = mean(Mean_Vim)) %>%ggplot( aes(x = Abb_ECM, y = Mean_Vim, col = Hyaluronic_Acid))+
   #facet_grid(cols = vars(Metadata_Stiffness))+
@@ -244,7 +194,7 @@ VEPECMmeansNuc %>% filter(Hyaluronic_Acid != 0) %>% group_by(Abb_ECM, Hyaluronic
   ylab("Vimentin Expression")+
   ggtitle("Hyaluronic Acid Ratio over ECMs")
   
-ggsave("Vim Intx/Hyaluronic_AcidRatiovsECMEdU.png", width = 10, height = 5)
+ggsave("Vim Intx/Hyaluronic_AcidRatiovsECM.png", width = 10, height = 5)
 
 VEPECMmeansNuc %>% filter(Fibronectin != 0) %>% group_by(Abb_ECM, Fibronectin) %>% summarize(Mean_Vim = mean(Mean_Vim)) %>%ggplot( aes(x = Abb_ECM, y = Mean_Vim, col = Fibronectin))+
   #facet_grid(cols = vars(Metadata_Stiffness))+
@@ -258,7 +208,7 @@ VEPECMmeansNuc %>% filter(Fibronectin != 0) %>% group_by(Abb_ECM, Fibronectin) %
   ylab("Vimentin Expression")+
   ggtitle("Fibronectin Ratio over ECMs")
   
-ggsave("Vim Intx/FibronectinRatiovsECMEdU.png", width = 10, height = 5)
+ggsave("Vim Intx/FibronectinRatiovsECM.png", width = 10, height = 5)
 
 VEPECMmeansNuc %>% filter(Galectin3 != 0) %>% group_by(Abb_ECM, Galectin3) %>% summarize(Mean_Vim = mean(Mean_Vim)) %>%ggplot( aes(x = Abb_ECM, y = Mean_Vim, col = Galectin3))+
   #facet_grid(cols = vars(Metadata_Stiffness))+
@@ -272,14 +222,44 @@ VEPECMmeansNuc %>% filter(Galectin3 != 0) %>% group_by(Abb_ECM, Galectin3) %>% s
   ylab("Vimentin Expression")+
   ggtitle("Vimentin - Galectin 3 Ratio over ECMs")
   
-ggsave("Vim Intx/Galectin3RatiovsECMEdU.png", width = 10, height = 5)
+ggsave("Vim Intx/Galectin3RatiovsECM.png", width = 10, height = 5)
 ```
-### PXR Sig R:ECM
+### Ecad Sig R:ECM
+  C1, HA
 ```{r}
-interaction.plot(x.factor = G3$Abb_ECM, trace.factor = droplevels(G3)$Galectin3, response = G3$Mean_Green_Norm, ylab = "PXR Expression", xlab = "ECM Condition", trace.label = "Galectin 3 Ratio", col = 1:5, type = "b", pch = 16, fixed = TRUE, las = 2)
-
-VEPECMmeansNuc %>% filter(Galectin3 != 0) %>% group_by(Abb_ECM, Galectin3) %>% summarize(Mean_PXR = mean(Mean_PXR)) %>%ggplot( aes(x = Abb_ECM, y = Mean_PXR, col = Galectin3))+
+VEPECMmeansNuc %>% filter(CollagenI != 0) %>% group_by(Abb_ECM, CollagenI) %>% summarize(Mean_Ecad = mean(Mean_Ecad)) %>%ggplot( aes(x = Abb_ECM, y = Mean_Ecad, col = CollagenI))+
   #facet_grid(cols = vars(Metadata_Stiffness))+
+  geom_path(aes(group = CollagenI, linetype = CollagenI), linewidth = 1.5)+
+  geom_point(size = 3)+
+  theme_prism(border = TRUE)+
+  xlab("ECM Composition")+
+  labs(color = "Collagen I")+
+  scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
+  scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
+  ylab("Ecad Expression")+
+  ggtitle("Ecad - Collagen I Ratio over ECMs")
+  
+ggsave("Ecad Intx/CollagenIRatiovsECMEcad.png", width = 10, height = 5)
+
+VEPECMmeansNuc %>% filter(Hyaluronic_Acid != 0) %>% group_by(Abb_ECM, Hyaluronic_Acid) %>% summarize(Mean_Ecad = mean(Mean_Ecad)) %>%ggplot( aes(x = Abb_ECM, y = Mean_Ecad, col = Hyaluronic_Acid))+
+  #facet_grid(cols = vars(Metadata_Stiffness))+
+  geom_path(aes(group = Hyaluronic_Acid, linetype = Hyaluronic_Acid), linewidth = 1.5)+
+  geom_point(size = 3)+
+  theme_prism(border = TRUE)+
+  xlab("ECM Composition")+
+  labs(color = "Hyaluronic Acid")+
+  scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
+  scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
+  ylab("Ecad Expression")+
+  ggtitle("Ecad - Hyaluronic Acid Ratio over ECMs")
+  
+ggsave("Ecad Intx/HARatiovsECMEcad.png", width = 10, height = 5)
+```
+### Vimentin 3-way Intx
+G3:ECM:Stiffness
+```{r}
+VEPECMmeansNuc %>% filter(Galectin3 != 0) %>% group_by(Abb_ECM, Galectin3, Metadata_Stiffness) %>% summarize(Mean_Vim = mean(Mean_Vim)) %>%ggplot( aes(x = Abb_ECM, y = Mean_Vim, col = Galectin3))+
+  facet_grid(cols = vars(Metadata_Stiffness))+
   geom_path(aes(group = Galectin3, linetype = Galectin3), linewidth = 1.5)+
   geom_point(size = 3)+
   theme_prism(border = TRUE)+
@@ -287,107 +267,10 @@ VEPECMmeansNuc %>% filter(Galectin3 != 0) %>% group_by(Abb_ECM, Galectin3) %>% s
   labs(color = "Galectin 3")+
   scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
   scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
-  ylab("PXR Expression")+
-  ggtitle("PXR - Galectin 3 Ratio over ECMs")
+  ylab("Vimentin Expression")+
+  ggtitle("Vimentin - Galectin 3 Ratio over ECMs and Stiffnesses")
   
-ggsave("PXR Intx/Galectin3RatiovsECMPXR.png", width = 10, height = 5)
-```
-## Main Factor Plots
-
-### Ratio Vimentin
-```{r}
-levels <- c(0, 0.25, 0.5, 0.75, 1)
-comparisons <- combn(as.character(levels), 2, simplify = FALSE)
-```
-
-```{r}
-DMSOdsewithrepcolreorder %>% ggplot(aes(x = CollagenIV, y = Mean_Orange_Norm))+
-  geom_boxplot()+
-  theme_prism()+
-  ggtitle("Ratio of Collagen IV in Vimentin")+
-  ylab("Vimentin Expression")+
-  xlab("Ratio of Collagen IV")+
-  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
-ggsave("VimCol4Ratio.png", width = 10, height =5)
-
-DMSOdsewithrepcolreorder %>% ggplot(aes(x = TenascinC, y = Mean_Orange_Norm))+
-  geom_boxplot()+
-  theme_prism()+
-  ggtitle("Ratio of Tenascin C in Vimentin")+
-  ylab("Vimentin Expression")+
-  xlab("Ratio of Tenascin C")+
-  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
-ggsave("VimTCRatio.png", width = 10, height =5)
-
-DMSOdsewithrepcolreorder %>% ggplot(aes(x = Galectin3, y = Mean_Orange_Norm))+
-  geom_boxplot()+
-  theme_prism()+
-  ggtitle("Ratio of Galectin 3 in Vimentin")+
-  ylab("Vimentin Expression")+
-  xlab("Ratio of Galectin 3")+
-  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
-ggsave("VimG3Ratio.png", width = 10, height =5)
-
-DMSOdsewithrepcolreorder %>% ggplot(aes(x = Laminin, y = Mean_Orange_Norm))+
-  geom_boxplot()+
-  theme_prism()+
-  ggtitle("Ratio of Laminin in Vimentin")+
-  ylab("Vimentin Expression")+
-  xlab("Ratio of Laminin")+
-  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
-ggsave("VimLNRatio.png", width = 10, height =5)
-
-DMSOdsewithrepcolreorder %>% ggplot(aes(x = Fibronectin, y = Mean_Orange_Norm))+
-  geom_boxplot()+
-  theme_prism()+
-  ggtitle("Ratio of Fibronectin in Vimentin")+
-  ylab("Vimentin Expression")+
-  xlab("Ratio of Fibronectin")+
-  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
-ggsave("VimFNRatio.png", width = 10, height =5)
-
-DMSOdsewithrepcolreorder %>% ggplot(aes(x = Osteopontin, y = Mean_Orange_Norm))+
-  geom_boxplot()+
-  theme_prism()+
-  ggtitle("Ratio of Osteopontin in Vimentin")+
-  ylab("Vimentin Expression")+
-  xlab("Ratio of Osteopontin")+
-  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
-ggsave("VimOPNRatio.png", width = 10, height =5)
-```
-
-### Ratio Ecad
-```{r}
-DMSOdsewithrepcolreorder %>% ggplot(aes(x = CollagenI, y = Mean_Red_Norm))+
-  geom_boxplot()+
-  theme_prism()+
-  ggtitle("Ratio of Collagen I in Ecad")+
-  ylab("Ecad Expression")+
-  xlab("Ratio of Collagen I")+
-  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
-ggsave("EcadCol1Ratio.png", width = 10, height =5)
-
-DMSOdsewithrepcolreorder %>% ggplot(aes(x = Osteopontin, y = Mean_Red_Norm))+
-  geom_boxplot()+
-  theme_prism()+
-  ggtitle("Ratio of Osteopontin in Ecad")+
-  ylab("Ecad Expression")+
-  xlab("Ratio of Osteopontin")+
-  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
-ggsave("EcadOPNRatio.png", width = 10, height =5)
-```
-
-### Ratio PXR
-
-```{r}
-DMSOdsewithrepcolreorder %>% ggplot(aes(x = Laminin, y = Mean_Green_Norm))+
-  geom_boxplot()+
-  theme_prism()+
-  ggtitle("Ratio of Laminin in PXR")+
-  ylab("PXR Expression")+
-  xlab("Ratio of Laminin")+
-  stat_compare_means(comparisons = comparisons, label = "p.signif", test = "t.test", hide.ns = TRUE)
-ggsave("PXRLNRatio.png", width = 10, height =5)
+ggsave("Vim Intx/Galectin3RatiovsECMvsStiffness.png", width = 10, height = 5)
 ```
 
 ### Abb_ECM
@@ -406,6 +289,7 @@ write.csv(ECMEcadCM, "ECMEcadCM.csv")
 write.csv(ECMPXRCM, "ECMPXRCM.csv")
 ```
 
+Need to Make Expanded Versions Prior to Running
 #### P-value Heatmap
 ```{r}
 ggplot(ECMVimCMExpanded, aes(x = group1, y = group2, fill= p)) +
@@ -838,6 +722,7 @@ Drugdsewithrep %>% ggplot(aes(x = Abb_ECM, y = Mean_Green_Norm))+
 ## Ranked Bar Plots
 ```{r}
 ## Mean_Green
+DMSOdsewithrep <- DMSOdsewithrep %>% mutate(Conditions = paste0(Abb_ECM, Metadata_Ratio))
 DMSOdsewithrep %>% group_by(Conditions) %>% summarize(Green = mean(Mean_Green_Norm), GreenSE = sd(Mean_Green_Norm)/sqrt(length(Mean_Green_Norm))) %>% ggplot(aes(x = reorder(Conditions, - Green), y = Green))+
   #facet_grid(rows = vars(Metadata_Ratio))+
   geom_col()+
@@ -1116,13 +1001,14 @@ cor.test(ForCorrStiff$Mean_Green, ForCorrStiff$Mean_Red)
 ## Correlation Plots
 ### Calculating Survival
 ```{r}
-controlmean_1218 <- ds_pheno_1218 %>% filter(Metadata_Treatment == "DMSO") %>% group_by(Abb_ECM, Metadata_Ratio, Metadata_Stiffness, Metadata_Experiment)
+library(tidyverse)
+controlmean_1218 <- ds_pheno %>% filter(Metadata_Treatment == "DMSO") %>% group_by(Abb_ECM, Metadata_Ratio, Metadata_Stiffness, Metadata_Experiment)
 
 controlmean_1218$ControlMean <- controlmean_1218$Mean_Nuclei
 
 controlmeanfinal <-  dplyr::select(controlmean_1218, Abb_ECM, Metadata_Ratio, Metadata_Stiffness, Metadata_Experiment, ControlMean)
 
-FOC12_18 <- left_join(ds_pheno_1218, controlmeanfinal)
+FOC12_18 <- left_join(ds_pheno, controlmeanfinal)
 
 FOC12_18$FOC <- FOC12_18$Mean_Nuclei/FOC12_18$ControlMean
 
@@ -1141,11 +1027,14 @@ SurvivalPheno <- left_join(Survival, Phenotypes)
 SP1 <- subset(SurvivalPheno, Metadata_Stiffness == "1kPa" & Metadata_Treatment == "DMSO")
 SP25 <- subset(SurvivalPheno, Metadata_Stiffness == "25kPa"& Metadata_Treatment == "DMSO")
 
-SP1 <- SP1 %>% select("FOC", "Mean_Orange_Norm", "Mean_Red_Norm", "Mean_Green_Norm")
-SP25 <- SP25 %>% select("FOC", "Mean_Orange_Norm", "Mean_Red_Norm", "Mean_Green_Norm")
-
-colnames(SP1) <- c("Survival", "Vimentin", "Ecad", "PXR")
-colnames(SP25) <- c("Survival", "Vimentin", "Ecad", "PXR")
+# SP1 <- SP1[,c("FOC", "Mean_Orange_Norm", "Mean_Red_Norm", "Mean_Green_Norm")]
+# SP25 <- SP25[,c("FOC", "Mean_Orange_Norm", "Mean_Red_Norm", "Mean_Green_Norm")]
+SP1 <- SP1[,c("Mean_Orange_Norm", "Mean_Red_Norm", "Mean_Green_Norm")]
+SP25 <- SP25[,c("Mean_Orange_Norm", "Mean_Red_Norm", "Mean_Green_Norm")]
+# colnames(SP1) <- c("Survival", "Vimentin", "Ecad", "PXR")
+# colnames(SP25) <- c("Survival", "Vimentin", "Ecad", "PXR")
+colnames(SP1) <- c( "Vimentin", "Ecad", "PXR")
+colnames(SP25) <- c("Vimentin", "Ecad", "PXR")
 ```
 
 
@@ -1173,10 +1062,17 @@ ggsave("SPcor1.png")
 ggcorrplot(SPcor25, method = "circle", hc.order = TRUE, type = "lower", lab = TRUE, ggtheme = theme_bw)
 ggsave("SPcor25.png")
 ```
+### Correlation of Phenotypes
+```{r}
+cor.test(ds_pheno$Mean_Green_Norm, ds_pheno$Mean_Red_Norm)
+cor.test(ds_pheno$Mean_Green_Norm, ds_pheno$Mean_Orange_Norm)
+cor.test(ds_pheno$Mean_Orange_Norm, ds_pheno$Mean_Red_Norm)
+```
+
 
 ## Specific ECM Callouts Graph
 ```{r}
-ECMPlot <- ds_pheno_1218 %>% mutate(RatioECM1 = case_when(Metadata_Ratio == "100" ~ "100",
+ECMPlot <- ds_pheno %>% mutate(RatioECM1 = case_when(Metadata_Ratio == "100" ~ "100",
                                                           Metadata_Ratio == "75/25" ~ "75",
                                                           Metadata_Ratio == "50/50"~ "50",
                                                           Metadata_Ratio == "25/75"~ "25"),
@@ -1191,7 +1087,7 @@ ECMPlot <- ECMPlot %>% mutate(Condition = case_when(Metadata_Ratio == "100" ~ pa
 ```
 
 ```{r}
-ECMPlot <- select(ECMPlot, Metadata_Stiffness, Metadata_Treatment, Condition, Mean_Green_Norm, Mean_Orange_Norm, Mean_Red_Norm)
+ECMPlot <- ECMPlot[,c("Metadata_Stiffness", "Metadata_Treatment", "Condition", "Mean_Green_Norm", "Mean_Orange_Norm", "Mean_Red_Norm")]
 
 ECMPlot <- ECMPlot %>% group_by(Metadata_Stiffness, Condition, Metadata_Treatment) %>% summarize(Mean_PXR = mean(Mean_Green_Norm), Mean_Vim = mean(Mean_Orange_Norm), Mean_Ecad = mean(Mean_Red_Norm))
 ```

@@ -1,0 +1,119 @@
+Metadata_ECMs,Metadata_Ratio,Abb_ECM
+Collagen ICollagen IV,"""75:25""",C1C4
+Collagen ILaminin,"""75:25""",C1LN
+Collagen ITenascin C,"""75:25""",C1TC
+Collagen IHyaluronic Acid,"""75:25""",C1HA
+Collagen IOsteopontin,"""75:25""",C1OPN
+Collagen IDecorin,"""75:25""",C1DN
+Collagen IGalectin 3,"""75:25""",C1G3
+Collagen IFibronectin,"""75:25""",C1FN
+Collagen IVLaminin,"""75:25""",C4LN
+Collagen IVTenascin C,"""75:25""",C4TC
+Collagen IVHyaluronic Acid,"""75:25""",C4HA
+Collagen IVOsteopontin,"""75:25""",C4OPN
+Collagen IVDecorin,"""75:25""",C4DN
+Collagen IVGalectin 3,"""75:25""",C4G3
+Collagen IVFibronectin,"""75:25""",C4FN
+LamininTenascin C,"""75:25""",LNTC
+LamininHyaluronic Acid,"""75:25""",LNHA
+LamininOsteopontin,"""75:25""",LNOPN
+LamininDecorin,"""75:25""",LNDN
+LamininGalectin 3,"""75:25""",LNG3
+LamininFibronectin,"""75:25""",LNFN
+Tenascin CHyaluronic Acid,"""75:25""",TCHA
+Tenascin COsteopontin,"""75:25""",TCOPN
+Tenascin CDecorin,"""75:25""",TCDN
+Tenascin CGalectin 3,"""75:25""",TCG3
+Tenascin CFibronectin,"""75:25""",TCFN
+Hyaluronic AcidOsteopontin,"""75:25""",HAOPN
+Hyaluronic AcidDecorin,"""75:25""",HADN
+Hyaluronic AcidGalectin 3,"""75:25""",HAG3
+Hyaluronic AcidFibronectin,"""75:25""",HAFN
+OsteopontinDecorin,"""75:25""",OPNDN
+OsteopontinGalectin 3,"""75:25""",OPNG3
+OsteopontinFibronectin,"""75:25""",OPNFN
+DecorinGalectin 3,"""75:25""",DNG3
+DecorinFibronectin,"""75:25""",DNFN
+Galectin 3Fibronectin,"""75:25""",G3FN
+Collagen I,100,C1
+Collagen IV,100,C4
+Galectin 3,100,G3
+Fibronectin,100,FN
+Tenascin C,100,TC
+Decorin,100,DN
+Hyaluronic Acid,100,HA
+Osteopontin,100,OPN
+Laminin,100,LN
+Collagen ICollagen IV,"""50:50""",C1C4
+Collagen ILaminin,"""50:50""",C1LN
+Collagen ITenascin C,"""50:50""",C1TC
+Collagen IHyaluronic Acid,"""50:50""",C1HA
+Collagen IOsteopontin,"""50:50""",C1OPN
+Collagen IDecorin,"""50:50""",C1DN
+Collagen IGalectin 3,"""50:50""",C1G3
+Collagen IFibronectin,"""50:50""",C1FN
+Collagen IVLaminin,"""50:50""",C4LN
+Collagen IVTenascin C,"""50:50""",C4TC
+Collagen IVHyaluronic Acid,"""50:50""",C4HA
+Collagen IVOsteopontin,"""50:50""",C4OPN
+Collagen IVDecorin,"""50:50""",C4DN
+Collagen IVGalectin 3,"""50:50""",C4G3
+Collagen IVFibronectin,"""50:50""",C4FN
+LamininTenascin C,"""50:50""",LNTC
+LamininHyaluronic Acid,"""50:50""",LNHA
+LamininOsteopontin,"""50:50""",LNOPN
+LamininDecorin,"""50:50""",LNDN
+LamininGalectin 3,"""50:50""",LNG3
+LamininFibronectin,"""50:50""",LNFN
+Tenascin CHyaluronic Acid,"""50:50""",TCHA
+Tenascin COsteopontin,"""50:50""",TCOPN
+Tenascin CDecorin,"""50:50""",TCDN
+Tenascin CGalectin 3,"""50:50""",TCG3
+Tenascin CFibronectin,"""50:50""",TCFN
+Hyaluronic AcidOsteopontin,"""50:50""",HAOPN
+Hyaluronic AcidDecorin,"""50:50""",HADN
+Hyaluronic AcidGalectin 3,"""50:50""",HAG3
+Hyaluronic AcidFibronectin,"""50:50""",HAFN
+OsteopontinDecorin,"""50:50""",OPNDN
+OsteopontinGalectin 3,"""50:50""",OPNG3
+OsteopontinFibronectin,"""50:50""",OPNFN
+DecorinGalectin 3,"""50:50""",DNG3
+DecorinFibronectin,"""50:50""",DNFN
+Galectin 3Fibronectin,"""50:50""",G3FN
+Collagen ICollagen IV,25:75,C1C4
+Collagen ILaminin,25:75,C1LN
+Collagen ITenascin C,25:75,C1TC
+Collagen IHyaluronic Acid,25:75,C1HA
+Collagen IOsteopontin,25:75,C1OPN
+Collagen IDecorin,25:75,C1DN
+Collagen IGalectin 3,25:75,C1G3
+Collagen IFibronectin,25:75,C1FN
+Collagen IVLaminin,25:75,C4LN
+Collagen IVTenascin C,25:75,C4TC
+Collagen IVHyaluronic Acid,25:75,C4HA
+Collagen IVOsteopontin,25:75,C4OPN
+Collagen IVDecorin,25:75,C4DN
+Collagen IVGalectin 3,25:75,C4G3
+Collagen IVFibronectin,25:75,C4FN
+LamininTenascin C,25:75,LNTC
+LamininHyaluronic Acid,25:75,LNHA
+LamininOsteopontin,25:75,LNOPN
+LamininDecorin,25:75,LNDN
+LamininGalectin 3,25:75,LNG3
+LamininFibronectin,25:75,LNFN
+Tenascin CHyaluronic Acid,25:75,TCHA
+Tenascin COsteopontin,25:75,TCOPN
+Tenascin CDecorin,25:75,TCDN
+Tenascin CGalectin 3,25:75,TCG3
+Tenascin CFibronectin,25:75,TCFN
+Hyaluronic AcidOsteopontin,25:75,HAOPN
+Hyaluronic AcidDecorin,25:75,HADN
+Hyaluronic AcidGalectin 3,25:75,HAG3
+Hyaluronic AcidFibronectin,25:75,HAFN
+OsteopontinDecorin,25:75,OPNDN
+OsteopontinGalectin 3,25:75,OPNG3
+OsteopontinFibronectin,25:75,OPNFN
+DecorinGalectin 3,25:75,DNG3
+DecorinFibronectin,25:75,DNFN
+Galectin 3Fibronectin,25:75,G3FN
+Dextran,NA,DEX

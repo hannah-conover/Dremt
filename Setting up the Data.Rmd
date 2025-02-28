@@ -1,0 +1,807 @@
+---
+title: "Setting up the Data"
+output: html_document
+date: "2025-02-28"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Library Loading
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggpubr)
+library(ggplot2)
+library(ggprism)
+```
+
+Load in blue_objects, red_objects, green_objects, and orange_objects prior to running
+```{r}
+library(readr)
+blue_objects <- read_csv("data/blue_objects.csv", 
+ col_types = cols(Metadata_Column...5 = col_skip(), 
+ Metadata_Row...10 = col_skip(), Metadata_Scene...12 = col_skip(), 
+Metadata_Slide...15 = col_skip()))
+
+red_objects <- read_csv("data/red_objects.csv", 
+ col_types = cols(Metadata_Column...5 = col_skip(), 
+ Metadata_Row...10 = col_skip(), Metadata_Scene...12 = col_skip(), 
+Metadata_Slide...15 = col_skip()))
+
+green_objects <- read_csv("data/green_objects.csv", 
+ col_types = cols(Metadata_Column...5 = col_skip(), 
+ Metadata_Row...10 = col_skip(), Metadata_Scene...12 = col_skip(), 
+Metadata_Slide...15 = col_skip()))
+
+orange_objects <- read_csv("data/orange_objects.csv", 
+ col_types = cols(Metadata_Column...5 = col_skip(), 
+ Metadata_Row...10 = col_skip(), Metadata_Scene...12 = col_skip(), 
+Metadata_Slide...15 = col_skip()))
+```
+
+## Creating Dataset
+```{r Choosing Subsets}
+greencols <- c("AreaShape_Area","Intensity_IntegratedIntensity_green","Intensity_MeanIntensityEdge_green","Intensity_MeanIntensity_green")
+
+redcols <- c("AreaShape_Area","Intensity_IntegratedIntensity_Red","Intensity_MeanIntensityEdge_Red","Intensity_MeanIntensity_Red")
+
+orangecols <- c("ImageNumber", "ObjectNumber", "AreaShape_Area","Intensity_IntegratedIntensity_Orange","Intensity_MeanIntensityEdge_Orange","Intensity_MeanIntensity_Orange")
+
+green <- subset(green_objects, select = greencols)
+
+red <- subset(red_objects, select = redcols)
+
+orange <- subset(orange_objects, select = orangecols)
+
+colnames(green) <- c("AreaShape_Area_Green", "Intensity_IntegratedIntensity_Green", "Intensity_MeanIntensityEdge_Green","Intensity_MeanIntensity_Green")
+
+colnames(red) <- c("AreaShape_Area_Red", "Intensity_IntegratedIntensity_Red", "Intensity_MeanIntensityEdge_Red","Intensity_MeanIntensity_Red")
+
+colnames(orange) <- c("ImageNumber", "ObjectNumber","AreaShape_Area_Orange", "Intensity_IntegratedIntensity_Orange", "Intensity_MeanIntensityEdge_Orange","Intensity_MeanIntensity_Orange")
+```
+
+99.61% cells remain 974284/978035 (99.61%)
+```{r Merge All Together}
+all_objects <- cbind(blue_objects, green, red)
+
+all_objects <- left_join(all_objects, orange, by = c("ImageNumber", "ObjectNumber"))
+
+all_objects <- subset(all_objects, AreaShape_Area_Green <= 1000)
+all_objects <- subset(all_objects, AreaShape_Area_Red <= 1000)
+# all_objects <- subset(all_objects, AreaShape_Area_Orange <= 1000)
+```
+
+### Assigning Conditions
+```{r Assigning Conditions}
+all_objects <- all_objects %>% mutate(
+Metadata_Stiffness = ifelse(Metadata_Slide...14%in% c("01", "04", "05", "07", "11", "12", "15", "16", "18", "21", "22", "23"), "1kPa", "25kPa"), 
+Metadata_Treatment = ifelse(Metadata_Slide...14 %in% c("01", "02", "03", "04", "05", "06","13", "14", "15", "22", "23", "24"), "DMSO", "10 uM"))
+
+unique(all_objects$Metadata_Stiffness)
+unique(all_objects$Metadata_Treatment)
+```
+
+```{r Renaming Columns To Get Rid of Ellipses}
+all_objects <- all_objects %>%
+  rename("Metadata_Column"="Metadata_Column...4",
+         "Metadata_Scene" = "Metadata_Scene...11",
+         "Metadata_Slide" = "Metadata_Slide...14",
+         "Metadata_Row" = "Metadata_Row...9")
+
+```
+
+```{r Splitting Experiments}
+e1_objects <- all_objects[all_objects$Metadata_Slide %in% c("01", "02" ,"03", "04", "05", "06", "07", "08", "09", "10", "11", "12"),]
+e1_objects$Metadata_Experiment <- "E1"
+e2_objects <- all_objects[all_objects$Metadata_Slide %in% c("13", "14" ,"15", "16", "17", "18", "19", "20", "21", "22", "23", "24"),]
+e2_objects$Metadata_Experiment <- "E2"
+```
+
+Load in DREMT Conditions e1 and e2
+```{r Assigning ECMs}
+columns <- c("Metadata_Column", "Metadata_Row", "Metadata_ECMs", "Metadata_Ratio")
+
+colnames(DREMT_Conditions_e1) <- columns
+colnames(DREMT_Conditions_e2) <- columns
+
+ECMs$Metadata_Ratio[ECMs$Metadata_Ratio == "\"50:50\""] <- "50/50"
+ECMs$Metadata_Ratio[ECMs$Metadata_Ratio == "\"75:25\"" ] <- "75/25"
+ECMs$Metadata_Ratio[ECMs$Metadata_Ratio == "25:75" ] <- "25/75"
+
+DREMT_Conditions_e1 <- merge(DREMT_Conditions_e1, ECMs)
+DREMT_Conditions_e2 <- merge(DREMT_Conditions_e2, ECMs)
+```
+
+```{r Assigning ECMs to Experiments}
+e1_objectsECM <- join(e1_objects,DREMT_Conditions_e1)
+e2_objectsECM <- join(e2_objects,DREMT_Conditions_e2)
+```
+
+```{r RBIND to final objects}
+objects_full <- rbind(e1_objectsECM,e2_objectsECM)
+objects_full <- subset(objects_full, Metadata_ECMs != "Dextran")
+```
+
+## Quantile Distribution
+There is some variability in the distributions of the fluorescent markers... so we are using a technique suggested by Kerim in his JoVE paper in 2017, quantile normalization for biological replicates
+
+```{r}
+objects_full_FORNORM <- subset(objects_full, select = c("ImageNumber", "ObjectNumber", "Metadata_Column","Metadata_Experiment",
+                                                     "Metadata_Row", "Metadata_Scene", "Metadata_Slide", "Metadata_Stiffness", 
+                                                     "Metadata_Treatment", "Metadata_ECMs", "Metadata_Ratio", "Abb_ECM",
+                                                     "Intensity_MeanIntensity_Orange", "Intensity_MeanIntensity_Green", 
+                                                     "Intensity_MeanIntensity_Red") )
+
+E1_1217_ForNorm <- subset(objects_full_FORNORM, Metadata_Experiment == "E1")
+
+E2_1217_ForNorm <- subset(objects_full_FORNORM, Metadata_Experiment == "E2")
+
+```
+
+## ECAD Quantile Normalization
+
+1. Created a common set of percentile ranks (0 to 100) to align both columns
+2. Interpolated the values of both columns to match the common_ranks 
+3. Perform Quantile Normalization on these common ranks interpolated values
+4. Used original ranks of each experiment to assign new quantile values
+
+```{r}
+sorted_ecad1 <- sort(E1_1217_ForNorm$Intensity_MeanIntensity_Red) 
+sorted_ecad2 <- sort(E2_1217_ForNorm$Intensity_MeanIntensity_Red)
+
+common_ranks <- seq(0, 1, length.out = max(length(sorted_ecad1), length(sorted_ecad2)))
+
+interp_ecad1 <- approx(seq(0, 1, length.out = length(sorted_ecad1)), sorted_ecad1, xout = common_ranks)$y
+interp_ecad2 <- approx(seq(0, 1, length.out = length(sorted_ecad2)), sorted_ecad2, xout = common_ranks)$y
+
+avg_quantiles_ecad <- rowMeans(cbind(interp_ecad1, interp_ecad2))
+
+ranksecad1 <- rank(E1_1217_ForNorm$Intensity_MeanIntensity_Red, ties.method = "average") / length(E1_1217_ForNorm$Intensity_MeanIntensity_Red)
+
+ranksecad2 <- rank(E2_1217_ForNorm$Intensity_MeanIntensity_Red, ties.method = "average") / length(E2_1217_ForNorm$Intensity_MeanIntensity_Red)
+
+# Map the averaged quantiles back to the original ranks
+normalized_ecad1 <- approx(common_ranks, avg_quantiles_ecad, xout = ranksecad1, rule = 2)$y
+normalized_ecad2 <- approx(common_ranks, avg_quantiles_ecad, xout = ranksecad2, rule = 2)$y
+
+# Check results
+head(normalized_ecad1)
+head(normalized_ecad2)
+
+summary(normalized_ecad1)
+summary(normalized_ecad2)
+
+hist(normalized_ecad1)
+hist(normalized_ecad2)
+```
+
+## Vim Quantile Normalization
+```{r}
+sorted_vim1 <- sort(E1_1217_ForNorm$Intensity_MeanIntensity_Orange) 
+sorted_vim2 <- sort(E2_1217_ForNorm$Intensity_MeanIntensity_Orange)
+
+common_ranks <- seq(0, 1, length.out = max(length(sorted_vim1), length(sorted_vim2)))
+
+interp_vim1 <- approx(seq(0, 1, length.out = length(sorted_vim1)), sorted_vim1, xout = common_ranks)$y
+interp_vim2 <- approx(seq(0, 1, length.out = length(sorted_vim2)), sorted_vim2, xout = common_ranks)$y
+
+avg_quantiles_vim <- rowMeans(cbind(interp_vim1, interp_vim2))
+
+ranksvim1 <- rank(E1_1217_ForNorm$Intensity_MeanIntensity_Orange, ties.method = "average") / length(E1_1217_ForNorm$Intensity_MeanIntensity_Orange)
+ranksvim2 <- rank(E2_1217_ForNorm$Intensity_MeanIntensity_Orange, ties.method = "average") / length(E2_1217_ForNorm$Intensity_MeanIntensity_Orange)
+
+# Map the averaged quantiles back to the original ranks
+normalized_vim1 <- approx(common_ranks, avg_quantiles_vim, xout = ranksvim1, rule = 2)$y
+normalized_vim2 <- approx(common_ranks, avg_quantiles_vim, xout = ranksvim2, rule = 2)$y
+
+# Check results
+head(normalized_vim1)
+head(normalized_vim2)
+
+summary(normalized_vim1)
+summary(normalized_vim2)
+
+hist(normalized_vim1)
+hist(normalized_vim2)
+```
+
+## PXR Quantile Normalization
+```{r}
+sorted_pxr1 <- sort(E1_1217_ForNorm$Intensity_MeanIntensity_Green) 
+sorted_pxr2 <- sort(E2_1217_ForNorm$Intensity_MeanIntensity_Green)
+
+common_ranks <- seq(0, 1, length.out = max(length(sorted_pxr1), length(sorted_pxr2)))
+
+interp_pxr1 <- approx(seq(0, 1, length.out = length(sorted_pxr1)), sorted_pxr1, xout = common_ranks)$y
+interp_pxr2 <- approx(seq(0, 1, length.out = length(sorted_pxr2)), sorted_pxr2, xout = common_ranks)$y
+
+avg_quantiles_pxr <- rowMeans(cbind(interp_pxr1, interp_pxr2))
+
+rankspxr1 <- rank(E1_1217_ForNorm$Intensity_MeanIntensity_Green, ties.method = "average") / length(E1_1217_ForNorm$Intensity_MeanIntensity_Green)
+rankspxr2 <- rank(E2_1217_ForNorm$Intensity_MeanIntensity_Green, ties.method = "average") / length(E2_1217_ForNorm$Intensity_MeanIntensity_Green)
+
+# Map the averaged quantiles back to the original ranks
+normalized_pxr1 <- approx(common_ranks, avg_quantiles_pxr, xout = rankspxr1, rule = 2)$y
+normalized_pxr2 <- approx(common_ranks, avg_quantiles_pxr, xout = rankspxr2, rule = 2)$y
+
+# Check results
+head(normalized_pxr1)
+head(normalized_pxr2)
+
+summary(normalized_pxr1)
+summary(normalized_pxr2)
+
+hist(normalized_pxr1)
+hist(normalized_pxr2)
+```
+
+## Adding the New Normalized Values to objects_full for further analysis
+### E1
+```{r}
+E1_1217_ForNorm <- cbind(E1_1217_ForNorm, normalized_ecad1)
+E1_1217_ForNorm <- cbind(E1_1217_ForNorm, normalized_vim1)
+E1_1217_ForNorm <- cbind(E1_1217_ForNorm, normalized_pxr1)
+
+colnames(E1_1217_ForNorm)[which(names(E1_1217_ForNorm) == "normalized_ecad1")] <- "Normalized_Ecad"
+colnames(E1_1217_ForNorm)[which(names(E1_1217_ForNorm) == "normalized_vim1")] <- "Normalized_Vimentin"
+colnames(E1_1217_ForNorm)[which(names(E1_1217_ForNorm) == "normalized_pxr1")] <- "Normalized_PXR"
+```
+
+### E2
+```{r}
+E2_1217_ForNorm <- cbind(E2_1217_ForNorm, normalized_ecad2)
+E2_1217_ForNorm <- cbind(E2_1217_ForNorm, normalized_vim2)
+E2_1217_ForNorm <- cbind(E2_1217_ForNorm, normalized_pxr2)
+
+colnames(E2_1217_ForNorm)[which(names(E2_1217_ForNorm) == "normalized_ecad2")] <- "Normalized_Ecad"
+colnames(E2_1217_ForNorm)[which(names(E2_1217_ForNorm) == "normalized_vim2")] <- "Normalized_Vimentin"
+colnames(E2_1217_ForNorm)[which(names(E2_1217_ForNorm) == "normalized_pxr2")] <- "Normalized_PXR"
+
+```
+
+### Putting it all Back Together
+```{r}
+objects_full_Norm <- rbind(E1_1217_ForNorm, E2_1217_ForNorm)
+```
+## Summarizing objects
+### Summarizing to island (ds_s_pheno)
+```{r}
+ds_s_pheno <- ddply(objects_full_Norm, 
+               .(Metadata_Slide, 
+                 Metadata_Stiffness,
+                 Metadata_Scene,
+                 Metadata_Experiment, 
+                 Metadata_Row,
+                 Metadata_Treatment,
+                 Metadata_Column,
+                 Metadata_Ratio,
+                 Metadata_ECMs,
+                 Abb_ECM), 
+               summarize,
+               
+               ## Nuclei Count
+               Nuclei = length(ObjectNumber),
+               logNuclei = log(length(ObjectNumber)),
+               
+               ## Green PXR Channel Analysis
+               Mean_Green = mean(Intensity_MeanIntensity_Green),
+               SD_Green = sd(Intensity_MeanIntensity_Green),
+               Mean_Green_Norm = mean(Normalized_PXR),
+               SD_Green_Norm = sd(Normalized_PXR),
+               
+               ## Red Ecad Channel Analysis
+               Mean_Red = mean(Intensity_MeanIntensity_Red),
+               SD_Red = sd(Intensity_MeanIntensity_Red),
+               Mean_Red_Norm = mean(Normalized_Ecad),
+               SD_Red_Norm = sd(Normalized_Ecad),
+               
+               ## Orange Vimentin Channel Analysis
+               Mean_Orange = mean(Intensity_MeanIntensity_Orange),
+               SD_Orange = sd(Intensity_MeanIntensity_Orange),
+               Mean_Orange_Norm = mean(Normalized_Vimentin),
+               SD_Orange_Norm = sd(Normalized_Vimentin)
+)
+```
+
+```{r}
+ds_s_pheno <- subset(ds_s_pheno, Nuclei >7)
+```
+
+### Summarizing to Slide (ds_e_pheno)
+```{r}
+ds_e_pheno <- ddply(ds_s_pheno, 
+               .(Metadata_Slide, 
+                 Metadata_Stiffness,
+                 Metadata_Experiment, 
+                 Metadata_Row,
+                 Metadata_Treatment,
+                 Metadata_Column,
+                 Metadata_Ratio,
+                 Metadata_ECMs,
+                 Abb_ECM), 
+               summarize,
+               
+               ## Nuclei Count
+               Mean_Nuclei = mean(Nuclei),
+               SD_Nuclei = sd(Nuclei),
+               Mean_logNuclei = mean(logNuclei),
+               SD_logNuclei = sd(logNuclei),
+               
+               ## Green PXR Channel Analysis
+               Mean_Green = mean(Mean_Green),
+               SD_Green = sqrt(sum(SD_Green^2)/NROW(SD_Green)),
+               Mean_Green_Norm = mean(Mean_Green_Norm),
+               SD_Green_Norm = sqrt(sum(SD_Green_Norm^2)/NROW(SD_Green_Norm)),
+               
+               ## Red Ecad Channel Analysis
+               Mean_Red = mean(Mean_Red),
+               SD_Red = sqrt(sum(SD_Red^2)/NROW(SD_Red)),
+               Mean_Red_Norm = mean(Mean_Red_Norm),
+               SD_Red_Norm = sqrt(sum(SD_Red_Norm^2)/NROW(SD_Red_Norm)),
+               
+               ## Orange Vimentin Channel Analysis
+               Mean_Orange = mean(Mean_Orange),
+               SD_Orange = sqrt(sum(SD_Orange^2)/NROW(SD_Orange)),
+               Mean_Orange_Norm = mean(Mean_Orange_Norm),
+               SD_Orange_Norm = sqrt(sum(SD_Orange_Norm^2)/NROW(SD_Orange_Norm))
+)
+```
+
+### Summarizing to Experiment (ds_pheno)
+```{r}
+ds_pheno <- ddply(ds_e_pheno, 
+               .(Metadata_Stiffness,
+                 Metadata_Experiment, 
+                 Metadata_Row,
+                 Metadata_Treatment,
+                 Metadata_Column,
+                 Metadata_Ratio,
+                 Metadata_ECMs,
+                 Abb_ECM), 
+               summarize,
+               
+               ## Nuclei Count
+               Mean_Nuclei = mean(Mean_Nuclei),
+               SD_Nuclei = sqrt(sum(SD_Nuclei^2)/NROW(SD_Nuclei)),
+               Mean_logNuclei = mean(Mean_logNuclei),
+               SD_logNuclei = sqrt(sum(SD_logNuclei^2)/NROW(SD_logNuclei)),
+               
+               ## Green PXR Channel Analysis
+               Mean_Green = mean(Mean_Green),
+               SD_Green = sqrt(sum(SD_Green^2)/NROW(SD_Green)),
+               Mean_Green_Norm = mean(Mean_Green_Norm),
+               SD_Green_Norm = sqrt(sum(SD_Green_Norm^2)/NROW(SD_Green_Norm)),
+               
+               ## Red Ecad Channel Analysis
+               Mean_Red = mean(Mean_Red),
+               SD_Red = sqrt(sum(SD_Red^2)/NROW(SD_Red)),
+               Mean_Red_Norm = mean(Mean_Red_Norm),
+               SD_Red_Norm = sqrt(sum(SD_Red_Norm^2)/NROW(SD_Red_Norm)),
+               
+               ## Orange Vimentin Channel Analysis
+               Mean_Orange = mean(Mean_Orange),
+               SD_Orange = sqrt(sum(SD_Orange^2)/NROW(SD_Orange)),
+               Mean_Orange_Norm = mean(Mean_Orange_Norm),
+               SD_Orange_Norm = sqrt(sum(SD_Orange_Norm^2)/NROW(SD_Orange_Norm))
+)
+```
+
+## Writing CSVs
+```{r}
+write.csv(ds_s_pheno, "ds_s_pheno.csv")
+write.csv(ds_e_pheno, "ds_e_pheno.csv")
+write.csv(ds_pheno, "ds_pheno.csv")
+```
+
+## Adding Blocks
+A slide is off... check assignments... too many 10 uM 25 kPas
+```{r}
+ds_e_pheno %>% group_by(Metadata_Slide, Metadata_Treatment, Metadata_Stiffness) %>% summarize(count=n())
+
+ds_e_pheno  <- ds_e_pheno%>%mutate(Metadata_Block = ifelse(Metadata_Stiffness == "1kPa", ifelse(Metadata_Treatment == "DMSO", "1", "2"), ifelse(Metadata_Treatment == "10 uM", "3", "4")))
+
+unique(ds_e_pheno$Metadata_Block)
+
+ds_e_pheno %>% group_by( Metadata_Block) %>% summarize(count=n())
+```
+
+```{r}
+combined_dsRatio <- subset(ds_e_pheno, Metadata_Ratio %in% c("100", "50/50", "75/25", "25/75"))
+combined_dsRatio <- subset(ds_e_pheno, Metadata_ECMs != "Dextran")
+
+combined_dsRatio$CollagenI <- NA
+combined_dsRatio$CollagenIV <- NA
+combined_dsRatio$Laminin <- NA
+combined_dsRatio$Hyaluronic_Acid <- NA
+combined_dsRatio$TenascinC<- NA
+combined_dsRatio$Osteopontin <- NA
+combined_dsRatio$Galectin3 <- NA
+combined_dsRatio$Fibronectin <- NA
+combined_dsRatio$Decorin <- NA
+
+
+C1100 <- list(1,0,0,0,0,0,0,0,0)
+C1C425 <- list(0.25,0.75,0,0,0,0,0,0,0)
+C1C450 <- list(0.5,0.5,0,0,0,0,0,0,0)
+C1C475 <- list(0.75,0.25,0,0,0,0,0,0,0)
+C1LN25 <- list(0.25,0,0.75,0,0,0,0,0,0)
+C1LN50 <- list(0.5,0,0.5,0,0,0,0,0,0)
+C1LN75 <- list(0.75,0,0.25,0,0,0,0,0,0)
+C1HA25 <- list(0.25,0,0,0,0.75,0,0,0,0)
+C1HA50 <- list(0.5,0,0,0,0,0.5,0,0,0)
+C1HA75 <- list(0.75,0,0,0,0,0.25,0,0,0)
+C1TC25 <- list(0.25,0,0,0.75,0,0,0,0,0)
+C1TC50 <- list(0.5,0,0,0.5,0,0,0,0,0)
+C1TC75 <- list(0.75,0,0,0.25,0,0,0,0,0)
+C1OPN25 <- list(0.25,0,0,0,0,0.75,0,0,0)
+C1OPN50 <- list(0.5,0,0,0,0,0.5,0,0,0)
+C1OPN75  <- list(0.75,0,0,0,0,0.25,0,0,0)
+C1DN25 <- list(0.25,0,0,0,0,0,0.75,0,0)
+C1DN50 <- list(0.5,0,0,0,0,0,0.5,0,0)
+C1DN75 <- list(0.75,0,0,0,0,0,0.25,0,0)
+C1G325 <- list(0.25,0,0,0,0,0,0,0.75,0)
+C1G350 <- list(0.5,0,0,0,0,0,0,0.5,0)
+C1G375 <- list(0.75,0,0,0,0,0,0,0.25,0)
+C1FN25 <- list(0.25,0,0,0,0,0,0,0,0.75)
+C1FN50 <- list(0.5,0,0,0,0,0,0,0,0.5)
+C1FN75 <- list(0.75,0,0,0,0,0,0,0,0.25)
+C4100 <- list(0,1,0,0,0,0,0,0,0)
+C4LN25 <- list(0,0.25,0.75,0,0,0,0,0,0)
+C4LN50 <- list(0,0.5,0.5,0,0,0,0,0,0)
+C4LN75 <- list(0,0.75,0.25,0,0,0,0,0,0)
+C4TC25 <- list(0,0.25,0,0.75,0,0,0,0,0)
+C4TC50 <- list(0,0.5,0,0.5,0,0,0,0,0)
+C4TC75 <- list(0,0.75,0,0.25,0,0,0,0,0)
+C4HA25 <- list(0,0.25,0,0,0.75,0,0,0,0)
+C4HA50 <- list(0,0.5,0,0,0.5,0,0,0,0)
+C4HA75 <- list(0,0.75,0,0,0.25,0,0,0,0)
+C4OPN25 <- list(0,0.25,0,0,0,0.75,0,0,0)
+C4OPN50 <- list(0,0.5,0,0,0,0.5,0,0,0)
+C4OPN75 <- list(0,0.75,0,0,0,0.25,0,0,0)
+C4DN25 <- list(0,0.25,0,0,0,0,0.75,0,0)
+C4DN50 <- list(0,0.5,0,0,0,0,0.5,0,0)
+C4DN75 <- list(0,0.75,0,0,0,0,0.25,0,0)
+C4G325 <- list(0,0.25,0,0,0,0,0,0.75,0)
+C4G350 <- list(0,0.5,0,0,0,0,0,0.5,0)
+C4G375 <- list(0,0.75,0,0,0,0,0,0.25,0)
+C4FN25 <- list(0,0.25,0,0,0,0,0,0.75,0)
+C4FN50 <- list(0,0.5,0,0,0,0,0,0.5,0)
+C4FN75 <- list(0,0.75,0,0,0,0,0,0.25,0)
+LN100 <- list(0,0,1,0,0,0,0,0,0)
+LNTC25 <- list(0,0,0.25,0.75,0,0,0,0,0)
+LNTC50 <- list(0,0,0.5,0.5,0,0,0,0,0)
+LNTC75 <- list(0,0,0.75,0.25,0,0,0,0,0)
+LNHA25 <- list(0,0,0.25,0,0.75,0,0,0,0)
+LNHA50 <- list(0,0,0.5,0,0.5,0,0,0,0)
+LNHA75 <- list(0,0,0.75,0,0.25,0,0,0,0)
+LNOPN25 <- list(0,0,0.25,0,0,0.75,0,0,0)
+LNOPN50 <- list(0,0,0.5,0,0,0.5,0,0,0)
+LNOPN75 <- list(0,0,0.75,0,0,0.25,0,0,0)
+LNDN25 <- list(0,0,0.25,0,0,0,0.75,0,0)
+LNDN50 <- list(0,0,0.5,0,0,0,0.5,0,0)
+LNDN75 <- list(0,0,0.75,0,0,0,0.25,0,0)
+LNG325 <- list(0,0,0.25,0,0,0,0,0.75,0)
+LNG350 <- list(0,0,0.5,0,0,0,0,0.5,0)
+LNG375 <- list(0,0,0.75,0,0,0,0,0.25,0)
+LNFN25 <- list(0,0,0.25,0,0,0,0,0,0.75)
+LNFN50 <- list(0,0,0.5,0,0,0,0,0,0.5)
+LNFN75 <- list(0,0,0.75,0,0,0,0,0,0.25)
+TC100 <- list(0,0,0,1,0,0,0,0,0)
+TCHA25 <- list(0,0,0,0.25,0.75,0,0,0,0)
+TCHA50 <- list(0,0,0,0.5,0.5,0,0,0,0)
+TCHA75 <- list(0,0,0,0.75,0.25,0,0,0,0)
+TCOPN25 <- list(0,0,0,0.25,0,0.75,0,0,0)
+TCOPN50 <- list(0,0,0,0.5,0,0.5,0,0,0)
+TCOPN75 <- list(0,0,0,0.75,0,0.25,0,0,0)
+TCDN25 <- list(0,0,0,0.25,0,0,0.75,0,0)
+TCDN50 <- list(0,0,0,0.5,0,0,0.5,0,0)
+TCDN75 <- list(0,0,0,0.75,0,0,0.25,0,0)
+TCG325 <- list(0,0,0,0.25,0,0,0,0.75,0)
+TCG350 <- list(0,0,0,0.5,0,0,0,0.5,0)
+TCG375 <- list(0,0,0,0.75,0,0,0,0.25,0)
+TCFN25 <- list(0,0,0,0.25,0,0,0,0,0.75)
+TCFN50 <- list(0,0,0,0.5,0,0,0,0,0.5)
+TCFN75 <- list(0,0,0,0.75,0,0,0,0,0.25)
+HA100 <- list(0,0,0,0,1,0,0,0,0)
+HAOPN25 <- list(0,0,0,0,0.25,0.75,0,0,0)
+HAOPN50 <- list(0,0,0,0,0.5,0.5,0,0,0)
+HAOPN75 <- list(0,0,0,0,0.75,0.25,0,0,0)
+HADN25 <- list(0,0,0,0,0.25,0,0.75,0,0)
+HADN50 <- list(0,0,0,0,0.5,0,0.5,0,0)
+HADN75 <- list(0,0,0,0,0.75,0,0.25,0,0)
+HAG325 <- list(0,0,0,0,0.25,0,0,0.75,0)
+HAG350 <- list(0,0,0,0,0.5,0,0,0.5,0)
+HAG375 <- list(0,0,0,0,0.75,0,0,0.25,0)
+HAFN25 <- list(0,0,0,0,0.25,0,0,0,0.75)
+HAFN50 <- list(0,0,0,0,0.5,0,0,0,0.5)
+HAFN75 <- list(0,0,0,0,0.75,0,0,0,0.25)
+OPN100 <- list(0,0,0,0,0,1,0,0,0)
+OPNDN25 <- list(0,0,0,0,0,0.25,0.75,0,0)
+OPNDN50 <- list(0,0,0,0,0,0.5,0.5,0,0)
+OPNDN75 <- list(0,0,0,0,0,0.75,0.25,0,0)
+OPNG325 <- list(0,0,0,0,0,0.25,0,0.75,0)
+OPNG350 <- list(0,0,0,0,0,0.5,0,0.5,0)
+OPNG375 <- list(0,0,0,0,0,0.75,0,0.25,0)
+OPNFN25 <- list(0,0,0,0,0,0.25,0,0,0.75)
+OPNFN50 <- list(0,0,0,0,0,0.5,0,0,0.5)
+OPNFN75 <- list(0,0,0,0,0,0.75,0,0,0.25)
+DN100 <- list(0,0,0,0,0,0,1,0,0)
+DNG325 <- list(0,0,0,0,0,0,0.25,0.75,0)
+DNG350 <- list(0,0,0,0,0,0,0.5,0.5,0)
+DNG375 <- list(0,0,0,0,0,0,0.75,0.25,0)
+DNFN25 <- list(0,0,0,0,0,0,0.25,0,0.75)
+DNFN50 <- list(0,0,0,0,0,0,0.5,0,0.5)
+DNFN75 <- list(0,0,0,0,0,0,0.75,0,0.25)
+G3100 <- list(0,0,0,0,0,0,0,1,0)
+G3FN25 <- list(0,0,0,0,0,0,0,0.25,0.75)
+G3FN50 <- list(0,0,0,0,0,0,0,0.5,0.5)
+G3FN75 <- list(0,0,0,0,0,0,0,0.75,0.25)
+FN100 <- list(0,0,0,0,0,0,0,0,1)
+
+experimental_conditions <- list(
+  "Collagen I" = list(
+    "100" = C1100
+  ),
+  "Collagen ICollagen IV" = list(
+    "25/75" = C1C425,
+    "50/50" = C1C450,
+    "75/25" = C1C475
+  ),
+  "Collagen ILaminin" = list(
+    "25/75" = C1LN25,
+    "50/50" = C1LN50,
+    "75/25" = C1LN75
+  ),
+  "Collagen ITenascin C" = list(
+    "25/75" = C1TC25,
+    "50/50" = C1TC50,
+    "75/25" = C1TC75
+  ),
+  "Collagen IHyaluronic Acid" = list(
+    "25/75" = C1HA25,
+    "50/50" = C1HA50,
+    "75/25" = C1HA75
+  ),
+  "Collagen IOsteopontin" = list(
+    "25/75" = C1OPN25,
+    "50/50" = C1OPN50,
+    "75/25" = C1OPN75
+  ),
+  "Collagen IDecorin" = list(
+    "25/75" = C1DN25,
+    "50/50" = C1DN50,
+    "75/25" = C1DN75
+  ),
+  "Collagen IGalectin 3" = list(
+    "25/75" = C1G325,
+    "50/50" = C1G350,
+    "75/25" = C1G375
+  ),
+  "Collagen IFibronectin" = list(
+    "25/75" = C1FN25,
+    "50/50" = C1FN50,
+    "75/25" = C1FN75
+  ),
+  "Collagen IV" = list(
+    "100" = C4100
+  ),
+  "Collagen IVLaminin" = list(
+    "25/75" = C4LN25,
+    "50/50" = C4LN50,
+    "75/25" = C4LN75
+  ),
+  "Collagen IVTenascin C" = list(
+    "25/75" = C4TC25,
+    "50/50" = C4TC50,
+    "75/25" = C4TC75
+  ),
+  "Collagen IVHyaluronic Acid" = list(
+    "25/75" = C4HA25,
+    "50/50" = C4HA50,
+    "75/25" = C4HA75
+  ),
+  "Collagen IVOsteopontin" = list(
+    "25/75" = C4OPN25,
+    "50/50" = C4OPN50,
+    "75/25" = C4OPN75
+  ),
+  "Collagen IVDecorin" = list(
+    "25/75" = C4DN25,
+    "50/50" = C4DN50,
+    "75/25" = C4DN75
+  ),
+  
+  "Collagen IVGalectin 3" = list(
+    "25/75" = C4G325,
+    "50/50" = C4G350,
+    "75/25" = C4G375
+  ),
+  
+  "Collagen IVFibronectin" = list(
+    "25/75" = C4FN25,
+    "50/50" = C4FN50,
+    "75/25" = C4FN75
+  ),
+  
+  "LamininTenascin C" = list(
+    "25/75" = LNTC25,
+    "50/50" = LNTC50,
+    "75/25" = LNTC75
+  ),
+  
+  "LamininHyaluronic Acid" = list(
+    "25/75" = LNHA25,
+    "50/50" = LNHA50,
+    "75/25" = LNHA75
+  ),
+  
+  "LamininOsteopontin" = list(
+    "25/75" = LNOPN25,
+    "50/50" = LNOPN50,
+    "75/25" = LNOPN75
+  ),
+  
+  "LamininDecorin" = list(
+    "25/75" = LNDN25,
+    "50/50" = LNDN50,
+    "75/25" = LNDN75
+  ),
+  
+  "LamininGalectin 3" = list(
+    "25/75" = LNG325,
+    "50/50" = LNG350,
+    "75/25" = LNG375
+  ),
+  
+  "LamininFibronectin" = list(
+    "25/75" = LNFN25,
+    "50/50" = LNFN50,
+    "75/25" = LNFN75
+  ),
+  
+  "Tenascin CHyaluronic Acid" = list(
+    "25/75" = TCHA25,
+    "50/50" = TCHA50,
+    "75/25" = TCHA75
+  ),
+  
+  "Tenascin COsteopontin" = list(
+    "25/75" = TCOPN25,
+    "50/50" = TCOPN50,
+    "75/25" = TCOPN75
+  ),
+  "Tenascin CDecorin" = list(
+    "25/75" = TCDN25,
+    "50/50" = TCDN50,
+    "75/25" = TCDN75
+  ),
+  "Tenascin CGalectin 3" = list(
+    "25/75" = TCG325,
+    "50/50" = TCG350,
+    "75/25" = TCG375
+  ),
+  "Tenascin CFibronectin" = list(
+    "25/75" = TCFN25,
+    "50/50" = TCFN50,
+    "75/25" = TCFN75
+  ),
+  "Hyaluronic AcidOsteopontin" = list(
+    "25/75" = HAOPN25,
+    "50/50" = HAOPN50,
+    "75/25" = HAOPN75
+  ),
+  "Hyaluronic AcidDecorin" = list(
+    "25/75" = HADN25,
+    "50/50" = HADN50,
+    "75/25" = HADN75
+  ),
+  "Hyaluronic AcidGalectin 3" = list(
+    "25/75" = HAG325,
+    "50/50" = HAG350,
+    "75/25" = HAG375
+  ),
+  "Hyaluronic AcidFibronectin" = list(
+    "25/75" = HAFN25,
+    "50/50" = HAFN50,
+    "75/25" = HAFN75
+  ),
+  "OsteopontinDecorin" = list(
+    "25/75" = OPNDN25,
+    "50/50" = OPNDN50,
+    "75/25" = OPNDN75
+  ),
+  "OsteopontinGalectin 3" = list(
+    "25/75" = OPNG325,
+    "50/50" = OPNG350,
+    "75/25" = OPNG375
+  ),
+  "OsteopontinFibronectin" = list(
+    "25/75" = OPNFN25,
+    "50/50" = OPNFN50,
+    "75/25" = OPNFN75
+  ),
+  "DecorinGalectin 3" = list(
+    "25/75" = DNG325,
+    "50/50" = DNG350,
+    "75/25" = DNG375
+  ),
+  "DecorinFibronectin" = list(
+    "25/75" = DNFN25,
+    "50/50" = DNFN50,
+    "75/25" = DNFN75
+  ),
+  "Galectin 3Fibronectin" = list(
+    "25/75" = G3FN25,
+    "50/50" = G3FN50,
+    "75/25" = G3FN75
+  ),
+  "Laminin" = list(
+    "100" = LN100
+  ),
+  "Tenascin C" = list(
+    "100" = TC100
+  ),
+  "Hyaluronic Acid" = list(
+    "100" = HA100
+  ),
+  "Osteopontin" = list(
+    "100" = OPN100
+  ),
+  "Decorin" = list(
+    "100" = DN100
+  ),
+  "Galectin 3" = list(
+    "100" = G3100
+  ),
+  "Fibronectin" = list(
+    "100" = FN100
+  )
+  )
+
+for (i in 1: nrow(combined_dsRatio)) {
+  metadata_ecms <- combined_dsRatio[i,"Metadata_ECMs"]
+  metadata_ratio <- combined_dsRatio[i,"Metadata_Ratio"]
+  metadata_ecms <- unlist(metadata_ecms)
+  metadata_ratio <- unlist(metadata_ratio)
+  current_test_conditions <- list()
+  current_test_conditions <- experimental_conditions[[metadata_ecms]][[metadata_ratio]]
+  
+  current_C1 <- current_test_conditions[1]
+  current_C4 <- current_test_conditions[2]
+  current_LN <- current_test_conditions[3]
+  current_TC <- current_test_conditions[4]
+  current_HA <- current_test_conditions[5]
+  current_OPN <- current_test_conditions[6]
+  current_DN <- current_test_conditions[7]
+  current_G3 <- current_test_conditions[8]
+  current_FN <- current_test_conditions[9]
+  
+  combined_dsRatio[i, "CollagenI"] <- current_C1
+  combined_dsRatio[i, "CollagenIV"] <- current_C4
+  combined_dsRatio[i, "Laminin"] <- current_LN
+  combined_dsRatio[i, "TenascinC"] <- current_TC
+  combined_dsRatio[i, "Hyaluronic_Acid"] <- current_HA
+  combined_dsRatio[i, "Osteopontin"] <- current_OPN
+  combined_dsRatio[i, "Decorin"] <- current_DN
+  combined_dsRatio[i, "Galectin3"] <- current_G3
+  combined_dsRatio[i, "Fibronectin"] <- current_FN
+}
+
+```
+
+
+## Adding Replicates
+```{r}
+withrep<-combined_dsRatio%>%group_by(Metadata_Experiment, Metadata_Block, Metadata_Slide)%>%
+  summarize(count = n(), .groups = "drop"
+            )
+
+ withrep$Replicate <-rep(c(1,2,3), times = 8)
+ withrep <- withrep[, -4]
+
+ dswithrep <- merge(combined_dsRatio, withrep) 
+ 
+ dswithrep <- dswithrep %>% mutate(Conditions = paste(dswithrep$Abb_ECM, dswithrep$Metadata_Ratio))
+```
