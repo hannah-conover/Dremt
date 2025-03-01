@@ -1089,21 +1089,24 @@ ECMPlot <- ECMPlot %>% mutate(Condition = case_when(Metadata_Ratio == "100" ~ pa
 ```{r}
 ECMPlot <- ECMPlot[,c("Metadata_Stiffness", "Metadata_Treatment", "Condition", "Mean_Green_Norm", "Mean_Orange_Norm", "Mean_Red_Norm")]
 
+ECMPlot <- subset(ECMPlot, Metadata_Treatment == "DMSO")
+
 ECMPlot <- ECMPlot %>% group_by(Metadata_Stiffness, Condition, Metadata_Treatment) %>% summarize(Mean_PXR = mean(Mean_Green_Norm), Mean_Vim = mean(Mean_Orange_Norm), Mean_Ecad = mean(Mean_Red_Norm))
 ```
-
-```{r}
-ECMsforPlot <- c("100LN", "75LN_25G3", "75C1_25C4", "25LN_75DN", "25C4_75G3", "75LN_25OPN", "50C1_50HA", "25OPN_75FN")
-
-ECMPlot <- subset(ECMPlot, Condition %in% ECMsforPlot)
-```
-
 Look at Z-score for these... Need to Code that then run
 ```{r}
 ECMsPlot <- ECMPlot %>% mutate(Z_PXR = (Mean_PXR - mean(ECMPlot$Mean_PXR))/sd(ECMPlot$Mean_PXR), 
                                       Z_Vim = (Mean_Vim - mean(ECMPlot$Mean_Vim))/sd(ECMPlot$Mean_Vim), 
                                       Z_Ecad = (Mean_Ecad - mean(ECMPlot$Mean_Ecad))/sd(ECMPlot$Mean_Ecad))
 ```
+
+
+```{r}
+ECMsforPlot <- c("75LN_25DN", "50C1_50HA", "75LN_25HA", "75LN_25G3", "50TC_50HA")
+
+ECMsPlot <- subset(ECMsPlot, Condition %in% ECMsforPlot)
+```
+
 
 
 ```{r}

@@ -15,7 +15,7 @@ load('C:/Users/SantaLucia/Documents/git/DREMT 12-18 Modeling Analysis/PCA2-17/Wo
 
 ```{r, echo = FALSE, fig.align = 'center', fig.height = 5.5, fig.width = 5.5}
 drawn <-
-c("95", "209", "34")
+c("209", "95", "223")
 par(mar = c(4.1, 4.1, 1.1, 2.1))
 plot.HCPC(res, choice = 'tree', title = '')
 ```
@@ -34,23 +34,23 @@ plot.HCPC(res, choice = 'map', draw.tree = FALSE, title = '')
 
 The **cluster 1** is made of individuals such as *209*. This group is characterized by :
 
-- high values for the variables *Adhesion*, *Proliferation_DMSO* and *CollagenIV* (variables are sorted from the strongest).
-- low values for the variables *Mean_PXR*, *Mean_Vimentin*, *Mean_Ecad*, *Survival_20.uM* and *Survival_10.uM* (variables are sorted from the weakest).
+- high values for the variables *Adhesion*, *CollagenIV* and *Proliferation_DMSO* (variables are sorted from the strongest).
+- low values for the variables *Mean_PXR*, *Survival_20.uM*, *Mean_Ecad*, *Mean_Vimentin*, *Survival_10.uM*, *Proliferation_20.uM* and *Hyaluronic_Acid* (variables are sorted from the weakest).
 
-The **cluster 2** is made of individuals such as *95*. This group is characterized by :
+The **cluster 2** is made of individuals sharing :
 
-- high values for the variables *Survival_20.uM* and *Survival_10.uM* (variables are sorted from the strongest).
-- low values for the variables *Mean_Vimentin*, *Mean_PXR*, *Mean_Ecad*, *Proliferation_DMSO* and *Proliferation_10.uM* (variables are sorted from the weakest).
+- high values for the variables *Mean_Vimentin*, *Proliferation_DMSO*, *Hyaluronic_Acid* and *Proliferation_10.uM* (variables are sorted from the strongest).
+- low values for the variables *Survival_20.uM*, *Mean_Ecad*, *CollagenIV*, *CollagenI*, *Adhesion* and *Mean_PXR* (variables are sorted from the weakest).
 
-The **cluster 3** is made of individuals sharing :
+The **cluster 3** is made of individuals such as *95*. This group is characterized by :
 
-- high values for the variables *Proliferation_DMSO* and *Mean_Vimentin* (variables are sorted from the strongest).
-- low values for the variables *Survival_20.uM*, *Adhesion*, *CollagenIV*, *Survival_10.uM*, *CollagenI* and *Mean_Ecad* (variables are sorted from the weakest).
+- high values for the variables *Survival_20.uM*, *Survival_10.uM* and *Proliferation_20.uM* (variables are sorted from the strongest).
+- low values for the variables *Proliferation_DMSO*, *Mean_Vimentin* and *Adhesion* (variables are sorted from the weakest).
 
-The **cluster 4** is made of individuals such as *34*. This group is characterized by :
+The **cluster 4** is made of individuals such as *223*. This group is characterized by :
 
-- high values for the variables *Mean_Ecad*, *Mean_PXR*, *Survival_20.uM*, *Mean_Vimentin*, *Survival_10.uM* and *Proliferation_20.uM* (variables are sorted from the strongest).
-- low values for the variables *Proliferation_DMSO* and *Adhesion* (variables are sorted from the weakest).
+- high values for the variables *Mean_PXR*, *Mean_Ecad*, *Mean_Vimentin*, *Laminin* and *CollagenI* (variables are sorted from the strongest).
+- low values for the variables *Adhesion*, *Proliferation_10.uM* and *CollagenIV* (variables are sorted from the weakest).
 
 ```{r, echo = FALSE, fig.align = 'center', fig.height = 5.5, fig.width = 5.5}
 par(mar = c(4.1, 4.1, 1.1, 2.1))

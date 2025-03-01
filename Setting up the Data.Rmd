@@ -305,9 +305,6 @@ ds_s_pheno <- ddply(objects_full_Norm,
 )
 ```
 
-```{r}
-ds_s_pheno <- subset(ds_s_pheno, Nuclei >7)
-```
 
 ### Summarizing to Slide (ds_e_pheno)
 ```{r}

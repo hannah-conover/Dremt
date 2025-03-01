@@ -102,8 +102,8 @@ ggplot(PCAClusters217,aes(x = Dim.1,
   #       legend.title = element_text(size = 30),
   #       legend.text = element_text(size = 30),
   # )+
-  xlab("Dim. 1 - 44.99%") +
-  ylab("Dim. 2 - 24.25%")
+  xlab("Dim. 1 - 38.44%") +
+  ylab("Dim. 2 - 27.15%")
  
 ggsave(filename = "PCAClusters2-17.png")
 
@@ -117,8 +117,8 @@ ggplot(PCAClusters217,aes(x = Dim.2,
   geom_vline(xintercept = 0)+
   theme_prism()+
   scale_color_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
-  xlab("Dim. 2 - 24.25%") +
-  ylab("Dim. 3 - 13.63%")
+  xlab("Dim. 2 - 27.15%") +
+  ylab("Dim. 3 - 15.08%")
  
 ggsave(filename = "PCAClusters2-17D23.png")
 
@@ -132,8 +132,8 @@ ggplot(PCAClusters217,aes(x = Dim.1,
   geom_vline(xintercept = 0)+
   theme_prism()+
   scale_color_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
-  xlab("Dim. 1 - 44.99%") +
-  ylab("Dim. 3 - 13.63%")
+  xlab("Dim. 1 - 38.44%") +
+  ylab("Dim. 3 - 15.08%")
  
 ggsave(filename = "PCAClusters2-17D13.png")
 ```
@@ -146,7 +146,7 @@ datacluster217 <- mutate(datacluster217, Individual = row.names(datacluster217))
 
 PCAStiff217 <- mutate(PCAClusters217, Individual = row.names(PCAClusters217))
 
-PCAStiff217<- merge(datacluster217, PCAClusters217)
+PCAStiff217<- merge(datacluster217, PCAStiff217)
 ```
 
 
@@ -173,8 +173,8 @@ ggplot(PCAStiff217,aes(x = Dim.1,
   #       legend.title = element_text(size = 30),
   #       legend.text = element_text(size = 30),
   # )+
- xlab("Dim. 1 - 44.99%") +
-  ylab("Dim. 2 - 24.25%")
+ xlab("Dim. 1 - 38.44%") +
+  ylab("Dim. 2 - 27.15%")
 
 ggsave(filename = "StiffPCA.png")
 ```
@@ -199,31 +199,19 @@ res$desc.ind
 
 ### Adding Callouts
 ```{r}
-PCAClustersLab217 <- datawithcluster217
-
-PCAClustersLab217$Individual <- row.names(PCAClustersLab217)
-
-PCAClustersLab217 <- PCAClustersLab217 %>% mutate(label = case_when(Individual == 172 ~ "A",
-                                                      Individual == 209 ~ "B",
-                                                      Individual == 64 ~ "C",
-                                                      Individual == 95 ~ "D",
-                                                      Individual == 190 ~ "E", 
-                                                      Individual == 124 ~ "F",
-                                                      Individual == 72 ~ "G",
-                                                      Individual == 80 ~ "H"))
 
 PCAClustersLab218 <- PCAClusters217
 
 PCAClustersLab218$Individual <- row.names(PCAClustersLab218)
 
-PCAClustersLab218 <- PCAClustersLab218 %>% mutate(label = case_when(Individual == 172 ~ "A",
+PCAClustersLab218 <- PCAClustersLab218 %>% mutate(label = case_when(Individual == 125 ~ "A",
                                                       Individual == 209 ~ "B",
-                                                      Individual == 64 ~ "C",
-                                                      Individual == 95 ~ "D",
-                                                      Individual == 190 ~ "E", 
-                                                      Individual == 124 ~ "F",
-                                                      Individual == 72 ~ "G",
-                                                      Individual == 80 ~ "H"))
+                                                      Individual == 220 ~ "C",
+                                                      Individual == 124 ~ "D",
+                                                      Individual == 66 ~ "E", 
+                                                      Individual == 95 ~ "F",
+                                                      Individual == 36 ~ "G",
+                                                      Individual == 225 ~ "H"))
 ```
 
 ```{r}
