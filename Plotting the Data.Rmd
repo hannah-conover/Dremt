@@ -110,7 +110,8 @@ VEPECMmeansNuc %>% group_by(Metadata_Stiffness, CollagenIV) %>% summarize(Mean_P
   theme_prism(border = TRUE)+
   xlab("Ratio of Decorin")+
   ylab("PXR Expression")+
-  scale_color_manual(values = c("#db6d22", "#2100bb"))
+  scale_color_manual(values = c("#db6d22", "#2100bb"))+
+    ggtitle("PXR - Decorin Ratio Over Stiffness")
 
   ggsave("PXR Intx/StiffnessvsDNPXR.png")
 ```
@@ -138,6 +139,7 @@ VEPECMmeansNuc %>% group_by(Metadata_Stiffness, Decorin) %>% summarize(Mean_Ecad
   theme_prism(border = TRUE)+
   xlab("Ratio of Decorin")+
   ylab("Ecad Expression")+
+  ggtitle("Ecad - Decorin Ratio over Stiffness")+
   scale_color_manual(values = c("#db6d22", "#2100bb"))
 
   ggsave("Ecad Intx/StiffnessvsDNEcad.png")
@@ -192,7 +194,7 @@ VEPECMmeansNuc %>% filter(Hyaluronic_Acid != 0) %>% group_by(Abb_ECM, Hyaluronic
   scale_color_manual(values  = c( "#444E7E", "#FEB424","#D8511D", "#8087AA")) +
   scale_linetype_manual(values = c("longdash", "solid", "twodash", "solid"))+
   ylab("Vimentin Expression")+
-  ggtitle("Hyaluronic Acid Ratio over ECMs")
+  ggtitle("Vimentin - Hyaluronic Acid Ratio over ECMs")
   
 ggsave("Vim Intx/Hyaluronic_AcidRatiovsECM.png", width = 10, height = 5)
 
@@ -270,7 +272,7 @@ VEPECMmeansNuc %>% filter(Galectin3 != 0) %>% group_by(Abb_ECM, Galectin3, Metad
   ylab("Vimentin Expression")+
   ggtitle("Vimentin - Galectin 3 Ratio over ECMs and Stiffnesses")
   
-ggsave("Vim Intx/Galectin3RatiovsECMvsStiffness.png", width = 10, height = 5)
+ggsave("Vim Intx/Galectin3RatiovsECMvsStiffness.png", width = 15, height = 5)
 ```
 
 ### Abb_ECM
@@ -1027,14 +1029,10 @@ SurvivalPheno <- left_join(Survival, Phenotypes)
 SP1 <- subset(SurvivalPheno, Metadata_Stiffness == "1kPa" & Metadata_Treatment == "DMSO")
 SP25 <- subset(SurvivalPheno, Metadata_Stiffness == "25kPa"& Metadata_Treatment == "DMSO")
 
-# SP1 <- SP1[,c("FOC", "Mean_Orange_Norm", "Mean_Red_Norm", "Mean_Green_Norm")]
-# SP25 <- SP25[,c("FOC", "Mean_Orange_Norm", "Mean_Red_Norm", "Mean_Green_Norm")]
-SP1 <- SP1[,c("Mean_Orange_Norm", "Mean_Red_Norm", "Mean_Green_Norm")]
-SP25 <- SP25[,c("Mean_Orange_Norm", "Mean_Red_Norm", "Mean_Green_Norm")]
-# colnames(SP1) <- c("Survival", "Vimentin", "Ecad", "PXR")
-# colnames(SP25) <- c("Survival", "Vimentin", "Ecad", "PXR")
-colnames(SP1) <- c( "Vimentin", "Ecad", "PXR")
-colnames(SP25) <- c("Vimentin", "Ecad", "PXR")
+SP1 <- SP1[,c("FOC", "Mean_Orange_Norm", "Mean_Red_Norm", "Mean_Green_Norm")]
+SP25 <- SP25[,c("FOC", "Mean_Orange_Norm", "Mean_Red_Norm", "Mean_Green_Norm")]
+colnames(SP1) <- c("Survival", "Vimentin", "Ecad", "PXR")
+colnames(SP25) <- c("Survival", "Vimentin", "Ecad", "PXR")
 ```
 
 
@@ -1050,11 +1048,13 @@ testRes1<- cor.mtest(SP1)
 testRes25 <- cor.mtest(SP25)
 
 png("SPcor1corr.png", width = 6, height = 6, units = "in", res = 1200)
-corrplot(SPcor1, p.mat = testRes1$p, sig.level = 0.05, type = "upper", order = "hclust", col = brewer.pal(n=8, name = "RdYlBu"), diag = FALSE, addCoef.col = 'black', title = "Correlation of Phenotypes and Survival on 1 kPa")
+corrplot(SPcor1, p.mat = testRes1$p, sig.level = 0.05, type = "upper",  col = brewer.pal(n=8, name = "RdYlBu"), diag = FALSE, addCoef.col = 'black', tl.col = "black", tl.srt = 0)
+mtext("Correlations on 1 kPa", side = 3, line = 2.5, cex = 2)
 dev.off()
 
 png("SPcor25corr.png", width = 6, height = 6, units = "in", res = 1200)
-corrplot(SPcor25, p.mat = testRes25$p, sig.level = 0.05, type = "upper", order = "hclust", col = brewer.pal(n=8, name = "RdYlBu"), diag = FALSE, addCoef.col = 'black', title = "Correlation of Phenotypes and Survival on 25 kPa")
+corrplot(SPcor25, p.mat = testRes25$p, sig.level = 0.05, type = "upper", col = brewer.pal(n=8, name = "RdYlBu"), diag = FALSE, addCoef.col = 'black',tl.col = "black", tl.srt = 0)
+mtext("Correlation on 25 kPa", side = 3, line = 2.5, cex = 2)
 dev.off()
 
 ggcorrplot(SPcor1, method = "circle", hc.order = TRUE, type = "lower", lab = TRUE, ggtheme = theme_bw)
@@ -1126,7 +1126,10 @@ ECMPlotlong %>% filter(Metadata_Treatment == "DMSO") %>% ggplot(aes(x = Z, y = C
   theme_prism(base_size = 18)+
   scale_fill_manual(values = channelpal)+
 ggtitle("Normalized Expression on Select Microenvironments")+
-  theme(strip.text.x = element_text(size = 20))
+  theme(strip.text.x = element_text(size = 20),
+        axis.text.x = element_text(size = 20),
+        axis.text.y = element_text(size = 20),
+        legend.text = element_text(size = 20))
 ggsave("Zscorecomparison.png", width = 10, height = 10)
 
 ECMPlotlong %>% filter(Metadata_Treatment == "DMSO") %>% ggplot(aes(x = Mean, y = Condition, fill = Channel))+
@@ -1141,9 +1144,10 @@ ggsave("Meancomparison.png", width = 10, height = 5)
 
 ## Plotting Drug vs DMSO 
 ```{r}
-dsewithrep$Metadata_Treatment <- factor(dsewithrep$Metadata_Treatment, levels = c("DMSO", "10 uM"))
+library(dplyr)
+dswithrep$Metadata_Treatment <- factor(dswithrep$Metadata_Treatment, levels = c("DMSO", "10 uM"))
 
-dsewithrep %>% select(c("Metadata_Stiffness", "Metadata_Treatment", "Conditions", "Mean_Green_Norm", "Mean_Orange_Norm", "Mean_Red_Norm")) %>% pivot_longer(cols = starts_with("Mean_"), names_to = "Channel", values_to = "Mean_Expression") %>% 
+dswithrep %>% dplyr::select("Metadata_Stiffness", "Metadata_Treatment", "Conditions", "Mean_Green_Norm", "Mean_Orange_Norm", "Mean_Red_Norm") %>% pivot_longer(cols = starts_with("Mean_"), names_to = "Channel", values_to = "Mean_Expression") %>% 
   mutate(Phenotype = case_when(Channel == "Mean_Green_Norm" ~ "PXR", Channel == "Mean_Red_Norm" ~ "Ecad", Channel == "Mean_Orange_Norm" ~"Vimentin"))%>%
   ggplot(aes(x = Metadata_Treatment, y = Mean_Expression ))+
   facet_grid(cols = vars(Phenotype))+
@@ -1207,10 +1211,14 @@ ResponsesforComplong %>% ggplot(aes(x = Terms, y = Value, fill = Response))+
   scale_fill_manual(values = c("Vimentin" = "#E69F00","Ecad" = "#CC79a7", "PXR" = "#009e73"))+
   ylab("Significance (*s)")+
   # scale_x_discrete(limits = rev)+
-  theme(axis.text.y = element_text(size = 10),
-        strip.text.x = element_text(size = 30))
+  theme(axis.text.y = element_text(size = 15),
+        strip.text.x = element_text(size = 25),
+        axis.text.x = element_text(size = 20),
+        axis.title.x = element_text(size = 20),
+         axis.title.y = element_text(size = 20),
+        legend.text = element_text(size = 20))
 
-ggsave("Respanovacomp.png", width = 10, height = 10, dpi = 1200)
+ggsave("Respanovacomp.png", width = 12, height = 10, dpi = 1200)
 ```
 
 ### Drug Response
@@ -1235,10 +1243,11 @@ DrugResponsesforComplong <- DrugResponsesforComplong %>% mutate(Value = case_whe
 ```
 
 ```{r}
+
 DrugResponsesforComplong$Terms <- gsub("Abb_ECM", "ECM", DrugResponsesforComplong$Terms)
 DrugResponsesforComplong$Terms <- gsub("Metadata_Stiffness", "Stiffness", DrugResponsesforComplong$Terms)
-DrugResponsesforComplong$Terms <- gsub("Metadata_Treatment", "Treatment", DrugResponsesforComplong$Terms)
-DrugResponsesforComplong$Terms <- factor(DrugResponsesforComplong$Terms, levels = unique(DrugResponsesforComp$Terms))
+# DrugResponsesforComplong$Terms <- gsub("Metadata_Treatment", "Treatment", DrugResponsesforComplong$Terms)
+DrugResponsesforComplong$Terms <- factor(DrugResponsesforComplong$Terms, levels = unique(DrugResponsesforComplong$Terms))
 
 DrugResponsesforComplong$Response <- gsub("Vim psig", "Vimentin", DrugResponsesforComplong$Response)
 DrugResponsesforComplong$Response <- gsub("Ecad psig", "Ecad", DrugResponsesforComplong$Response)
@@ -1253,7 +1262,7 @@ DrugResponsesforComplong %>% ggplot(aes(x = Terms, y = Value, fill = Response))+
   coord_flip()+
   scale_fill_manual(values = c("Vimentin" = "#E69F00","Ecad" = "#CC79a7", "PXR" = "#009e73"))+
   ylab("Significance (*s)")+
-  # scale_x_discrete(limits = rev)+
+  #scale_x_discrete(limits = rev)+
   theme(axis.text.y = element_text(size = 10),
         strip.text.x = element_text(size = 30))
 

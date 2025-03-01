@@ -292,10 +292,10 @@ a <- ggplot(DC_125 , aes(x = ECM1, y = ECM2, fill = clust))+
         panel.border = element_rect(colour = "black", fill=NA, size=1))
 
 b <- ggplot(DC_150, aes(x = ECM1, y = ECM2, fill = clust))+
-  geom_tile()+
+  geom_tile(show.legend = TRUE)+
   coord_fixed()+ 
   theme_prism()+ 
-  scale_fill_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
+  scale_fill_manual(values=c("1"="#003f5c","2"= "#7a5195", "3" = "#ef5675", "4"= "#ffa600"), name = "Cluster", drop = FALSE)+
   ggtitle("1 kPa 50:50")+
   theme(axis.text.x = element_text( size = 25),
         axis.title.x = element_text(size = 25),
@@ -472,7 +472,7 @@ VarClust <- as.matrix(VarClust)
 
 
 png(file = "ClusterVtest.png", width = 1024, height = 1024)
-corrplot(VarClust, is.corr = FALSE, tl.col = "black", cl.ratio = 0.5, tl.cex = 4, cl.cex = 3)
+corrplot(VarClust, is.corr = FALSE, tl.col = "black", cl.ratio = 0.75, tl.cex = 4, cl.cex = 3)
 dev.off()
 ```
 
