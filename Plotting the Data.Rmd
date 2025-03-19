@@ -1304,3 +1304,122 @@ dsewithrep %>% group_by(Conditions, Metadata_Stiffness)%>%
   theme(legend.position = "none")
 ```
 
+## Stiffness Plots
+
+```{r}
+
+dswithrep %>% dplyr::select("Metadata_Stiffness", "Metadata_Treatment", "Conditions", "Mean_Green_Norm", "Mean_Orange_Norm", "Mean_Red_Norm") %>% pivot_longer(cols = starts_with("Mean_"), names_to = "Channel", values_to = "Mean_Expression") %>% 
+  mutate(Phenotype = case_when(Channel == "Mean_Green_Norm" ~ "PXR", Channel == "Mean_Red_Norm" ~ "Ecad", Channel == "Mean_Orange_Norm" ~"Vimentin"))%>% filter(Metadata_Treatment == "DMSO")%>%
+  ggplot(aes(x = Metadata_Stiffness, y = Mean_Expression ))+
+  facet_grid(cols = vars(Phenotype))+
+  theme_prism()+
+  geom_boxplot()+
+  ggtitle("Mean Expression on Stiffnesses")+
+  xlab("Stiffness (kPa)")+
+  ylab("Mean Expression (aiu)")+
+  stat_compare_means(label = "p.signif", size = 6)+
+  stat_summary(fun=mean, geom="point", shape=8, size=3, color="red", fill="red") 
+  
+ggsave("DMSOStiffnessbox.png", width = 5, height = 5)
+
+```
+## Ratio Paths
+```{r}
+RatioCol1 <- dswithrep %>% group_by(CollagenI)%>% summarize(ECAD = mean(Mean_Red_Norm), Vimentin = mean(Mean_Orange_Norm), PXR = mean(Mean_Green_Norm), ECMRatio = "Collagen I")%>% rename("Ratio" = "CollagenI")
+RatioCol4<- dswithrep %>% group_by(CollagenIV)%>% summarize(ECAD = mean(Mean_Red_Norm), Vimentin = mean(Mean_Orange_Norm), PXR = mean(Mean_Green_Norm), ECMRatio = "Collagen IV")%>% rename("Ratio" = "CollagenIV")
+RatioHA<- dswithrep %>% group_by(Hyaluronic_Acid)%>% summarize(ECAD = mean(Mean_Red_Norm), Vimentin = mean(Mean_Orange_Norm), PXR = mean(Mean_Green_Norm), ECMRatio = "Hyaluronic Acid")%>% rename("Ratio" = "Hyaluronic_Acid")
+RatioTC<- dswithrep %>% group_by(TenascinC)%>% summarize(ECAD = mean(Mean_Red_Norm), Vimentin = mean(Mean_Orange_Norm), PXR = mean(Mean_Green_Norm), ECMRatio = "Tenascin C")%>% rename("Ratio" = "TenascinC")
+RatioOPN<- dswithrep %>% group_by(Osteopontin)%>% summarize(ECAD = mean(Mean_Red_Norm), Vimentin = mean(Mean_Orange_Norm), PXR = mean(Mean_Green_Norm), ECMRatio = "Osteopontin")%>% rename("Ratio" = "Osteopontin")
+RatioG3<- dswithrep %>% group_by(Galectin3)%>% summarize(ECAD = mean(Mean_Red_Norm), Vimentin = mean(Mean_Orange_Norm), PXR = mean(Mean_Green_Norm), ECMRatio = "Galectin 3")%>% rename("Ratio" = "Galectin3")
+RatioFN<- dswithrep %>% group_by(Fibronectin)%>% summarize(ECAD = mean(Mean_Red_Norm), Vimentin = mean(Mean_Orange_Norm), PXR = mean(Mean_Green_Norm), ECMRatio = "Fibronectin")%>% rename("Ratio" = "Fibronectin")
+RatioLN<- dswithrep %>% group_by(Laminin)%>% summarize(ECAD = mean(Mean_Red_Norm), Vimentin = mean(Mean_Orange_Norm), PXR = mean(Mean_Green_Norm), ECMRatio = "Laminin")%>% rename("Ratio" = "Laminin")
+
+RatioDN <- dswithrep %>% group_by(Decorin)%>% summarize(ECAD = mean(Mean_Red_Norm), Vimentin = mean(Mean_Orange_Norm), PXR = mean(Mean_Green_Norm), ECMRatio = "Decorin")%>% rename("Ratio" = "Decorin")
+
+RatioForInt <- rbind(RatioCol1, RatioCol4, RatioHA, RatioTC, RatioOPN, RatioG3, RatioFN, RatioLN, RatioDN)
+```
+
+```{r}
+RatioForInt %>% filter(ECMRatio %in% c("Osteopontin", "Hyaluronic Acid", "Laminin", "CollagenI"))%>%ggplot( aes(x = Ratio, y = ECAD, col = ECMRatio))+
+  geom_path(aes(group = ECMRatio), linewidth = 1.5)+
+  geom_point(size = 3)+
+  theme_prism(border = TRUE)+
+  xlab("Ratio of ECM")+
+  ylab("Ecad Expression")
+
+RatioForInt %>% filter(ECMRatio %in% c("Collagen IV", "Hyaluronic Acid","Tenascin C", "Laminin", "Fibronectin", "Osteopontin"))%>%ggplot( aes(x = Ratio, y = Vimentin, col = ECMRatio))+
+  geom_path(aes(group = ECMRatio), linewidth = 1.5)+
+  geom_point(size = 3)+
+  theme_prism(border = TRUE)+
+  xlab("Ratio of ECM")+
+  ylab("Vimentin Expression")
+
+RatioForInt %>% filter(ECMRatio %in% c("Collagen I","Collagen IV", "Hyaluronic Acid", "Laminin"))%>%ggplot( aes(x = Ratio, y = PXR, col = ECMRatio))+
+  geom_path(aes(group = ECMRatio), linewidth = 1.5)+
+  geom_point(size = 3)+
+  theme_prism(border = TRUE)+
+  xlab("Ratio of ECM")+
+  ylab("PXR Expression")
+```
+## Dot Plots
+```{r}
+cor.test(SP1$Vimentin, SP1$PXR, use = "complete.obs")
+cor.test(SP1$Ecad, SP1$PXR, use = "complete.obs")
+cor.test(SP1$Vimentin, SP1$Ecad, use = "complete.obs")
+
+cor.test(SP25$Vimentin, SP25$PXR, use = "complete.obs")
+cor.test(SP25$Ecad, SP25$PXR, use = "complete.obs")
+cor.test(SP25$Vimentin, SP25$Ecad, use = "complete.obs")
+```
+
+```{r}
+dswithrepcor <- dswithrep %>% filter(Metadata_Treatment == "DMSO") %>%group_by(Metadata_Stiffness, Conditions) %>% dplyr::summarize(Mean_PXR = mean(Mean_Green_Norm), Mean_Vimentin = mean(Mean_Orange_Norm), Mean_Ecad = mean(Mean_Red_Norm))
+
+cor.test(subset(dswithrepcor, Metadata_Stiffness == "1kPa")$Mean_Vimentin, subset(dswithrepcor, Metadata_Stiffness == "1kPa")$Mean_PXR)
+cor.test(subset(dswithrepcor, Metadata_Stiffness == "1kPa")$Mean_Ecad, subset(dswithrepcor, Metadata_Stiffness == "1kPa")$Mean_PXR)
+cor.test(subset(dswithrepcor, Metadata_Stiffness == "1kPa")$Mean_Vimentin, subset(dswithrepcor, Metadata_Stiffness == "1kPa")$Mean_Ecad)
+
+cor.test(subset(dswithrepcor, Metadata_Stiffness == "25kPa")$Mean_Vimentin, subset(dswithrepcor, Metadata_Stiffness == "25kPa")$Mean_PXR)
+cor.test(subset(dswithrepcor, Metadata_Stiffness == "25kPa")$Mean_Ecad, subset(dswithrepcor, Metadata_Stiffness == "25kPa")$Mean_PXR)
+cor.test(subset(dswithrepcor, Metadata_Stiffness == "25kPa")$Mean_Vimentin, subset(dswithrepcor, Metadata_Stiffness == "25kPa")$Mean_Ecad)
+```
+
+```{r}
+library(ggprism)
+
+
+dswithrep %>% filter(Metadata_Treatment == "DMSO") %>%group_by(Metadata_Stiffness, Conditions) %>% dplyr::summarize(Mean_PXR = mean(Mean_Green_Norm), Mean_Vimentin = mean(Mean_Orange_Norm)) %>% ggplot(aes(Mean_PXR, Mean_Vimentin)) + 
+  facet_grid(cols = vars(Metadata_Stiffness))+
+  geom_point(aes(color = Conditions))+
+  theme_prism(border = TRUE) +
+  #scale_x_log10()+
+  theme(legend.position = "none")+
+  stat_cor(method = "pearson")+
+  xlab("PXR Expression")+
+  ylab("Vimentin Expression")
+ 
+ggsave("VimPXRScatter.png" , dpi = 1200)
+
+dswithrep %>% filter(Metadata_Treatment == "DMSO") %>%group_by(Metadata_Stiffness, Conditions) %>% dplyr::summarize(Mean_PXR = mean(Mean_Green_Norm), Mean_Ecad = mean(Mean_Red_Norm)) %>% ggplot(aes(Mean_PXR, Mean_Ecad)) + 
+  facet_grid(cols = vars(Metadata_Stiffness))+
+  geom_point(aes(color = Conditions))+
+  theme_prism(border = TRUE) +
+  #scale_x_log10()+
+  theme(legend.position = "none")+
+  xlab("PXR Expression")+
+  stat_cor(method = "pearson")+
+  ylab("E-cadherin Expression")
+ggsave("EcadPXRScatter.png" , dpi = 1200)
+
+dswithrep %>% filter(Metadata_Treatment == "DMSO") %>%group_by(Metadata_Stiffness, Conditions) %>% dplyr::summarize(Mean_Ecad = mean(Mean_Red_Norm), Mean_Vimentin = mean(Mean_Orange_Norm)) %>% ggplot(aes(Mean_Ecad, Mean_Vimentin)) + 
+  facet_grid(cols = vars(Metadata_Stiffness))+
+  geom_point(aes(color = Conditions))+
+  theme_prism(border = TRUE) +
+  #scale_x_log10()+
+  theme(legend.position = "none")+
+  xlab("E-cadherin Expression")+
+  stat_cor(method = "pearson")+
+  ylab("Vimentin Expression")
+ggsave("VimEcadScatter.png" , dpi = 1200)
+```
+

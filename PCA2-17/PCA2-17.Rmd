@@ -15,6 +15,7 @@ library(dplyr)
 ```
 
 ### EdU and Survival
+Rerunning with Updated Condition Assignment 
 ```{r}
 ## The EdU and Survival info is still at the ds_e_pheno, needs to be summarized together prior to merging with DREMT info
 EdUtoadd217 <- FOC[, c("Metadata_Experiment", "Metadata_Stiffness", "Metadata_Treatment", "Metadata_Ratio", "Metadata_ECMs", "Mean_Percent_Positive")]
@@ -40,11 +41,11 @@ FoldChange217 <- pivot_wider(FoldChange217, names_from = Metadata_Treatment, val
 
 ## Join together to add
 
-EdUSurv <- join(EdUreduced217, FoldChange217)
+EdUSurv <- plyr::join(EdUreduced217, FoldChange217)
 
 Ratios <- FOC %>% distinct(Metadata_ECMs, Metadata_Ratio, CollagenI, CollagenIV, Hyaluronic_Acid, TenascinC, Galectin3, Decorin, Fibronectin, Osteopontin, Laminin)
 
-EdUSurv <- join(EdUSurv, Ratios)
+EdUSurv <- plyr::join(EdUSurv, Ratios)
 ```
 
 ### Formatting DREMT Info
@@ -61,7 +62,7 @@ DREMTreduced217 <- DREMTtoadd217 %>% dplyr::group_by(Metadata_Stiffness, Metadat
 
 ### Putting it All Together
 ```{r}
-DMSOforPCA217 <- join(DREMTreduced217, EdUSurv)
+DMSOforPCA217 <- plyr::join(DREMTreduced217, EdUSurv)
 
 #DMSOforPCA217  <- DMSOforPCA217[,-3]
 ```
@@ -102,10 +103,10 @@ ggplot(PCAClusters217,aes(x = Dim.1,
   #       legend.title = element_text(size = 30),
   #       legend.text = element_text(size = 30),
   # )+
-  xlab("Dim. 1 - 38.44%") +
-  ylab("Dim. 2 - 27.15%")
+  xlab("Dim. 1 - 36.54%") +
+  ylab("Dim. 2 - 27.29%")
  
-ggsave(filename = "PCAClusters2-17.png")
+ggsave(filename = "PCAClusters3-8.png")
 
 ggplot(PCAClusters217,aes(x = Dim.2,
                        y = Dim.3,
@@ -117,10 +118,10 @@ ggplot(PCAClusters217,aes(x = Dim.2,
   geom_vline(xintercept = 0)+
   theme_prism()+
   scale_color_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
-  xlab("Dim. 2 - 27.15%") +
-  ylab("Dim. 3 - 15.08%")
+  xlab("Dim. 2 - 27.29%") +
+  ylab("Dim. 3 - 16.61%")
  
-ggsave(filename = "PCAClusters2-17D23.png")
+ggsave(filename = "PCAClusters3-8D23.png")
 
 ggplot(PCAClusters217,aes(x = Dim.1,
                        y = Dim.3,
@@ -131,11 +132,11 @@ ggplot(PCAClusters217,aes(x = Dim.1,
   geom_hline(yintercept = 0)+
   geom_vline(xintercept = 0)+
   theme_prism()+
-  scale_color_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
-  xlab("Dim. 1 - 38.44%") +
-  ylab("Dim. 3 - 15.08%")
+scale_color_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
+  xlab("Dim. 1 - 36.54%") +
+  ylab("Dim. 3 - 16.61%")
  
-ggsave(filename = "PCAClusters2-17D13.png")
+ggsave(filename = "PCAClusters3-8D13.png")
 ```
 
 
@@ -173,8 +174,8 @@ ggplot(PCAStiff217,aes(x = Dim.1,
   #       legend.title = element_text(size = 30),
   #       legend.text = element_text(size = 30),
   # )+
- xlab("Dim. 1 - 38.44%") +
-  ylab("Dim. 2 - 27.15%")
+ xlab("Dim. 1 - 36.54%") +
+  ylab("Dim. 2 - 27.29%")
 
 ggsave(filename = "StiffPCA.png")
 ```
@@ -204,14 +205,24 @@ PCAClustersLab218 <- PCAClusters217
 
 PCAClustersLab218$Individual <- row.names(PCAClustersLab218)
 
-PCAClustersLab218 <- PCAClustersLab218 %>% mutate(label = case_when(Individual == 125 ~ "A",
-                                                      Individual == 209 ~ "B",
-                                                      Individual == 220 ~ "C",
-                                                      Individual == 124 ~ "D",
-                                                      Individual == 66 ~ "E", 
-                                                      Individual == 95 ~ "F",
-                                                      Individual == 36 ~ "G",
-                                                      Individual == 225 ~ "H"))
+PCAClustersLab218 <- PCAClustersLab218 %>% mutate(label = case_when(Individual == 171 ~ "A",
+                                                      Individual == 135 ~ "B",
+                                                      Individual == 191 ~ "C",
+                                                      Individual == 227 ~ "D",
+                                                      Individual == 27 ~ "E", 
+                                                      Individual == 60 ~ "F",
+                                                      Individual == 88 ~ "G",
+                                                      Individual == 83 ~ "H"))
+
+PCAClustersLab310 <- datacluster217%>%mutate(label = case_when(Individual == 171 ~ "A",
+                                                      Individual == 135 ~ "B",
+                                                      Individual == 191 ~ "C",
+                                                      Individual == 227 ~ "D",
+                                                      Individual == 27 ~ "E", 
+                                                      Individual == 60 ~ "F",
+                                                      Individual == 88 ~ "G",
+                                                      Individual == 83 ~ "H"))
+
 ```
 
 ```{r}
@@ -227,22 +238,22 @@ ggplot(PCAClustersLab218,aes(x = Dim.1,
   geom_label_repel(aes(label = label), min.segment.length = 0, color = "black", segment.size = 01)+
   theme_prism()+
   scale_color_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
- xlab("Dim. 1 - 44.99%") +
-  ylab("Dim. 2 - 24.25%")
+ xlab("Dim. 1 - 36.54%") +
+  ylab("Dim. 2 - 27.29%")
  
-ggsave(filename = "PCAClusters2-18Lab.png")
+ggsave(filename = "PCAClusters3-8Lab.png")
 ```
 
 ## Cluster Heatmaps
 Import Metadata_ECMsbackward.csv and Metadata_ECMsforward.csv before running
 ```{r}
-DC_125 <- subset(datawithcluster217, Metadata_Stiffness == "1kPa" & Metadata_Ratio %in% c("Metadata_Ratio_25/75", "Metadata_Ratio_100"))
-DC_150 <- subset(datawithcluster217, Metadata_Stiffness == "1kPa" & Metadata_Ratio %in% c("Metadata_Ratio_50/50", "Metadata_Ratio_100"))
-DC_175 <- subset(datawithcluster217, Metadata_Stiffness == "1kPa" & Metadata_Ratio %in% c("Metadata_Ratio_75/25", "Metadata_Ratio_100"))
+DC_125 <- subset(PCAClustersLab310, Metadata_Stiffness == "1kPa" & Metadata_Ratio %in% c("Metadata_Ratio_25/75", "Metadata_Ratio_100"))
+DC_150 <- subset(PCAClustersLab310, Metadata_Stiffness == "1kPa" & Metadata_Ratio %in% c("Metadata_Ratio_50/50", "Metadata_Ratio_100"))
+DC_175 <- subset(PCAClustersLab310, Metadata_Stiffness == "1kPa" & Metadata_Ratio %in% c("Metadata_Ratio_75/25", "Metadata_Ratio_100"))
 
-DC_2525 <- subset(datawithcluster217, Metadata_Stiffness == "25kPa" & Metadata_Ratio %in% c("Metadata_Ratio_25/75", "Metadata_Ratio_100"))
-DC_2550 <- subset(datawithcluster217, Metadata_Stiffness == "25kPa" & Metadata_Ratio %in% c("Metadata_Ratio_50/50", "Metadata_Ratio_100"))
-DC_2575 <- subset(datawithcluster217, Metadata_Stiffness == "25kPa" & Metadata_Ratio %in% c("Metadata_Ratio_75/25", "Metadata_Ratio_100"))
+DC_2525 <- subset(PCAClustersLab310, Metadata_Stiffness == "25kPa" & Metadata_Ratio %in% c("Metadata_Ratio_25/75", "Metadata_Ratio_100"))
+DC_2550 <- subset(PCAClustersLab310, Metadata_Stiffness == "25kPa" & Metadata_Ratio %in% c("Metadata_Ratio_50/50", "Metadata_Ratio_100"))
+DC_2575 <- subset(PCAClustersLab310, Metadata_Stiffness == "25kPa" & Metadata_Ratio %in% c("Metadata_Ratio_75/25", "Metadata_Ratio_100"))
 
 DC_125for <- left_join(DC_125, Metadata_ECMsforward)
 DC_150for <- left_join(DC_150, Metadata_ECMsforward)
@@ -251,7 +262,7 @@ DC_175for <- left_join(DC_175, Metadata_ECMsforward)
 DC_2525for <- left_join(DC_2525, Metadata_ECMsforward)
 DC_2550for <- left_join(DC_2550, Metadata_ECMsforward)
 DC_2575for <- left_join(DC_2575, Metadata_ECMsforward)
-  
+
 DC_125back <- left_join(DC_125, Metadata_ECMsbackward)
 DC_150back <- left_join(DC_150, Metadata_ECMsbackward)
 DC_175back <- left_join(DC_175, Metadata_ECMsbackward)
@@ -259,7 +270,7 @@ DC_175back <- left_join(DC_175, Metadata_ECMsbackward)
 DC_2525back <- left_join(DC_2525, Metadata_ECMsbackward)
 DC_2550back <- left_join(DC_2550, Metadata_ECMsbackward)
 DC_2575back <- left_join(DC_2575, Metadata_ECMsbackward)
-  
+
 DC_125 <- rbind(DC_125for,DC_125back)
 DC_150 <- rbind(DC_150for,DC_150back)
 DC_175 <- rbind(DC_175for,DC_175back)
@@ -274,12 +285,12 @@ DC_2575 <- rbind(DC_2575for,DC_2575back)
 library(viridis)
 library(ggpubr)
 
-a <- ggplot(DC_125 , aes(x = ECM1, y = ECM2, fill = clust))+
+a <- ggplot(DC_125, aes(x = ECM1, y = ECM2, fill = clust))+
   geom_tile()+
   coord_fixed()+ 
   theme_prism()+ 
   ggtitle("1 kPa 25:75")+
-  scale_fill_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
+  scale_fill_manual(values=c("1"="#003f5c","2"= "#7a5195", "3" = "#ef5675", "4"= "#ffa600"), name = "Cluster", drop = FALSE)+
   theme(axis.text.x = element_text( size = 25),
         axis.title.x = element_text(size = 25),
         axis.text.y = element_text(size = 25), 
@@ -312,7 +323,7 @@ c <- ggplot(DC_175, aes(x = ECM1, y = ECM2, fill = clust))+
   geom_tile()+
   coord_fixed()+ 
   theme_prism()+ 
-  scale_fill_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
+  scale_fill_manual(values=c("1"="#003f5c","2"= "#7a5195", "3" = "#ef5675", "4"= "#ffa600"), name = "Cluster", drop = FALSE)+
   ggtitle("1 kPa 75:25")+
   theme(axis.text.x = element_text( size = 25),
         axis.title.x = element_text(size = 25),
@@ -329,7 +340,7 @@ d <- ggplot(DC_2525, aes(x = ECM1, y = ECM2, fill = clust))+
   geom_tile()+
   coord_fixed()+ 
   theme_prism()+ 
-  scale_fill_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
+  scale_fill_manual(values=c("1"="#003f5c","2"= "#7a5195", "3" = "#ef5675", "4"= "#ffa600"), name = "Cluster", drop = FALSE)+
   ggtitle("25 kPa 25:75")+
   theme(axis.text.x = element_text( size = 25),
         axis.title.x = element_text(size = 25),
@@ -346,7 +357,7 @@ e <- ggplot(DC_2550, aes(x = ECM1, y = ECM2, fill = clust))+
   geom_tile()+
   coord_fixed()+ 
   theme_prism()+ 
-  scale_fill_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
+  scale_fill_manual(values=c("1"="#003f5c","2"= "#7a5195", "3" = "#ef5675", "4"= "#ffa600"), name = "Cluster", drop = FALSE)+
   ggtitle("25 kPa 50:50")+
   theme(axis.text.x = element_text( size = 25),
         axis.title.x = element_text(size = 25),
@@ -363,7 +374,7 @@ f <- ggplot(DC_2575, aes(x = ECM1, y = ECM2, fill = clust))+
   geom_tile()+
   coord_fixed()+ 
   theme_prism()+ 
-  scale_fill_manual(values=c("#003f5c", "#7a5195", "#ef5675", "#ffa600"), name = "Cluster")+
+  scale_fill_manual(values=c("1"="#003f5c","2"= "#7a5195", "3" = "#ef5675", "4"= "#ffa600"), name = "Cluster", drop = FALSE)+
   ggtitle("25 kPa 75:25")+
   theme(axis.text.x = element_text( size = 25),
         axis.title.x = element_text(size = 25),
@@ -379,8 +390,8 @@ f <- ggplot(DC_2575, aes(x = ECM1, y = ECM2, fill = clust))+
 Clust1grid <- ggarrange(a,b,c, ncol = 3, nrow =1)
 Clust25grid <- ggarrange(d,e,f, ncol = 3, nrow = 1)
 
-ggsave(Clust1grid, filename = "Clust1kPa.png", width = 30, height = 10)
-ggsave(Clust25grid, filename = "Clust25kPa.png", width = 30, height = 10)
+ggsave(Clust1grid, filename = "Clust1kPa3-8.png", width = 30, height = 10)
+ggsave(Clust25grid, filename = "Clust25kPa3-8.png", width = 30, height = 10)
 
 ```
 
@@ -421,9 +432,9 @@ values <- c("#003f5c", "#7a5195", "#ef5675", "#ffa600")
 values <- values[as.factor(PCAClusters217[,4])]
 
 scatterplot3d(PCAClusters217[,1:3], color = values, pch = 16,
-               xlab = "Dim. 1 - 44.99%",
-                ylab= "Dim. 2 - 24.25%",
-              zlab = "Dim. 3 - 13.63%", 
+               xlab = "Dim. 1 - 36.54%",
+                ylab= "Dim. 2 - 27.29%",
+              zlab = "Dim. 3 - 16.61%", 
               angle = 60)
 ```
 ## Variable Contrib to Cluster

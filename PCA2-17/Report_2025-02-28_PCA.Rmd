@@ -99,7 +99,7 @@ c("25kPa", "1kPa", "C4HA", "LNDN", "DNG3", "LNOPN", "C1OPN",
 "C1C4", "C1DN", "G3", "TCOPN", "C1TC", "OPNDN", "LNFN", "LNG3", 
 "TCFN", "G3FN", "DNFN", "C4DN", "C4OPN")
 par(mar = c(4.1, 4.1, 1.1, 2.1))
-plot.PCA(res, select = drawn, axes = 1:2, choix = 'ind', invisible = c('ind', 'ind.sup'), title = '', cex = cex)
+plot.PCA(res.PCA, select = drawn, axes = 1:2, choix = 'ind', invisible = c('ind', 'ind.sup'), title = '', cex = cex)
 ```
 
 **Figure 3.4 - Qualitative factor map (PCA)**
@@ -147,7 +147,7 @@ The group in which the individual *95* stands (characterized by a negative coord
 ### 4. Classification
 
 ```{r, echo = FALSE}
-res.hcpc = HCPC(res, nb.clust = -1, graph = FALSE)
+res.hcpc = HCPC(res.PCA, nb.clust = -1, graph = FALSE)
 ```
 
 ```{r, echo = FALSE, fig.align = 'center', fig.height = 3.5, fig.width = 5.5}
