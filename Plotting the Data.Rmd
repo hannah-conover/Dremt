@@ -1372,6 +1372,7 @@ cor.test(SP25$Ecad, SP25$PXR, use = "complete.obs")
 cor.test(SP25$Vimentin, SP25$Ecad, use = "complete.obs")
 ```
 
+## Updated Correlation Calculation to Match stat_cor facetting 3-19-25
 ```{r}
 dswithrepcor <- dswithrep %>% filter(Metadata_Treatment == "DMSO") %>%group_by(Metadata_Stiffness, Conditions) %>% dplyr::summarize(Mean_PXR = mean(Mean_Green_Norm), Mean_Vimentin = mean(Mean_Orange_Norm), Mean_Ecad = mean(Mean_Red_Norm))
 
@@ -1383,6 +1384,36 @@ cor.test(subset(dswithrepcor, Metadata_Stiffness == "25kPa")$Mean_Vimentin, subs
 cor.test(subset(dswithrepcor, Metadata_Stiffness == "25kPa")$Mean_Ecad, subset(dswithrepcor, Metadata_Stiffness == "25kPa")$Mean_PXR)
 cor.test(subset(dswithrepcor, Metadata_Stiffness == "25kPa")$Mean_Vimentin, subset(dswithrepcor, Metadata_Stiffness == "25kPa")$Mean_Ecad)
 ```
+
+```{r}
+library(corrplot)
+library(RColorBrewer)
+
+SPforcor <- SurvivalPheno %>% filter(Metadata_Treatment == "DMSO") %>% group_by(Metadata_Stiffness, Condition)%>% summarize(Survival = mean(FOC, na.rm = TRUE), Ecad = mean(Mean_Red_Norm, na.rm = TRUE), Vimentin = mean(Mean_Orange_Norm, na.rm = TRUE), PXR = mean(Mean_Green_Norm, na.rm = TRUE))
+
+SPforcor1 <- subset(SPforcor, Metadata_Stiffness == "1kPa")
+SPforcor25 <- subset(SPforcor, Metadata_Stiffness == "25kPa")
+
+SPforcor1 <- SPforcor1[, -c(1,2)]
+SPforcor25 <- SPforcor25[, -c(1,2)]
+
+NewSPcor1 <- cor(SPforcor1)
+NewSPcor25 <- cor(SPforcor25)
+
+NewtestRes1<- cor.mtest(SPforcor1)
+NewtestRes25 <- cor.mtest(SPforcor25)
+
+png("NewSPcor1corr.png", width = 6, height = 6, units = "in", res = 1200)
+corrplot(NewSPcor1, p.mat = NewtestRes1$p, sig.level = 0.05, type = "upper",  col = brewer.pal(n=8, name = "RdYlBu"), diag = FALSE, addCoef.col = 'black', tl.col = "black", tl.srt = 0)
+mtext("Correlations on 1 kPa", side = 3, line = 2.5, cex = 2)
+dev.off()
+
+png("NewSPcor25corr.png", width = 6, height = 6, units = "in", res = 1200)
+corrplot(NewSPcor25, p.mat = NewtestRes25$p, sig.level = 0.05, type = "upper", col = brewer.pal(n=8, name = "RdYlBu"), diag = FALSE, addCoef.col = 'black',tl.col = "black", tl.srt = 0)
+mtext("Correlation on 25 kPa", side = 3, line = 2.5, cex = 2)
+dev.off()
+```
+
 
 ```{r}
 library(ggprism)
