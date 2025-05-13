@@ -22,20 +22,28 @@ EdUtoadd217 <- FOC[, c("Metadata_Experiment", "Metadata_Stiffness", "Metadata_Tr
 
 colnames(EdUtoadd217) <- c("Metadata_Experiment", "Metadata_Stiffness", "Metadata_Treatment", "Metadata_Ratio", "Metadata_ECMs", "Percent_Positive_EdU")
 
-## Summarize to ds_pheno level
-EdUreduced217 <- EdUtoadd217 %>% dplyr::group_by(Metadata_Treatment, Metadata_Stiffness, Metadata_Ratio, Metadata_ECMs) %>% dplyr::summarize(Proliferation = mean(Percent_Positive_EdU, na.rm = TRUE))
+EdUtoadd217 <- EdUtoadd217 %>% mutate(Treatment = case_when(Metadata_Treatment == "DMSO" ~ "DMSO",
+                                                            Metadata_Treatment == "10 uM" ~ "10\u03bcM",
+                                                            Metadata_Treatment == "20 uM" ~ "20\u03bcM",))
 
-EdUreduced217 <- pivot_wider(EdUreduced217, names_from = Metadata_Treatment, values_from = Proliferation, names_prefix = "Proliferation_")
+## Summarize to ds_pheno level
+EdUreduced217 <- EdUtoadd217 %>% dplyr::group_by(Treatment, Metadata_Stiffness, Metadata_Ratio, Metadata_ECMs) %>% dplyr::summarize(Proliferation = mean(Percent_Positive_EdU, na.rm = TRUE))
+
+EdUreduced217 <- pivot_wider(EdUreduced217, names_from = Treatment, values_from = Proliferation, names_prefix = "Proliferation_")
 
 ## Fold Change
 FoldChange217 <- FOC[, c("Metadata_Experiment", "Metadata_Stiffness", "Metadata_Treatment", "Metadata_Ratio", "Metadata_ECMs", "FOC")]
 
+FoldChange217 <- FoldChange217 %>% mutate(Treatment = case_when(Metadata_Treatment == "DMSO" ~ "DMSO",
+                                                            Metadata_Treatment == "10 uM" ~ "10\u03bcM",
+                                                            Metadata_Treatment == "20 uM" ~ "20\u03bcM",))
+
 ## Summarize to ds_pheno level
-FoldChange217 <- FoldChange217 %>% dplyr::group_by(Metadata_Stiffness, Metadata_Treatment, Metadata_Ratio, Metadata_ECMs) %>% dplyr::summarize(Survival = mean(FOC, na.rm = TRUE))
+FoldChange217 <- FoldChange217 %>% dplyr::group_by(Metadata_Stiffness, Treatment, Metadata_Ratio, Metadata_ECMs) %>% dplyr::summarize(Survival = mean(FOC, na.rm = TRUE))
 
-FoldChange217 <- subset(FoldChange217, Metadata_Treatment != "DMSO")
+FoldChange217 <- subset(FoldChange217, Treatment != "DMSO")
 
-FoldChange217 <- pivot_wider(FoldChange217, names_from = Metadata_Treatment, values_from = Survival, names_prefix = "Survival_")
+FoldChange217 <- pivot_wider(FoldChange217, names_from = Treatment, values_from = Survival, names_prefix = "Survival_")
 
 #FoldChange217 <- subset(FoldChange, select = -c(Metadata_Treatment))
 
@@ -57,7 +65,7 @@ DREMTreduced217 <- DREMTtoadd217 %>% dplyr::group_by(Metadata_Stiffness, Metadat
  dplyr:: summarize(Mean_Vimentin = mean(Mean_Orange_Norm),
             Mean_Ecad = mean(Mean_Red_Norm),
             Mean_PXR = mean(Mean_Green_Norm),
-            Adhesion = mean(Mean_Nuclei))
+            Cell_Number = mean(Mean_Nuclei))
 ```
 
 ### Putting it All Together
